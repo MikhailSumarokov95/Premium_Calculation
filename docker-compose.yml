@@ -1,0 +1,28 @@
+version: '3.1'
+
+volumes:
+  pg_project_premium_calculation:
+
+services:
+  pg_db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=calculation_db
+    volumes:
+      - pg_project_premium_calculation:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5434:5432"
+
+  app:
+    restart: always
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      - pg_db
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://pg_db:5432/calculation_db'
+      JAVA_OPTS: '-Xmx512m'
