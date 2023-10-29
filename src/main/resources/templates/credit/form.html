@@ -9,24 +9,24 @@
 <!--/*/ <th:block th:insert="~{bootstrap/navbar.html :: navbar}">
           </th:block> /*/-->
 <br>
-<form action="#" th:action="@{/task/save}" th:object="${taskDto}" method="post">
+<form action="#" th:action="@{/credit/save}" th:object="${credit}" method="post">
     <input type="hidden" th:field="*{id}"/>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-4 text-center">
-                <label class="form-label" for="inputCategory"><b>Категория</b></label>
-                <select class="form-control" th:field="*{category}" id="inputCategory">
-                    <option th:each="category : ${T(ru.sumarokov.premium_calculation.helper.CreditCategory.values()}"
-                            th:value="${category}" th:text="${category}"></option>
+                <label class="form-label" for="inputProductGroup"><b>Категория</b></label>
+                <select class="form-control" th:field="*{productGroup}" id="inputProductGroup">
+                    <option th:each="group: ${productGroups}"
+                            th:value="${group.id}" th:text="${group.name}"></option>
                 </select>
             </div>
         </div>
         <br>
         <div class="row justify-content-center">
             <div class="col-4 text-center">
-                <label for="inputTotal" class="control-label"><b>Сумма</b></label>
+                <label for="inputAmount" class="control-label"><b>Сумма</b></label>
                 <div class="input-group">
-                    <input type="text" th:field="*{total}" id="inputTotal" class="form-control"
+                    <input type="number" th:field="*{amount}" id="inputAmount" class="form-control"
                            placeholder="Введите сумму">
                 </div>
             </div>
@@ -34,9 +34,9 @@
         <br>
         <div class="row justify-content-center">
             <div class="col-4 text-center">
-                <label for="inputTerm" class="control-label"><b>Сумма</b></label>
+                <label for="inputTerm" class="control-label"><b>Срок</b></label>
                 <div class="input-group">
-                    <input type="text" th:field="*{term}" id="inputTerm" class="form-control"
+                    <input type="number" th:field="*{term}" id="inputTerm" class="form-control"
                            placeholder="Введите срок">
                 </div>
             </div>
@@ -46,7 +46,7 @@
             <div class="col-4 text-center">
                 <label for="inputRate" class="control-label"><b>Ставка</b></label>
                 <div class="input-group">
-                    <input type="text" th:field="*{rate}" id="inputRate" class="form-control"
+                    <input type="number" th:field="*{rate}" id="inputRate" class="form-control"
                            placeholder="Введите процентную ставку">
                 </div>
             </div>
@@ -56,8 +56,8 @@
             <div class="col-4 text-center">
                 <label for="inputInsurance" class="control-label"><b>Страхование</b></label>
                 <select class="form-control" th:field="*{insurance}" id="inputInsurance">
-                    <option th:each="category : ${T(ru.sumarokov.premium_calculation.helper.InsuranceCategory.values()}"
-                            th:value="${category}" th:text="${category}"></option>
+                    <option th:each="insurance : ${insurances}"
+                            th:value="${insurance.id}" th:text="${insurance.name}"></option>
                 </select>
             </div>
         </div>
@@ -66,7 +66,17 @@
             <div class="col-4 text-center">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" th:field="*{isConnectedSMS}">СМС
+                        <input type="checkbox" th:field="*{isConnectedSms}">СМС
+                    </label>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-4 text-center">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" th:field="*{isFur}">Меха
                     </label>
                 </div>
             </div>

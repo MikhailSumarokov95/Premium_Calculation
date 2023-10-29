@@ -11,10 +11,12 @@ import java.util.List;
 public class CreditService {
 
     private final CreditRepository creditRepository;
+    private final CalculateService calculateService;
 
     @Autowired
-    public CreditService(CreditRepository creditRepository) {
+    public CreditService(CreditRepository creditRepository, CalculateService calculateService) {
         this.creditRepository = creditRepository;
+        this.calculateService = calculateService;
     }
 
     public List<Credit> getCredits() {
@@ -27,6 +29,7 @@ public class CreditService {
 
     public void saveCredit(Credit credit) {
         creditRepository.save(credit);
+        calculateService.calculateEfficiency(creditRepository.findAll());
     }
 
     public void deleteCredit(Long id) {

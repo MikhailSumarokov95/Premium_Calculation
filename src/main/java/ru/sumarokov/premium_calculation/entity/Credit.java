@@ -1,8 +1,6 @@
 package ru.sumarokov.premium_calculation.entity;
 
 import jakarta.persistence.*;
-import ru.sumarokov.premium_calculation.helper.CreditCategory;
-import ru.sumarokov.premium_calculation.helper.InsuranceCategory;
 
 @Entity
 @Table(name = "credit")
@@ -10,31 +8,44 @@ public class Credit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    @Enumerated(EnumType.STRING)
-    private CreditCategory category;
-    private Double total;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_group_id", nullable = false)
+    private ProductGroup productGroup;
+    private Double amount;
     private Integer term;
-    private Float rate;
-    @Enumerated(EnumType.STRING)
-    private InsuranceCategory insurance;
+    private Double rate;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "insurance_id", nullable = false)
+    private Insurance insurance;
     private Boolean isConnectedSms;
+    private Boolean isFur;
     private Boolean isConsultantAvailability;
     private Boolean isUsedSelfReject;
+    @OneToOne(mappedBy = "credit", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private PreliminaryCreditResult preliminaryCreditResult;
 
     public Credit() {
     }
 
-    public Credit(CreditCategory category, Double sum, Integer term, Float rate, InsuranceCategory insurance,
-                  Boolean isConnectedSms, Boolean isConsultantAvailability, Boolean isUsedSelfReject) {
-        this.category = category;
-        this.total = sum;
+    public Credit(Long id, ProductGroup productGroup, Double amount,
+                  Integer term, Double rate, Insurance insurance,
+                  Boolean isConnectedSms, Boolean isFur,
+                  Boolean isConsultantAvailability, Boolean isUsedSelfReject,
+                  PreliminaryCreditResult preliminaryCreditResult) {
+        this.id = id;
+        this.productGroup = productGroup;
+        this.amount = amount;
         this.term = term;
         this.rate = rate;
         this.insurance = insurance;
         this.isConnectedSms = isConnectedSms;
+        this.isFur = isFur;
         this.isConsultantAvailability = isConsultantAvailability;
         this.isUsedSelfReject = isUsedSelfReject;
+        this.preliminaryCreditResult = preliminaryCreditResult;
     }
 
     public Long getId() {
@@ -45,20 +56,20 @@ public class Credit {
         this.id = id;
     }
 
-    public CreditCategory getCategory() {
-        return category;
+    public ProductGroup getProductGroup() {
+        return productGroup;
     }
 
-    public void setCategory(CreditCategory category) {
-        this.category = category;
+    public void setProductGroup(ProductGroup productGroup) {
+        this.productGroup = productGroup;
     }
 
-    public Double getTotal() {
-        return total;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setTotal(Double total) {
-        this.total = total;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     public Integer getTerm() {
@@ -69,28 +80,32 @@ public class Credit {
         this.term = term;
     }
 
-    public Float getRate() {
+    public Double getRate() {
         return rate;
     }
 
-    public void setRate(Float rate) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 
-    public InsuranceCategory getInsurance() {
+    public Insurance getInsurance() {
         return insurance;
     }
 
-    public void setInsurance(InsuranceCategory insurance) {
+    public void setInsurance(Insurance insurance) {
         this.insurance = insurance;
     }
 
-    public Boolean getIsConnectedSms() {
-        return isConnectedSms;
+    public Boolean getIsConnectedSms() { return isConnectedSms; }
+
+    public void setIsConnectedSms(Boolean connectedSMS) { isConnectedSms = connectedSMS; }
+
+    public Boolean getIsFur() {
+        return isFur;
     }
 
-    public void setIsConnectedSms(Boolean connectedSMS) {
-        isConnectedSms = connectedSMS;
+    public void setIsFur(Boolean fur) {
+        isFur = fur;
     }
 
     public Boolean getIsConsultantAvailability() {
@@ -108,4 +123,13 @@ public class Credit {
     public void setIsUsedSelfReject(Boolean usedSelfReject) {
         isUsedSelfReject = usedSelfReject;
     }
+
+    public PreliminaryCreditResult getPreliminaryCreditResult() {
+        return preliminaryCreditResult;
+    }
+
+    public void setPreliminaryCreditResult(PreliminaryCreditResult preliminaryCreditResult) {
+        this.preliminaryCreditResult = preliminaryCreditResult;
+    }
 }
+

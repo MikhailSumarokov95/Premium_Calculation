@@ -19,8 +19,10 @@
             <th scope="col">Ставка</th>
             <th scope="col">Страхование</th>
             <th scope="col">СМС</th>
+            <th scope="col">Меха</th>
             <th scope="col">Консультант</th>
             <th scope="col">Self reject</th>
+            <th scope="col">Премия</th>
             <th scope="col">
                 <div style="text-align: center;">Изменить</div>
             </th>
@@ -31,14 +33,16 @@
         </thead>
         <tbody>
         <tr th:each="credit: ${credits}">
-            <td th:text="${credit.category}"></td>
-            <td th:text="${credit.total}"></td>
+            <td th:text="${credit.productGroup.name}"></td>
+            <td th:text="${credit.amount}"></td>
             <td th:text="${credit.term}"></td>
             <td th:text="${credit.rate}"></td>
-            <td th:text="${credit.insurance}"></td>
-            <td th:text="${credit.isConnectedSMS}"></td>
+            <td th:text="${credit.insurance.name}"></td>
+            <td th:text="${credit.isConnectedSms}"></td>
+            <td th:text="${credit.isFur}"></td>
             <td th:text="${credit.isConsultantAvailability}"></td>
             <td th:text="${credit.isUsedSelfReject}"></td>
+            <td th:text="${credit.preliminaryCreditResult.premium}"></td>
             <td>
                 <div style="text-align: center;">
                     <a class="icon-link" th:href="${'/credit/' + credit.id}">
