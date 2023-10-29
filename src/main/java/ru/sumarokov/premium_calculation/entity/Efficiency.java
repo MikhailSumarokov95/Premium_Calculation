@@ -7,7 +7,6 @@ import ru.sumarokov.premium_calculation.helper.ProductivityLevel;
 @Table(name = "efficiency")
 public class Efficiency {
 
-    // по сути тут только один экземляр, можно ли как-то запретить создавать еще экземляр?
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
