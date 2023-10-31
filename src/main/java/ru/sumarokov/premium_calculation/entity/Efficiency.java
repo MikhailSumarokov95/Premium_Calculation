@@ -19,6 +19,30 @@ public class Efficiency {
     private Double premiumInsurance;
     private Double premiumForAdditionalProducts;
 
+    public Efficiency() {
+    }
+
+    public Efficiency(Long id, ProductivityLevel productivityLevel, Double totalPremium,
+                      Double premiumForCredits, Double furBonus, Double totalProductivity,
+                      Double premiumInsurance, Double premiumForAdditionalProducts) {
+        this.id = id;
+        this.productivityLevel = productivityLevel;
+        this.totalPremium = totalPremium;
+        this.premiumForCredits = premiumForCredits;
+        this.furBonus = furBonus;
+        this.totalProductivity = totalProductivity;
+        this.premiumInsurance = premiumInsurance;
+        this.premiumForAdditionalProducts = premiumForAdditionalProducts;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public ProductivityLevel getProductivityLevel() {
         return productivityLevel;
     }

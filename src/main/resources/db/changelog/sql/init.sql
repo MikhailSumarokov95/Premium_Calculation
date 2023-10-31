@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS preliminary_credit_result(
 );
 
 CREATE TABLE IF NOT EXISTS efficiency(
+    id SERIAL PRIMARY KEY,
     productivity_level VARCHAR(64) NOT NULL,
     total_premium DOUBLE PRECISION NOT NULL,
     premium_for_credits DOUBLE PRECISION NOT NULL,

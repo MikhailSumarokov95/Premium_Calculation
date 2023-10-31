@@ -29,7 +29,7 @@ public class CreditService {
 
     public void saveCredit(Credit credit) {
         creditRepository.save(credit);
-        efficiencyService.calculateEfficiency(creditRepository.findAll());
+        efficiencyService.calculateEfficiency();
     }
 
     public void deleteCredit(Long id) {
