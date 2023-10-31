@@ -8,6 +8,7 @@ import ru.sumarokov.premium_calculation.helper.ProductivityLevel;
 import ru.sumarokov.premium_calculation.repository.EfficiencyRepository;
 import ru.sumarokov.premium_calculation.repository.PreliminaryCreditResultRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -33,11 +34,11 @@ public class EfficiencyService {
         efficiency.setPremiumForCredits(preliminaryCreditResultRepository.getSumCreditTotal().orElseThrow());
 
         efficiency.setProductivityLevel(ProductivityLevel.LEVEL_ZERO);
-        efficiency.setFurBonus(1D);
-        efficiency.setPremiumInsurance(1D);
-        efficiency.setPremiumForAdditionalProducts(1D);
-        efficiency.setTotalProductivity(1D);
-        efficiency.setTotalPremium(1D);
+        efficiency.setFurBonus(new BigDecimal(1));
+        efficiency.setPremiumInsurance(new BigDecimal(1));
+        efficiency.setPremiumForAdditionalProducts(new BigDecimal(1));
+        efficiency.setTotalProductivity(new BigDecimal(1));
+        efficiency.setTotalPremium(new BigDecimal(1));
         efficiencyRepository.save(efficiency);
         return efficiency;
     }

@@ -2,6 +2,8 @@ package ru.sumarokov.premium_calculation.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "preliminary_credit_result")
 public class PreliminaryCreditResult {
@@ -9,11 +11,11 @@ public class PreliminaryCreditResult {
     @Id
     @Column(name = "credit_id")
     private Long id;
-    private Double premium;
-    private Double creditTotal;
-    private Double insuranceBonus;
-    private Double insuranceVolume;
-    private Double creditPreviously;
+    private BigDecimal premium;
+    private BigDecimal creditTotal;
+    private BigDecimal insuranceBonus;
+    private BigDecimal insuranceVolume;
+    private BigDecimal creditPreviously;
 
     @OneToOne()
     @MapsId
@@ -23,9 +25,9 @@ public class PreliminaryCreditResult {
     public PreliminaryCreditResult() {
     }
 
-    public PreliminaryCreditResult(Long id, Double premium, Double creditTotal,
-                                   Double insuranceBonus, Double insuranceVolume,
-                                   Double creditPreviously, Credit credit) {
+    public PreliminaryCreditResult(Long id, BigDecimal premium, BigDecimal creditTotal,
+                                   BigDecimal insuranceBonus, BigDecimal insuranceVolume,
+                                   BigDecimal creditPreviously, Credit credit) {
         this.id = id;
         this.premium = premium;
         this.creditTotal = creditTotal;
@@ -43,43 +45,43 @@ public class PreliminaryCreditResult {
         this.id = id;
     }
 
-    public Double getPremium() {
+    public BigDecimal getPremium() {
         return premium;
     }
 
-    public void setPremium(Double premium) {
+    public void setPremium(BigDecimal premium) {
         this.premium = premium;
     }
 
-    public Double getCreditTotal() {
+    public BigDecimal getCreditTotal() {
         return creditTotal;
     }
 
-    public void setCreditTotal(Double creditTotal) {
+    public void setCreditTotal(BigDecimal creditTotal) {
         this.creditTotal = creditTotal;
     }
 
-    public Double getInsuranceBonus() {
+    public BigDecimal getInsuranceBonus() {
         return insuranceBonus;
     }
 
-    public void setInsuranceBonus(Double insuranceBonus) {
+    public void setInsuranceBonus(BigDecimal insuranceBonus) {
         this.insuranceBonus = insuranceBonus;
     }
 
-    public Double getInsuranceVolume() {
+    public BigDecimal getInsuranceVolume() {
         return insuranceVolume;
     }
 
-    public void setInsuranceVolume(Double insuranceVolume) {
+    public void setInsuranceVolume(BigDecimal insuranceVolume) {
         this.insuranceVolume = insuranceVolume;
     }
 
-    public Double getCreditPreviously() {
+    public BigDecimal getCreditPreviously() {
         return creditPreviously;
     }
 
-    public void setCreditPreviously(Double creditPreviously) {
+    public void setCreditPreviously(BigDecimal creditPreviously) {
         this.creditPreviously = creditPreviously;
     }
 

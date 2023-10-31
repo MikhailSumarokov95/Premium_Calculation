@@ -2,6 +2,7 @@ package ru.sumarokov.premium_calculation.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -12,14 +13,14 @@ public class Insurance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Double factorInsuranceVolume;
-    private Double factorInsuranceBonus;
+    private BigDecimal factorInsuranceVolume;
+    private BigDecimal factorInsuranceBonus;
 
     public Insurance() {
     }
 
-    public Insurance(Long id, String name, Double factorInsuranceVolume,
-                     Double factorInsuranceBonus) {
+    public Insurance(Long id, String name, BigDecimal factorInsuranceVolume,
+                     BigDecimal factorInsuranceBonus) {
         this.id = id;
         this.name = name;
         this.factorInsuranceVolume = factorInsuranceVolume;
@@ -42,19 +43,19 @@ public class Insurance {
         this.name = name;
     }
 
-    public Double getFactorInsuranceVolume() {
+    public BigDecimal getFactorInsuranceVolume() {
         return factorInsuranceVolume;
     }
 
-    public void setFactorInsuranceVolume(Double factorInsuranceVolume) {
+    public void setFactorInsuranceVolume(BigDecimal factorInsuranceVolume) {
         this.factorInsuranceVolume = factorInsuranceVolume;
     }
 
-    public Double getFactorInsuranceBonus() {
+    public BigDecimal getFactorInsuranceBonus() {
         return factorInsuranceBonus;
     }
 
-    public void setFactorInsuranceBonus(Double factorInsuranceBonus) {
+    public void setFactorInsuranceBonus(BigDecimal factorInsuranceBonus) {
         this.factorInsuranceBonus = factorInsuranceBonus;
     }
 }

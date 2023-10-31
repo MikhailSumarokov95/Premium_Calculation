@@ -2,6 +2,8 @@ package ru.sumarokov.premium_calculation.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "credit")
 public class Credit {
@@ -14,9 +16,9 @@ public class Credit {
     @JoinColumn(name = "product_group_id", nullable = false)
     private ProductGroup productGroup;
     //TODO: С деньгами BigDecimal
-    private Double amount;
+    private BigDecimal amount;
     private Integer term;
-    private Double rate;
+    private BigDecimal rate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "insurance_id", nullable = false)
     private Insurance insurance;
@@ -31,8 +33,8 @@ public class Credit {
     public Credit() {
     }
 
-    public Credit(Long id, ProductGroup productGroup, Double amount,
-                  Integer term, Double rate, Insurance insurance,
+    public Credit(Long id, ProductGroup productGroup, BigDecimal amount,
+                  Integer term, BigDecimal rate, Insurance insurance,
                   Boolean isConnectedSms, Boolean isFur,
                   Boolean isConsultantAvailability, Boolean isUsedSelfReject,
                   PreliminaryCreditResult preliminaryCreditResult) {
@@ -65,11 +67,11 @@ public class Credit {
         this.productGroup = productGroup;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -81,11 +83,11 @@ public class Credit {
         this.term = term;
     }
 
-    public Double getRate() {
+    public BigDecimal getRate() {
         return rate;
     }
 
-    public void setRate(Double rate) {
+    public void setRate(BigDecimal rate) {
         this.rate = rate;
     }
 

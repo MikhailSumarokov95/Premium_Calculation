@@ -3,6 +3,8 @@ package ru.sumarokov.premium_calculation.entity;
 import jakarta.persistence.*;
 import ru.sumarokov.premium_calculation.helper.ProductivityLevel;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "efficiency")
 public class Efficiency {
@@ -12,19 +14,19 @@ public class Efficiency {
     private Long id;
     @Enumerated(EnumType.STRING)
     private ProductivityLevel productivityLevel;
-    private Double totalPremium;
-    private Double premiumForCredits;
-    private Double furBonus;
-    private Double totalProductivity;
-    private Double premiumInsurance;
-    private Double premiumForAdditionalProducts;
+    private BigDecimal totalPremium;
+    private BigDecimal premiumForCredits;
+    private BigDecimal furBonus;
+    private BigDecimal totalProductivity;
+    private BigDecimal premiumInsurance;
+    private BigDecimal premiumForAdditionalProducts;
 
     public Efficiency() {
     }
 
-    public Efficiency(Long id, ProductivityLevel productivityLevel, Double totalPremium,
-                      Double premiumForCredits, Double furBonus, Double totalProductivity,
-                      Double premiumInsurance, Double premiumForAdditionalProducts) {
+    public Efficiency(Long id, ProductivityLevel productivityLevel, BigDecimal totalPremium,
+                      BigDecimal premiumForCredits, BigDecimal furBonus, BigDecimal totalProductivity,
+                      BigDecimal premiumInsurance, BigDecimal premiumForAdditionalProducts) {
         this.id = id;
         this.productivityLevel = productivityLevel;
         this.totalPremium = totalPremium;
@@ -51,51 +53,51 @@ public class Efficiency {
         this.productivityLevel = productivityLevel;
     }
 
-    public Double getTotalPremium() {
+    public BigDecimal getTotalPremium() {
         return totalPremium;
     }
 
-    public void setTotalPremium(Double totalPremium) {
+    public void setTotalPremium(BigDecimal totalPremium) {
         this.totalPremium = totalPremium;
     }
 
-    public Double getPremiumForCredits() {
+    public BigDecimal getPremiumForCredits() {
         return premiumForCredits;
     }
 
-    public void setPremiumForCredits(Double premiumForCredits) {
+    public void setPremiumForCredits(BigDecimal premiumForCredits) {
         this.premiumForCredits = premiumForCredits;
     }
 
-    public Double getFurBonus() {
+    public BigDecimal getFurBonus() {
         return furBonus;
     }
 
-    public void setFurBonus(Double furBonus) {
+    public void setFurBonus(BigDecimal furBonus) {
         this.furBonus = furBonus;
     }
 
-    public Double getTotalProductivity() {
+    public BigDecimal getTotalProductivity() {
         return totalProductivity;
     }
 
-    public void setTotalProductivity(Double totalProductivity) {
+    public void setTotalProductivity(BigDecimal totalProductivity) {
         this.totalProductivity = totalProductivity;
     }
 
-    public Double getPremiumInsurance() {
+    public BigDecimal getPremiumInsurance() {
         return premiumInsurance;
     }
 
-    public void setPremiumInsurance(Double premiumInsurance) {
+    public void setPremiumInsurance(BigDecimal premiumInsurance) {
         this.premiumInsurance = premiumInsurance;
     }
 
-    public Double getPremiumForAdditionalProducts() {
+    public BigDecimal getPremiumForAdditionalProducts() {
         return premiumForAdditionalProducts;
     }
 
-    public void setPremiumForAdditionalProducts(Double premiumForAdditionalProducts) {
+    public void setPremiumForAdditionalProducts(BigDecimal premiumForAdditionalProducts) {
         this.premiumForAdditionalProducts = premiumForAdditionalProducts;
     }
 }

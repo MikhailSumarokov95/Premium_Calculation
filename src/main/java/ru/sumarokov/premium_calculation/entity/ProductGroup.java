@@ -2,6 +2,7 @@ package ru.sumarokov.premium_calculation.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -12,19 +13,19 @@ public class ProductGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Double factorPremium;
-    private Double minPremium;
-    private Double maxPremium;
+    private BigDecimal factorPremium;
+    private BigDecimal minPremium;
+    private BigDecimal maxPremium;
     //TODO:переделать на enum
     private Boolean isCoc;
-    private Double minAmountForCalculatingCreditPremium;
+    private BigDecimal minAmountForCalculatingCreditPremium;
 
     public ProductGroup() {
     }
 
-    public ProductGroup(Long id, String name, Double factorPremium,
-                        Double minPremium, Double maxPremium, Boolean isCoc,
-                        Double minAmountForCalculatingCreditPremium) {
+    public ProductGroup(Long id, String name, BigDecimal factorPremium,
+                        BigDecimal minPremium, BigDecimal maxPremium,
+                        Boolean isCoc, BigDecimal minAmountForCalculatingCreditPremium) {
         this.id = id;
         this.name = name;
         this.factorPremium = factorPremium;
@@ -50,27 +51,27 @@ public class ProductGroup {
         this.name = name;
     }
 
-    public Double getFactorPremium() {
+    public BigDecimal getFactorPremium() {
         return factorPremium;
     }
 
-    public void setFactorPremium(Double factorPremium) {
+    public void setFactorPremium(BigDecimal factorPremium) {
         this.factorPremium = factorPremium;
     }
 
-    public Double getMinPremium() {
+    public BigDecimal getMinPremium() {
         return minPremium;
     }
 
-    public void setMinPremium(Double minPremium) {
+    public void setMinPremium(BigDecimal minPremium) {
         this.minPremium = minPremium;
     }
 
-    public Double getMaxPremium() {
+    public BigDecimal getMaxPremium() {
         return maxPremium;
     }
 
-    public void setMaxPremium(Double maxPremium) {
+    public void setMaxPremium(BigDecimal maxPremium) {
         this.maxPremium = maxPremium;
     }
 
@@ -78,23 +79,15 @@ public class ProductGroup {
         return isCoc;
     }
 
-    public void setIsCoc(Boolean COC) {
-        isCoc = COC;
+    public void setIsCoc(Boolean coc) {
+        isCoc = coc;
     }
 
-    public Double getMinAmountForCalculatingCreditPremium() {
+    public BigDecimal getMinAmountForCalculatingCreditPremium() {
         return minAmountForCalculatingCreditPremium;
     }
 
-    public void setMinAmountForCalculatingCreditPremium(Double minAmountForCalculatingCreditPremium) {
+    public void setMinAmountForCalculatingCreditPremium(BigDecimal minAmountForCalculatingCreditPremium) {
         this.minAmountForCalculatingCreditPremium = minAmountForCalculatingCreditPremium;
     }
-
-//    public List<Credit> getCredits() {
-//        return credits;
-//    }
-//
-//    public void setCredits(List<Credit> credits) {
-//        this.credits = credits;
-//    }
 }

@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface PreliminaryCreditResultRepository extends JpaRepository<PreliminaryCreditResult, Long> {
 
     @Query("SELECT SUM(pcr.creditTotal) FROM PreliminaryCreditResult pcr")
-    Optional<Double> getSumCreditTotal();
+    Optional<BigDecimal> getSumCreditTotal();
 }

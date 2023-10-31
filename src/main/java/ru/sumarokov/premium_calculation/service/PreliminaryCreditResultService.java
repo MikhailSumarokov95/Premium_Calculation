@@ -7,6 +7,8 @@ import ru.sumarokov.premium_calculation.entity.PreliminaryCreditResult;
 import ru.sumarokov.premium_calculation.repository.CreditRepository;
 import ru.sumarokov.premium_calculation.repository.PreliminaryCreditResultRepository;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -40,39 +42,42 @@ public class PreliminaryCreditResultService {
                 findById(credit.getId())
                 .orElse(new PreliminaryCreditResult());
 
-        Double insuranceVolume = credit.getAmount() * credit.getInsurance().getFactorInsuranceVolume();
+        BigDecimal insuranceVolume = credit.getAmount().multiply(credit.getInsurance().getFactorInsuranceVolume());
         preliminaryCreditResult.setInsuranceVolume(insuranceVolume);
 
-        Double insuranceBonus = credit.getAmount() * credit.getInsurance().getFactorInsuranceBonus();
+        BigDecimal insuranceBonus = credit.getAmount().multiply(credit.getInsurance().getFactorInsuranceBonus());
         preliminaryCreditResult.setInsuranceBonus(insuranceBonus);
 
-        Double creditPreviously;
+        BigDecimal creditPreviously;
         if (credit.getProductGroup().getIsCoc())
-            if (credit.getProductGroup().getMinAmountForCalculatingCreditPremium() < credit.getAmount())
-                creditPreviously = credit.getProductGroup().getFactorPremium() * credit.getAmount();
-            else creditPreviously = 0d;
-        else creditPreviously = credit.getProductGroup().getFactorPremium() * credit.getAmount()
-                * credit.getTerm() * credit.getRate();
+            if (credit.getProductGroup().getMinAmountForCalculatingCreditPremium().compareTo(credit.getAmount()) < 0)
+                creditPreviously = credit.getProductGroup().getFactorPremium().multiply(credit.getAmount());
+            else creditPreviously = new BigDecimal(0);
+        else creditPreviously = credit.getProductGroup().getFactorPremium()
+                .multiply(credit.getAmount())
+                .multiply(BigDecimal.valueOf(credit.getTerm()))
+                .multiply(credit.getRate());
 
-        if (creditPreviously > credit.getProductGroup().getMaxPremium())
+        if (creditPreviously.compareTo(credit.getProductGroup().getMaxPremium()) > 0)
             creditPreviously = credit.getProductGroup().getMaxPremium();
 
-        if (creditPreviously < credit.getProductGroup().getMinPremium())
+        if (creditPreviously.compareTo(credit.getProductGroup().getMinPremium()) < 0)
             creditPreviously = credit.getProductGroup().getMinPremium();
 
         preliminaryCreditResult.setCreditPreviously(creditPreviously);
 
-        Double creditTotal;
+        BigDecimal creditTotal;
         if (credit.getIsUsedSelfReject())
-            creditTotal = preliminaryCreditResult.getCreditPreviously() / 2;
+            creditTotal = preliminaryCreditResult.getCreditPreviously()
+                    .divide(BigDecimal.valueOf(2), 5, RoundingMode.HALF_UP);
         else creditTotal = preliminaryCreditResult.getCreditPreviously();
 
         if (credit.getIsConsultantAvailability())
-            creditTotal -= 50;
+            creditTotal = creditTotal.subtract(BigDecimal.valueOf(50));
 
         preliminaryCreditResult.setCreditTotal(creditTotal);
 
-        Double premium = preliminaryCreditResult.getCreditTotal() + preliminaryCreditResult.getInsuranceBonus();
+        BigDecimal premium = preliminaryCreditResult.getCreditTotal().add(preliminaryCreditResult.getInsuranceBonus());
         preliminaryCreditResult.setPremium(premium);
 
         preliminaryCreditResult.setCredit(credit);
