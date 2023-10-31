@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS credit(
 );
 
 CREATE TABLE IF NOT EXISTS preliminary_credit_result(
-    credit_id INT PRIMARY KEY REFERENCES credit(id),
+    credit_id SERIAL PRIMARY KEY REFERENCES credit(id),
     premium DOUBLE PRECISION NOT NULL,
     credit_total DOUBLE PRECISION NOT NULL,
     insurance_bonus DOUBLE PRECISION NOT NULL,

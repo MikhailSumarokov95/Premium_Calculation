@@ -90,4 +90,6 @@ public class PreliminaryCreditResult {
     public void setCredit(Credit credit) {
         this.credit = credit;
     }
+
+
 }

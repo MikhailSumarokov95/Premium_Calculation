@@ -15,6 +15,7 @@ public class ProductGroup {
     private Double factorPremium;
     private Double minPremium;
     private Double maxPremium;
+    //TODO:переделать на enum
     private Boolean isCoc;
     private Double minAmountForCalculatingCreditPremium;
 

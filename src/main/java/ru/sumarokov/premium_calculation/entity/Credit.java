@@ -13,6 +13,7 @@ public class Credit {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_group_id", nullable = false)
     private ProductGroup productGroup;
+    //TODO: С деньгами BigDecimal
     private Double amount;
     private Integer term;
     private Double rate;
