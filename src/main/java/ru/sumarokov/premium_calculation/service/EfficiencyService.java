@@ -17,14 +17,15 @@ public class EfficiencyService {
     private final PreliminaryCreditResultService preliminaryCreditResultService;
     private final PreliminaryCreditResultRepository preliminaryCreditResultRepository;
     private final EfficiencyRepository efficiencyRepository;
+    private final FurResultService furResultService;
 
     @Autowired
-    public EfficiencyService(PreliminaryCreditResultService preliminaryCreditResultService,
-                             PreliminaryCreditResultRepository preliminaryCreditResultRepository,
-                             EfficiencyRepository efficiencyRepository) {
+    public EfficiencyService(PreliminaryCreditResultService preliminaryCreditResultService, PreliminaryCreditResultRepository preliminaryCreditResultRepository,
+                             EfficiencyRepository efficiencyRepository, FurResultService furResultService) {
         this.preliminaryCreditResultService = preliminaryCreditResultService;
         this.preliminaryCreditResultRepository = preliminaryCreditResultRepository;
         this.efficiencyRepository = efficiencyRepository;
+        this.furResultService = furResultService;
     }
 
     public Efficiency calculateEfficiency() {
@@ -33,8 +34,9 @@ public class EfficiencyService {
         preliminaryCreditResultService.calculatePreliminaryCreditResults();
         efficiency.setPremiumForCredits(preliminaryCreditResultRepository.getSumCreditTotal().orElseThrow());
 
+        efficiency.setFurBonus(furResultService.culculateFurResult().getBonus());
+
         efficiency.setProductivityLevel(ProductivityLevel.LEVEL_ZERO);
-        efficiency.setFurBonus(new BigDecimal(1));
         efficiency.setPremiumInsurance(new BigDecimal(1));
         efficiency.setPremiumForAdditionalProducts(new BigDecimal(1));
         efficiency.setTotalProductivity(new BigDecimal(1));

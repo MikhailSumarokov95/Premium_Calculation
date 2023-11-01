@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import ru.sumarokov.premium_calculation.entity.CriteriaBonusForFur;
 import ru.sumarokov.premium_calculation.entity.Insurance;
 import ru.sumarokov.premium_calculation.entity.ProductGroup;
+import ru.sumarokov.premium_calculation.repository.CriteriaBonusForFurRepository;
 import ru.sumarokov.premium_calculation.repository.InsuranceRepository;
 import ru.sumarokov.premium_calculation.repository.ProductGroupRepository;
 
@@ -16,12 +18,15 @@ public class PremiumCalculationApplication implements CommandLineRunner {
 
     private InsuranceRepository insuranceRepository;
     private ProductGroupRepository productGroupRepository;
+    private CriteriaBonusForFurRepository criteriaBonusForFurRepository;
 
     @Autowired
     public PremiumCalculationApplication(InsuranceRepository insuranceRepository,
-                                         ProductGroupRepository productGroupRepository) {
+                                         ProductGroupRepository productGroupRepository,
+                                         CriteriaBonusForFurRepository criteriaBonusForFurRepository) {
         this.insuranceRepository = insuranceRepository;
         this.productGroupRepository = productGroupRepository;
+        this.criteriaBonusForFurRepository = criteriaBonusForFurRepository;
     }
 
     public static void main(String[] args) {
@@ -38,5 +43,6 @@ public class PremiumCalculationApplication implements CommandLineRunner {
         productGroupRepository.save(new ProductGroup(1L, "Dns", new BigDecimal("0.002"), new BigDecimal(30), new BigDecimal(3000), false, new BigDecimal(0)));
         productGroupRepository.save(new ProductGroup(2L, "FURNITURE_FURS_AND_CLOTHING", new BigDecimal("0.0032"), new BigDecimal(30), new BigDecimal(3000), false, new BigDecimal(0)));
         productGroupRepository.save(new ProductGroup(3L, "COC_PREFERENTIAL", new BigDecimal("0.0009"), new BigDecimal(30), new BigDecimal(3000), true, new BigDecimal(100000)));
+        criteriaBonusForFurRepository.save(new CriteriaBonusForFur(1L, new BigDecimal(750000), new BigDecimal(70), new BigDecimal(7500)));
     }
 }

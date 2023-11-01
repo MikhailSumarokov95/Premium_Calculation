@@ -49,3 +49,19 @@ CREATE TABLE IF NOT EXISTS efficiency(
     premium_insurance NUMERIC NOT NULL,
     premium_for_additional_products NUMERIC NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS criteria_bonus_for_fur(
+    id SERIAL PRIMARY KEY,
+    min_sum NUMERIC NOT NULL,
+    min_sms NUMERIC NOT NULL,
+    bonus NUMERIC NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS fur_result(
+    id SERIAL PRIMARY KEY,
+    bonus NUMERIC NOT NULL,
+    count_credits_category_fur INTEGER NOT NULL,
+    count_credits_category_fur_with_sms INTEGER NOT NULL,
+    share_credits_category_fur_with_sms NUMERIC NOT NULL,
+    sum_amount_credits_category_fur NUMERIC NOT NULL
+);
