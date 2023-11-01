@@ -15,7 +15,6 @@ public class Credit {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_group_id", nullable = false)
     private ProductGroup productGroup;
-    //TODO: С деньгами BigDecimal
     private BigDecimal amount;
     private Integer term;
     private BigDecimal rate;
@@ -29,27 +28,6 @@ public class Credit {
     @OneToOne(mappedBy = "credit", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private PreliminaryCreditResult preliminaryCreditResult;
-
-    public Credit() {
-    }
-
-    public Credit(Long id, ProductGroup productGroup, BigDecimal amount,
-                  Integer term, BigDecimal rate, Insurance insurance,
-                  Boolean isConnectedSms, Boolean isFur,
-                  Boolean isConsultantAvailability, Boolean isUsedSelfReject,
-                  PreliminaryCreditResult preliminaryCreditResult) {
-        this.id = id;
-        this.productGroup = productGroup;
-        this.amount = amount;
-        this.term = term;
-        this.rate = rate;
-        this.insurance = insurance;
-        this.isConnectedSms = isConnectedSms;
-        this.isFur = isFur;
-        this.isConsultantAvailability = isConsultantAvailability;
-        this.isUsedSelfReject = isUsedSelfReject;
-        this.preliminaryCreditResult = preliminaryCreditResult;
-    }
 
     public Long getId() {
         return id;

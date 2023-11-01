@@ -21,22 +21,6 @@ public class Efficiency {
     private BigDecimal premiumInsurance;
     private BigDecimal premiumForAdditionalProducts;
 
-    public Efficiency() {
-    }
-
-    public Efficiency(Long id, ProductivityLevel productivityLevel, BigDecimal totalPremium,
-                      BigDecimal premiumForCredits, BigDecimal furBonus, BigDecimal totalProductivity,
-                      BigDecimal premiumInsurance, BigDecimal premiumForAdditionalProducts) {
-        this.id = id;
-        this.productivityLevel = productivityLevel;
-        this.totalPremium = totalPremium;
-        this.premiumForCredits = premiumForCredits;
-        this.furBonus = furBonus;
-        this.totalProductivity = totalProductivity;
-        this.premiumInsurance = premiumInsurance;
-        this.premiumForAdditionalProducts = premiumForAdditionalProducts;
-    }
-
     public Long getId() {
         return id;
     }

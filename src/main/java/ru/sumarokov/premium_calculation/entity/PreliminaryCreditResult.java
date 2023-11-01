@@ -22,21 +22,6 @@ public class PreliminaryCreditResult {
     @JoinColumn(name = "credit_id")
     private Credit credit;
 
-    public PreliminaryCreditResult() {
-    }
-
-    public PreliminaryCreditResult(Long id, BigDecimal premium, BigDecimal creditTotal,
-                                   BigDecimal insuranceBonus, BigDecimal insuranceVolume,
-                                   BigDecimal creditPreviously, Credit credit) {
-        this.id = id;
-        this.premium = premium;
-        this.creditTotal = creditTotal;
-        this.insuranceBonus = insuranceBonus;
-        this.insuranceVolume = insuranceVolume;
-        this.creditPreviously = creditPreviously;
-        this.credit = credit;
-    }
-
     public Long getId() {
         return id;
     }

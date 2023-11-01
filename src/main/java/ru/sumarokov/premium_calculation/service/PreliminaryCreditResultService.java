@@ -49,31 +49,43 @@ public class PreliminaryCreditResultService {
         preliminaryCreditResult.setInsuranceBonus(insuranceBonus);
 
         BigDecimal creditPreviously;
-        if (credit.getProductGroup().getIsCoc())
-            if (credit.getProductGroup().getMinAmountForCalculatingCreditPremium().compareTo(credit.getAmount()) < 0)
-                creditPreviously = credit.getProductGroup().getFactorPremium().multiply(credit.getAmount());
-            else creditPreviously = new BigDecimal(0);
-        else creditPreviously = credit.getProductGroup().getFactorPremium()
-                .multiply(credit.getAmount())
-                .multiply(BigDecimal.valueOf(credit.getTerm()))
-                .multiply(credit.getRate());
+        if (credit.getProductGroup().getIsCoc()) {
+            if (credit.getProductGroup()
+                    .getMinAmountForCalculatingCreditPremium()
+                    .compareTo(credit.getAmount()) < 0) {
+                creditPreviously = credit.getProductGroup().getFactorPremium()
+                        .multiply(credit.getAmount());
+            } else {
+                creditPreviously = new BigDecimal(0);
+            }
+        } else {
+            creditPreviously = credit.getProductGroup().getFactorPremium()
+                    .multiply(credit.getAmount())
+                    .multiply(BigDecimal.valueOf(credit.getTerm()))
+                    .multiply(credit.getRate());
+        }
 
-        if (creditPreviously.compareTo(credit.getProductGroup().getMaxPremium()) > 0)
+        if (creditPreviously.compareTo(credit.getProductGroup().getMaxPremium()) > 0) {
             creditPreviously = credit.getProductGroup().getMaxPremium();
+        }
 
-        if (creditPreviously.compareTo(credit.getProductGroup().getMinPremium()) < 0)
+        if (creditPreviously.compareTo(credit.getProductGroup().getMinPremium()) < 0) {
             creditPreviously = credit.getProductGroup().getMinPremium();
+        }
 
         preliminaryCreditResult.setCreditPreviously(creditPreviously);
 
         BigDecimal creditTotal;
-        if (credit.getIsUsedSelfReject())
+        if (credit.getIsUsedSelfReject()) {
             creditTotal = preliminaryCreditResult.getCreditPreviously()
                     .divide(BigDecimal.valueOf(2), 5, RoundingMode.HALF_UP);
-        else creditTotal = preliminaryCreditResult.getCreditPreviously();
+        } else {
+            creditTotal = preliminaryCreditResult.getCreditPreviously();
+        }
 
-        if (credit.getIsConsultantAvailability())
+        if (credit.getIsConsultantAvailability()) {
             creditTotal = creditTotal.subtract(BigDecimal.valueOf(50));
+        }
 
         preliminaryCreditResult.setCreditTotal(creditTotal);
 
