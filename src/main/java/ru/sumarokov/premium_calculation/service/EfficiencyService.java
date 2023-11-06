@@ -50,11 +50,9 @@ public class EfficiencyService {
                 .getPremium();
         efficiency.setTotalProductivity(totalProductivity);
 
-        BigDecimal premiumInsurance = new BigDecimal(1); //
+        //TODO: не забыть про страховку
+        BigDecimal premiumInsurance = new BigDecimal(1);
         efficiency.setPremiumInsurance(premiumInsurance);
-
-        BigDecimal premiumForAdditionalProducts = new BigDecimal(1); //
-        efficiency.setPremiumForAdditionalProducts(premiumForAdditionalProducts);
 
         BigDecimal maxPremium = premiumLimitRepository
                 .findById(1L)
@@ -65,7 +63,6 @@ public class EfficiencyService {
                 .add(furBonus)
                 .add(totalProductivity)
                 .add(premiumInsurance)
-                .add(premiumForAdditionalProducts)
                 .min(maxPremium);
         efficiency.setTotalPremium(totalPremium);
 

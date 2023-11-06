@@ -1,6 +1,7 @@
 package ru.sumarokov.premium_calculation.entity;
 
 import jakarta.persistence.*;
+import ru.sumarokov.premium_calculation.helper.TypeCredit;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,8 +17,8 @@ public class ProductGroup {
     private BigDecimal factorPremium;
     private BigDecimal minPremium;
     private BigDecimal maxPremium;
-    //TODO:переделать на enum
-    private Boolean isCoc;
+    @Enumerated(EnumType.STRING)
+    private TypeCredit typeCredit;
     private BigDecimal minAmountForCalculatingCreditPremium;
 
     public ProductGroup() {
@@ -25,13 +26,13 @@ public class ProductGroup {
 
     public ProductGroup(Long id, String name, BigDecimal factorPremium,
                         BigDecimal minPremium, BigDecimal maxPremium,
-                        Boolean isCoc, BigDecimal minAmountForCalculatingCreditPremium) {
+                        TypeCredit typeCredit, BigDecimal minAmountForCalculatingCreditPremium) {
         this.id = id;
         this.name = name;
         this.factorPremium = factorPremium;
         this.minPremium = minPremium;
         this.maxPremium = maxPremium;
-        this.isCoc = isCoc;
+        this.typeCredit = typeCredit;
         this.minAmountForCalculatingCreditPremium = minAmountForCalculatingCreditPremium;
     }
 
@@ -75,12 +76,12 @@ public class ProductGroup {
         this.maxPremium = maxPremium;
     }
 
-    public Boolean getIsCoc() {
-        return isCoc;
+    public TypeCredit getTypeCredit() {
+        return typeCredit;
     }
 
-    public void setIsCoc(Boolean coc) {
-        isCoc = coc;
+    public void setTypeCredit(TypeCredit typeCredit) {
+        this.typeCredit = typeCredit;
     }
 
     public BigDecimal getMinAmountForCalculatingCreditPremium() {

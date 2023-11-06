@@ -43,7 +43,6 @@ public class ProductivityResultService {
 
     private ProductivityLevel getLevelCountCredits() {
         Integer countCredits = creditRepository.getCountCredits();
-        System.out.println(countCredits);
         return productivityLevelRepository.getCountCreditsLevel(countCredits).orElseThrow();
     }
 

@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS product_group(
     factor_premium NUMERIC NOT NULL,
     min_premium NUMERIC NOT NULL,
     max_premium NUMERIC NOT NULL,
-    is_coc BOOLEAN NOT NULL DEFAULT FALSE,
+    type_credit VARCHAR(32) NOT NULL,
     min_amount_for_calculating_credit_premium NUMERIC NOT NULL
 );
 
@@ -45,8 +45,7 @@ CREATE TABLE IF NOT EXISTS efficiency(
     premium_for_credits NUMERIC NOT NULL,
     fur_bonus NUMERIC NOT NULL,
     total_productivity NUMERIC NOT NULL,
-    premium_insurance NUMERIC NOT NULL,
-    premium_for_additional_products NUMERIC NOT NULL
+    premium_insurance NUMERIC NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS criteria_bonus_for_fur(

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sumarokov.premium_calculation.entity.Credit;
 import ru.sumarokov.premium_calculation.entity.PreliminaryCreditResult;
+import ru.sumarokov.premium_calculation.helper.TypeCredit;
 import ru.sumarokov.premium_calculation.repository.CreditRepository;
 import ru.sumarokov.premium_calculation.repository.PreliminaryCreditResultRepository;
 
@@ -49,7 +50,7 @@ public class PreliminaryCreditResultService {
         preliminaryCreditResult.setInsuranceBonus(insuranceBonus);
 
         BigDecimal creditPreviously;
-        if (credit.getProductGroup().getIsCoc()) {
+        if (credit.getProductGroup().getTypeCredit() == TypeCredit.CashOnCard) {
             if (credit.getProductGroup()
                     .getMinAmountForCalculatingCreditPremium()
                     .compareTo(credit.getAmount()) < 0) {

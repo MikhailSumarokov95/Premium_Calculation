@@ -16,7 +16,6 @@ public class Efficiency {
     private BigDecimal furBonus;
     private BigDecimal totalProductivity;
     private BigDecimal premiumInsurance;
-    private BigDecimal premiumForAdditionalProducts;
 
     public Long getId() {
         return id;
@@ -64,13 +63,5 @@ public class Efficiency {
 
     public void setPremiumInsurance(BigDecimal premiumInsurance) {
         this.premiumInsurance = premiumInsurance;
-    }
-
-    public BigDecimal getPremiumForAdditionalProducts() {
-        return premiumForAdditionalProducts;
-    }
-
-    public void setPremiumForAdditionalProducts(BigDecimal premiumForAdditionalProducts) {
-        this.premiumForAdditionalProducts = premiumForAdditionalProducts;
     }
 }
