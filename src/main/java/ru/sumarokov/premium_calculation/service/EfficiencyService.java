@@ -18,6 +18,7 @@ public class EfficiencyService {
     private final FurResultService furResultService;
     private final ProductivityResultService productivityResultService;
     private final PremiumLimitRepository premiumLimitRepository;
+    private final InsuranceResultService insuranceResultService;
 
     @Autowired
     public EfficiencyService(PreliminaryCreditResultService preliminaryCreditResultService,
@@ -25,20 +26,22 @@ public class EfficiencyService {
                              EfficiencyRepository efficiencyRepository,
                              FurResultService furResultService,
                              ProductivityResultService productivityResultService,
-                             PremiumLimitRepository premiumLimitRepository) {
+                             PremiumLimitRepository premiumLimitRepository,
+                             InsuranceResultService insuranceResultService) {
         this.preliminaryCreditResultService = preliminaryCreditResultService;
         this.preliminaryCreditResultRepository = preliminaryCreditResultRepository;
         this.efficiencyRepository = efficiencyRepository;
         this.furResultService = furResultService;
         this.productivityResultService = productivityResultService;
         this.premiumLimitRepository = premiumLimitRepository;
+        this.insuranceResultService = insuranceResultService;
     }
 
     public Efficiency calculateEfficiency() {
         Efficiency efficiency = efficiencyRepository.findById(1L).orElse(new Efficiency());
 
         preliminaryCreditResultService.calculatePreliminaryCreditResults();
-        BigDecimal premiumForCredit = preliminaryCreditResultRepository.getSumCreditTotal().orElseThrow();
+        BigDecimal premiumForCredit = preliminaryCreditResultRepository.getSumCreditTotal();
         efficiency.setPremiumForCredits(premiumForCredit);
 
         BigDecimal furBonus = furResultService.culculateFurResult().getBonus();
@@ -50,8 +53,7 @@ public class EfficiencyService {
                 .getPremium();
         efficiency.setTotalProductivity(totalProductivity);
 
-        //TODO: не забыть про страховку
-        BigDecimal premiumInsurance = new BigDecimal(1);
+        BigDecimal premiumInsurance = insuranceResultService.calculateInsuranceResult().getTotalBonus();
         efficiency.setPremiumInsurance(premiumInsurance);
 
         BigDecimal maxPremium = premiumLimitRepository

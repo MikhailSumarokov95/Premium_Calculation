@@ -16,10 +16,10 @@ public interface ProductivityLevelRepository extends JpaRepository<ProductivityL
     Optional<ProductivityLevel> getSumAmountCreditsLevel(BigDecimal sumAmountCredits);
 
     @Query("SELECT pl FROM ProductivityLevel pl WHERE pl.minPenetrationSms <= ?1 ORDER BY pl.id DESC LIMIT 1")
-    Optional<ProductivityLevel> getSmsLevel(BigDecimal Sms);
+    Optional<ProductivityLevel> getSmsPenetrationLevel(BigDecimal Sms);
 
     @Query("SELECT pl FROM ProductivityLevel pl WHERE pl.minPenetrationInsurance <= ?1 ORDER BY pl.id DESC LIMIT 1")
-    Optional<ProductivityLevel> getInsuranceLevel(BigDecimal Insurance);
+    Optional<ProductivityLevel> getInsurancePenetrationLevel(BigDecimal Insurance);
 
     @Query("SELECT pl " +
             "FROM ProductivityLevel pl " +

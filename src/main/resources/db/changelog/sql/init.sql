@@ -87,3 +87,9 @@ CREATE TABLE IF NOT EXISTS premium_limit(
     id SERIAL PRIMARY KEY,
     max_total_premium NUMERIC NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS insurance_result(
+    id SERIAL PRIMARY KEY,
+    total_bonus NUMERIC NOT NULL,
+    penetration NUMERIC NOT NULL
+);

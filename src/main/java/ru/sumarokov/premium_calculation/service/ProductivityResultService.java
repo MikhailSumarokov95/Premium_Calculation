@@ -17,14 +17,17 @@ public class ProductivityResultService {
     private final ProductivityLevelRepository productivityLevelRepository;
     private final ProductivityResultRepository productivityResultRepository;
     private final CreditRepository creditRepository;
+    private final InsuranceResultService insuranceResultService;
 
     @Autowired
     public ProductivityResultService(ProductivityLevelRepository productivityLevelRepository,
                                      ProductivityResultRepository productivityResultRepository,
-                                     CreditRepository creditRepository) {
+                                     CreditRepository creditRepository,
+                                     InsuranceResultService insuranceResultService) {
         this.productivityLevelRepository = productivityLevelRepository;
         this.productivityResultRepository = productivityResultRepository;
         this.creditRepository = creditRepository;
+        this.insuranceResultService = insuranceResultService;
     }
 
     public ProductivityResult calculateProductivityResult() {
@@ -34,8 +37,8 @@ public class ProductivityResultService {
 
         productivityResult.setCountCreditsLevel(getLevelCountCredits());
         productivityResult.setSumAmountCreditsLevel(getLevelSumAmountCredits());
-        productivityResult.setSmsPenetrationLevel(getCountSmsLevel());
-        productivityResult.setInsurancePenetrationLevel(getInsuranceLevel());
+        productivityResult.setSmsPenetrationLevel(getSmsPenetrationLevel());
+        productivityResult.setInsurancePenetrationLevel(getInsurancePenetrationLevel());
         productivityResult.setGeneralLevel(getGeneralLevel());
         productivityResultRepository.save(productivityResult);
         return productivityResult;
@@ -51,14 +54,14 @@ public class ProductivityResultService {
         return productivityLevelRepository.getSumAmountCreditsLevel(sumAmountCredits).orElseThrow();
     }
 
-    //TODO: не забыть про страховку
-    private ProductivityLevel getInsuranceLevel() {
-        return productivityLevelRepository.findById(2L).orElseThrow();
+    private ProductivityLevel getInsurancePenetrationLevel() {
+        BigDecimal insurancePenetration = insuranceResultService.calculateInsuranceResult().getPenetration();
+        return productivityLevelRepository.getInsurancePenetrationLevel(insurancePenetration).orElseThrow();
     }
 
-    private ProductivityLevel getCountSmsLevel() {
-        BigDecimal countSms = getCountSms();
-        return productivityLevelRepository.getSmsLevel(countSms).orElseThrow();
+    private ProductivityLevel getSmsPenetrationLevel() {
+        BigDecimal smsPenetration = getCountSms();
+        return productivityLevelRepository.getSmsPenetrationLevel(smsPenetration).orElseThrow();
     }
 
     private BigDecimal getCountSms() {
@@ -76,11 +79,10 @@ public class ProductivityResultService {
     private ProductivityLevel getGeneralLevel() {
         Integer countCredits = creditRepository.getCountCredits();
         BigDecimal sumAmountCredits = creditRepository.getSumAmountCredits();
-        //TODO: не забыть про страховку
-        BigDecimal insurance = new BigDecimal(20);
-        BigDecimal countSms = getCountSms();
+        BigDecimal insurancePenetration = insuranceResultService.calculateInsuranceResult().getPenetration();
+        BigDecimal smsPenetration = getCountSms();
         return productivityLevelRepository
-                .getGeneralLevel(countCredits, sumAmountCredits, countSms, insurance)
+                .getGeneralLevel(countCredits, sumAmountCredits, smsPenetration, insurancePenetration)
                 .orElseThrow();
     }
 }

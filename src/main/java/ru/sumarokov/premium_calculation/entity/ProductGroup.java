@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import ru.sumarokov.premium_calculation.helper.TypeCredit;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Table(name = "product_group")

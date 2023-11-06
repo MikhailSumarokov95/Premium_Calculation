@@ -43,10 +43,16 @@ public class PreliminaryCreditResultService {
                 findById(credit.getId())
                 .orElse(new PreliminaryCreditResult());
 
-        BigDecimal insuranceVolume = credit.getAmount().multiply(credit.getInsurance().getFactorInsuranceVolume());
+        BigDecimal factorInsuranceVolume = credit.getInsurance()
+                .getFactorInsuranceVolume()
+                .divide(BigDecimal.valueOf(100), 5, RoundingMode.HALF_UP);
+        BigDecimal insuranceVolume = credit.getAmount().multiply(factorInsuranceVolume);
         preliminaryCreditResult.setInsuranceVolume(insuranceVolume);
 
-        BigDecimal insuranceBonus = credit.getAmount().multiply(credit.getInsurance().getFactorInsuranceBonus());
+        BigDecimal factorInsuranceBonus = credit.getInsurance()
+                .getFactorInsuranceBonus()
+                .divide(BigDecimal.valueOf(100), 5, RoundingMode.HALF_UP);
+        BigDecimal insuranceBonus = credit.getAmount().multiply(factorInsuranceBonus);
         preliminaryCreditResult.setInsuranceBonus(insuranceBonus);
 
         BigDecimal creditPreviously;
