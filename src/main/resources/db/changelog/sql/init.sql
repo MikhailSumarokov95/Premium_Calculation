@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS fur_result(
     bonus NUMERIC NOT NULL,
     count_credits_category_fur INTEGER NOT NULL,
     count_credits_category_fur_with_sms INTEGER NOT NULL,
-    share_credits_category_fur_with_sms NUMERIC NOT NULL,
+    penetration_sms_credits_category_fur NUMERIC NOT NULL,
     sum_amount_credits_category_fur NUMERIC NOT NULL
 );
 
@@ -70,8 +70,8 @@ CREATE TABLE IF NOT EXISTS productivity_level(
     premium NUMERIC NOT NULL,
     min_count_credits INTEGER NOT NULL,
     min_sum_amount_credits NUMERIC NOT NULL,
-    min_sms NUMERIC NOT NULL,
-    min_insurance NUMERIC NOT NULL
+    min_penetration_sms NUMERIC NOT NULL,
+    min_penetration_insurance NUMERIC NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS productivity_result(
@@ -79,8 +79,8 @@ CREATE TABLE IF NOT EXISTS productivity_result(
     general_level INTEGER NOT NULL REFERENCES productivity_level(id),
     sum_amount_credits_level INTEGER NOT NULL REFERENCES productivity_level(id),
     count_credits_level INTEGER NOT NULL REFERENCES productivity_level(id),
-    insurance_level INTEGER NOT NULL REFERENCES productivity_level(id),
-    count_sms_level INTEGER NOT NULL REFERENCES productivity_level(id)
+    insurance_penetration_level INTEGER NOT NULL REFERENCES productivity_level(id),
+    sms_penetration_level INTEGER NOT NULL REFERENCES productivity_level(id)
 );
 
 CREATE TABLE IF NOT EXISTS premium_limit(

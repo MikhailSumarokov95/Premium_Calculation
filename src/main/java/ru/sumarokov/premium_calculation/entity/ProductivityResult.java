@@ -19,11 +19,11 @@ public class ProductivityResult {
     @JoinColumn(name = "count_credits_level", nullable = false)
     private ProductivityLevel countCreditsLevel;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "insurance_level", nullable = false)
-    private ProductivityLevel insuranceLevel;
+    @JoinColumn(name = "insurance_penetration_level", nullable = false)
+    private ProductivityLevel insurancePenetrationLevel;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "count_sms_level", nullable = false)
-    private ProductivityLevel countSmsLevel;
+    @JoinColumn(name = "sms_penetration_level", nullable = false)
+    private ProductivityLevel smsPenetrationLevel;
 
     public Long getId() {
         return id;
@@ -57,20 +57,20 @@ public class ProductivityResult {
         this.countCreditsLevel = countCreditsLevel;
     }
 
-    public ProductivityLevel getInsuranceLevel() {
-        return insuranceLevel;
+    public ProductivityLevel getInsurancePenetrationLevel() {
+        return insurancePenetrationLevel;
     }
 
-    public void setInsuranceLevel(ProductivityLevel insuranceLevel) {
-        this.insuranceLevel = insuranceLevel;
+    public void setInsurancePenetrationLevel(ProductivityLevel insurancePenetrationLevel) {
+        this.insurancePenetrationLevel = insurancePenetrationLevel;
     }
 
-    public ProductivityLevel getCountSmsLevel() {
-        return countSmsLevel;
+    public ProductivityLevel getSmsPenetrationLevel() {
+        return smsPenetrationLevel;
     }
 
-    public void setCountSmsLevel(ProductivityLevel countSmsLevel) {
-        this.countSmsLevel = countSmsLevel;
+    public void setSmsPenetrationLevel(ProductivityLevel smsPenetrationLevel) {
+        this.smsPenetrationLevel = smsPenetrationLevel;
     }
 
     @Override
@@ -80,8 +80,8 @@ public class ProductivityResult {
                 ", generalLevel=" + generalLevel +
                 ", sumAmountCreditsLevel=" + sumAmountCreditsLevel +
                 ", countCreditsLevel=" + countCreditsLevel +
-                ", insuranceLevel=" + insuranceLevel +
-                ", countSmsLevel=" + countSmsLevel +
+                ", insuranceLevel=" + insurancePenetrationLevel +
+                ", countSmsLevel=" + smsPenetrationLevel +
                 '}';
     }
 }

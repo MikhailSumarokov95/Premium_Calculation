@@ -15,15 +15,16 @@ public interface ProductivityLevelRepository extends JpaRepository<ProductivityL
     @Query("SELECT pl FROM ProductivityLevel pl WHERE pl.minSumAmountCredits <= ?1 ORDER BY pl.id DESC LIMIT 1")
     Optional<ProductivityLevel> getSumAmountCreditsLevel(BigDecimal sumAmountCredits);
 
-    @Query("SELECT pl FROM ProductivityLevel pl WHERE pl.minSms <= ?1 ORDER BY pl.id DESC LIMIT 1")
+    @Query("SELECT pl FROM ProductivityLevel pl WHERE pl.minPenetrationSms <= ?1 ORDER BY pl.id DESC LIMIT 1")
     Optional<ProductivityLevel> getSmsLevel(BigDecimal Sms);
 
-    @Query("SELECT pl FROM ProductivityLevel pl WHERE pl.minInsurance <= ?1 ORDER BY pl.id DESC LIMIT 1")
+    @Query("SELECT pl FROM ProductivityLevel pl WHERE pl.minPenetrationInsurance <= ?1 ORDER BY pl.id DESC LIMIT 1")
     Optional<ProductivityLevel> getInsuranceLevel(BigDecimal Insurance);
 
     @Query("SELECT pl " +
             "FROM ProductivityLevel pl " +
-            "WHERE (pl.minCountCredits <= ?1 OR pl.minSumAmountCredits <= ?2) AND pl.minSms <= ?3 AND pl.minInsurance <= ?4 " +
+            "WHERE (pl.minCountCredits <= ?1 OR pl.minSumAmountCredits <= ?2) " +
+            "AND pl.minPenetrationSms <= ?3 AND pl.minPenetrationInsurance <= ?4 " +
             "ORDER BY pl.id DESC " +
             "LIMIT 1")
     Optional<ProductivityLevel> getGeneralLevel(Integer countCredits, BigDecimal sumAmountCredits,

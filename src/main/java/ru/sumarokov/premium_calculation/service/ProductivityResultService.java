@@ -34,8 +34,8 @@ public class ProductivityResultService {
 
         productivityResult.setCountCreditsLevel(getLevelCountCredits());
         productivityResult.setSumAmountCreditsLevel(getLevelSumAmountCredits());
-        productivityResult.setCountSmsLevel(getCountSmsLevel());
-        productivityResult.setInsuranceLevel(getInsuranceLevel());
+        productivityResult.setSmsPenetrationLevel(getCountSmsLevel());
+        productivityResult.setInsurancePenetrationLevel(getInsuranceLevel());
         productivityResult.setGeneralLevel(getGeneralLevel());
         productivityResultRepository.save(productivityResult);
         return productivityResult;

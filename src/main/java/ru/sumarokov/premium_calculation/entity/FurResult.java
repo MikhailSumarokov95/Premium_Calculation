@@ -14,18 +14,18 @@ public class FurResult {
     private BigDecimal bonus;
     private Integer countCreditsCategoryFur;
     private Integer countCreditsCategoryFurWithSms;
-    private BigDecimal shareCreditsCategoryFurWithSms;
+    private BigDecimal penetrationSmsCreditsCategoryFur;
     private BigDecimal sumAmountCreditsCategoryFur;
 
     public FurResult() {
     }
 
     public FurResult(BigDecimal bonus, Integer countCreditsCategoryFur, Integer countCreditsCategoryFurWithSms,
-                     BigDecimal shareCreditsCategoryFurWithSms, BigDecimal sumAmountCreditsCategoryFur) {
+                     BigDecimal penetrationSmsCreditsCategoryFur, BigDecimal sumAmountCreditsCategoryFur) {
         this.bonus = bonus;
         this.countCreditsCategoryFur = countCreditsCategoryFur;
         this.countCreditsCategoryFurWithSms = countCreditsCategoryFurWithSms;
-        this.shareCreditsCategoryFurWithSms = shareCreditsCategoryFurWithSms;
+        this.penetrationSmsCreditsCategoryFur = penetrationSmsCreditsCategoryFur;
         this.sumAmountCreditsCategoryFur = sumAmountCreditsCategoryFur;
     }
 
@@ -61,12 +61,12 @@ public class FurResult {
         this.countCreditsCategoryFurWithSms = countCreditsCategoryFurWithSms;
     }
 
-    public BigDecimal getShareCreditsCategoryFurWithSms() {
-        return shareCreditsCategoryFurWithSms;
+    public BigDecimal getPenetrationSmsCreditsCategoryFur() {
+        return penetrationSmsCreditsCategoryFur;
     }
 
-    public void setShareCreditsCategoryFurWithSms(BigDecimal shareCreditsCategoryFurWithSms) {
-        this.shareCreditsCategoryFurWithSms = shareCreditsCategoryFurWithSms;
+    public void setPenetrationSmsCreditsCategoryFur(BigDecimal penetrationSmsCreditsCategoryFur) {
+        this.penetrationSmsCreditsCategoryFur = penetrationSmsCreditsCategoryFur;
     }
 
     public BigDecimal getSumAmountCreditsCategoryFur() {

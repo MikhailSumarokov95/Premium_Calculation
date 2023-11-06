@@ -15,22 +15,22 @@ public class ProductivityLevel {
     private BigDecimal premium;
     private Integer minCountCredits;
     private BigDecimal minSumAmountCredits;
-    private BigDecimal minSms;
-    private BigDecimal minInsurance;
+    private BigDecimal minPenetrationSms;
+    private BigDecimal minPenetrationInsurance;
 
     public ProductivityLevel() {
     }
 
     public ProductivityLevel(Long id, String name, BigDecimal premium,
                              Integer minCountCredits, BigDecimal minSumAmountCredits,
-                             BigDecimal minSms, BigDecimal minInsurance) {
+                             BigDecimal minPenetrationSms, BigDecimal minPenetrationInsurance) {
         this.id = id;
         this.name = name;
         this.premium = premium;
         this.minCountCredits = minCountCredits;
         this.minSumAmountCredits = minSumAmountCredits;
-        this.minSms = minSms;
-        this.minInsurance = minInsurance;
+        this.minPenetrationSms = minPenetrationSms;
+        this.minPenetrationInsurance = minPenetrationInsurance;
     }
 
     public Long getId() {
@@ -73,19 +73,19 @@ public class ProductivityLevel {
         this.minSumAmountCredits = minSumAmountCredits;
     }
 
-    public BigDecimal getMinSms() {
-        return minSms;
+    public BigDecimal getMinPenetrationSms() {
+        return minPenetrationSms;
     }
 
-    public void setMinSms(BigDecimal minSms) {
-        this.minSms = minSms;
+    public void setMinPenetrationSms(BigDecimal minPenetrationSms) {
+        this.minPenetrationSms = minPenetrationSms;
     }
 
-    public BigDecimal getMinInsurance() {
-        return minInsurance;
+    public BigDecimal getMinPenetrationInsurance() {
+        return minPenetrationInsurance;
     }
 
-    public void setMinInsurance(BigDecimal minInsurance) {
-        this.minInsurance = minInsurance;
+    public void setMinPenetrationInsurance(BigDecimal minPenetrationInsurance) {
+        this.minPenetrationInsurance = minPenetrationInsurance;
     }
 }

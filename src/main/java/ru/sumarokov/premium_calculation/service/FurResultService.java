@@ -42,7 +42,7 @@ public class FurResultService {
                     BigDecimal.valueOf(countCreditsCategoryFurWithSms)
                             .divide(BigDecimal.valueOf(countCreditsCategoryFur), 5, RoundingMode.HALF_UP)
                             .multiply(BigDecimal.valueOf(100));
-            furResult.setShareCreditsCategoryFurWithSms(shareCreditsCategoryFurWithSms);
+            furResult.setPenetrationSmsCreditsCategoryFur(shareCreditsCategoryFurWithSms);
 
             BigDecimal sumAmountCreditsCategoryFur = creditRepository.getSumAmountCreditsCategoryFur();
             furResult.setSumAmountCreditsCategoryFur(sumAmountCreditsCategoryFur);
