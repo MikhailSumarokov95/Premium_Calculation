@@ -1,7 +1,6 @@
 package ru.sumarokov.premium_calculation.entity;
 
 import jakarta.persistence.*;
-import ru.sumarokov.premium_calculation.helper.ProductivityLevel;
 
 import java.math.BigDecimal;
 
@@ -12,8 +11,6 @@ public class Efficiency {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING)
-    private ProductivityLevel productivityLevel;
     private BigDecimal totalPremium;
     private BigDecimal premiumForCredits;
     private BigDecimal furBonus;
@@ -27,14 +24,6 @@ public class Efficiency {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public ProductivityLevel getProductivityLevel() {
-        return productivityLevel;
-    }
-
-    public void setProductivityLevel(ProductivityLevel productivityLevel) {
-        this.productivityLevel = productivityLevel;
     }
 
     public BigDecimal getTotalPremium() {

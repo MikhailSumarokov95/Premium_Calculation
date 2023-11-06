@@ -1,12 +1,5 @@
 package ru.sumarokov.premium_calculation.service;
 
-import org.junit.jupiter.api.Test;
-import ru.sumarokov.premium_calculation.config.PreliminaryCreditResultRepositoryTest;
-import ru.sumarokov.premium_calculation.entity.Credit;
-import ru.sumarokov.premium_calculation.entity.PreliminaryCreditResult;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class CalculatePreliminaryCreditResultTest {
 
 

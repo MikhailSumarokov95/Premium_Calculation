@@ -41,7 +41,6 @@ CREATE TABLE IF NOT EXISTS preliminary_credit_result(
 
 CREATE TABLE IF NOT EXISTS efficiency(
     id SERIAL PRIMARY KEY,
-    productivity_level VARCHAR(64) NOT NULL,
     total_premium NUMERIC NOT NULL,
     premium_for_credits NUMERIC NOT NULL,
     fur_bonus NUMERIC NOT NULL,
@@ -64,4 +63,28 @@ CREATE TABLE IF NOT EXISTS fur_result(
     count_credits_category_fur_with_sms INTEGER NOT NULL,
     share_credits_category_fur_with_sms NUMERIC NOT NULL,
     sum_amount_credits_category_fur NUMERIC NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS productivity_level(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(64) NOT NULL,
+    premium NUMERIC NOT NULL,
+    min_count_credits INTEGER NOT NULL,
+    min_sum_amount_credits NUMERIC NOT NULL,
+    min_sms NUMERIC NOT NULL,
+    min_insurance NUMERIC NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS productivity_result(
+    id SERIAL PRIMARY KEY,
+    general_level INTEGER NOT NULL REFERENCES productivity_level(id),
+    sum_amount_credits_level INTEGER NOT NULL REFERENCES productivity_level(id),
+    count_credits_level INTEGER NOT NULL REFERENCES productivity_level(id),
+    insurance_level INTEGER NOT NULL REFERENCES productivity_level(id),
+    count_sms_level INTEGER NOT NULL REFERENCES productivity_level(id)
+);
+
+CREATE TABLE IF NOT EXISTS premium_limit(
+    id SERIAL PRIMARY KEY,
+    max_total_premium NUMERIC NOT NULL
 );

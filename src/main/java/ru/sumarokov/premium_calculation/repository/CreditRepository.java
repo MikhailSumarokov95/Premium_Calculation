@@ -9,12 +9,21 @@ import java.util.Optional;
 
 public interface CreditRepository extends JpaRepository<Credit, Long> {
 
-    @Query("SELECT COUNT(*) FROM Credit c WHERE c.isFur = true")
+    @Query("SELECT COUNT(c) FROM Credit c WHERE c.isFur = true")
     Integer getCountCreditsCategoryFur();
 
-    @Query("SELECT COUNT(*) FROM Credit c WHERE c.isFur = true AND c.isConnectedSms = true")
+    @Query("SELECT COUNT(c) FROM Credit c WHERE c.isFur = true AND c.isConnectedSms = true")
     Integer getCountCreditsCategoryFurWithSms();
 
     @Query("SELECT SUM(c.amount) FROM Credit c WHERE c.isFur = true")
     BigDecimal getSumAmountCreditsCategoryFur();
+
+    @Query("SELECT SUM(c.amount) FROM Credit c")
+    BigDecimal getSumAmountCredits();
+
+    @Query("SELECT COUNT(c) FROM Credit c")
+    Integer getCountCredits();
+
+    @Query("SELECT COUNT(c) FROM Credit c WHERE c.isConnectedSms = true")
+    Integer getCountCreditsWithSms();
 }
