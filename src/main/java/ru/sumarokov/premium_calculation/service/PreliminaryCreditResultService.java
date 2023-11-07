@@ -26,10 +26,8 @@ public class PreliminaryCreditResultService {
     }
 
     public List<PreliminaryCreditResult> calculatePreliminaryCreditResults() {
-        return calculatePreliminaryCreditResults(creditRepository.findAll());
-    }
+        List<Credit> credits = creditRepository.findAll();
 
-    public List<PreliminaryCreditResult> calculatePreliminaryCreditResults(List<Credit> credits) {
         List<PreliminaryCreditResult> preliminaryCreditResults = credits
                 .stream()
                 .map(this::calculatePreliminaryCreditResult)
@@ -43,18 +41,30 @@ public class PreliminaryCreditResultService {
                 findById(credit.getId())
                 .orElse(new PreliminaryCreditResult());
 
+        preliminaryCreditResult.setInsuranceVolume(calculateFactorInsuranceVolume(credit));
+        preliminaryCreditResult.setInsuranceBonus(calculateFactorInsuranceBonus(credit));
+        preliminaryCreditResult.setCreditPreviously(calculateCreditPreviously(credit));
+        preliminaryCreditResult.setCreditTotal(calculateCreditTotal(credit, preliminaryCreditResult));
+        preliminaryCreditResult.setPremium(calculatePremium(preliminaryCreditResult));
+        preliminaryCreditResult.setCredit(credit);
+        return preliminaryCreditResult;
+    }
+
+    private BigDecimal calculateFactorInsuranceVolume(Credit credit) {
         BigDecimal factorInsuranceVolume = credit.getInsurance()
                 .getFactorInsuranceVolume()
                 .divide(BigDecimal.valueOf(100), 5, RoundingMode.HALF_UP);
-        BigDecimal insuranceVolume = credit.getAmount().multiply(factorInsuranceVolume);
-        preliminaryCreditResult.setInsuranceVolume(insuranceVolume);
+        return credit.getAmount().multiply(factorInsuranceVolume);
+    }
 
+    private BigDecimal calculateFactorInsuranceBonus(Credit credit) {
         BigDecimal factorInsuranceBonus = credit.getInsurance()
                 .getFactorInsuranceBonus()
                 .divide(BigDecimal.valueOf(100), 5, RoundingMode.HALF_UP);
-        BigDecimal insuranceBonus = credit.getAmount().multiply(factorInsuranceBonus);
-        preliminaryCreditResult.setInsuranceBonus(insuranceBonus);
+        return credit.getAmount().multiply(factorInsuranceBonus);
+    }
 
+    private BigDecimal calculateCreditPreviously(Credit credit) {
         BigDecimal creditPreviously;
         if (credit.getProductGroup().getTypeCredit() == TypeCredit.CashOnCard) {
             if (credit.getProductGroup()
@@ -79,9 +89,10 @@ public class PreliminaryCreditResultService {
         if (creditPreviously.compareTo(credit.getProductGroup().getMinPremium()) < 0) {
             creditPreviously = credit.getProductGroup().getMinPremium();
         }
+        return creditPreviously;
+    }
 
-        preliminaryCreditResult.setCreditPreviously(creditPreviously);
-
+    private BigDecimal calculateCreditTotal(Credit credit, PreliminaryCreditResult preliminaryCreditResult) {
         BigDecimal creditTotal;
         if (credit.getIsUsedSelfReject()) {
             creditTotal = preliminaryCreditResult.getCreditPreviously()
@@ -93,14 +104,12 @@ public class PreliminaryCreditResultService {
         if (credit.getIsConsultantAvailability()) {
             creditTotal = creditTotal.subtract(BigDecimal.valueOf(50));
         }
+        return creditTotal;
+    }
 
-        preliminaryCreditResult.setCreditTotal(creditTotal);
-
-        BigDecimal premium = preliminaryCreditResult.getCreditTotal().add(preliminaryCreditResult.getInsuranceBonus());
-        preliminaryCreditResult.setPremium(premium);
-
-        preliminaryCreditResult.setCredit(credit);
-
-        return preliminaryCreditResult;
+    private BigDecimal calculatePremium(PreliminaryCreditResult preliminaryCreditResult) {
+        return preliminaryCreditResult
+                .getCreditTotal()
+                .add(preliminaryCreditResult.getInsuranceBonus());
     }
 }

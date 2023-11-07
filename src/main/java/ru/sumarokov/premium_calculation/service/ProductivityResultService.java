@@ -35,36 +35,36 @@ public class ProductivityResultService {
                 .findById(1L)
                 .orElse(new ProductivityResult());
 
-        productivityResult.setCountCreditsLevel(getLevelCountCredits());
-        productivityResult.setSumAmountCreditsLevel(getLevelSumAmountCredits());
-        productivityResult.setSmsPenetrationLevel(getSmsPenetrationLevel());
-        productivityResult.setInsurancePenetrationLevel(getInsurancePenetrationLevel());
-        productivityResult.setGeneralLevel(getGeneralLevel());
+        productivityResult.setCountCreditsLevel(calculateCountCreditsLevel());
+        productivityResult.setSumAmountCreditsLevel(calculateSumAmountCreditsLevel());
+        productivityResult.setSmsPenetrationLevel(calculateSmsPenetrationLevel());
+        productivityResult.setInsurancePenetrationLevel(calculateInsurancePenetrationLevel());
+        productivityResult.setGeneralLevel(calculateGeneralLevel());
         productivityResultRepository.save(productivityResult);
         return productivityResult;
     }
 
-    private ProductivityLevel getLevelCountCredits() {
+    private ProductivityLevel calculateCountCreditsLevel() {
         Integer countCredits = creditRepository.getCountCredits();
         return productivityLevelRepository.getCountCreditsLevel(countCredits).orElseThrow();
     }
 
-    private ProductivityLevel getLevelSumAmountCredits() {
+    private ProductivityLevel calculateSumAmountCreditsLevel() {
         BigDecimal sumAmountCredits = creditRepository.getSumAmountCredits();
         return productivityLevelRepository.getSumAmountCreditsLevel(sumAmountCredits).orElseThrow();
     }
 
-    private ProductivityLevel getInsurancePenetrationLevel() {
+    private ProductivityLevel calculateInsurancePenetrationLevel() {
         BigDecimal insurancePenetration = insuranceResultService.calculateInsuranceResult().getPenetration();
         return productivityLevelRepository.getInsurancePenetrationLevel(insurancePenetration).orElseThrow();
     }
 
-    private ProductivityLevel getSmsPenetrationLevel() {
-        BigDecimal smsPenetration = getCountSms();
+    private ProductivityLevel calculateSmsPenetrationLevel() {
+        BigDecimal smsPenetration = calculateSmsPenetration();
         return productivityLevelRepository.getSmsPenetrationLevel(smsPenetration).orElseThrow();
     }
 
-    private BigDecimal getCountSms() {
+    private BigDecimal calculateSmsPenetration() {
         BigDecimal countCreditsWithSms = BigDecimal.valueOf(creditRepository.getCountCreditsWithSms());
         BigDecimal countCredits = BigDecimal.valueOf(creditRepository.getCountCredits());
         if (countCredits.compareTo(BigDecimal.ZERO) == 0) {
@@ -76,11 +76,11 @@ public class ProductivityResultService {
         }
     }
 
-    private ProductivityLevel getGeneralLevel() {
+    private ProductivityLevel calculateGeneralLevel() {
         Integer countCredits = creditRepository.getCountCredits();
         BigDecimal sumAmountCredits = creditRepository.getSumAmountCredits();
         BigDecimal insurancePenetration = insuranceResultService.calculateInsuranceResult().getPenetration();
-        BigDecimal smsPenetration = getCountSms();
+        BigDecimal smsPenetration = calculateSmsPenetration();
         return productivityLevelRepository
                 .getGeneralLevel(countCredits, sumAmountCredits, smsPenetration, insurancePenetration)
                 .orElseThrow();

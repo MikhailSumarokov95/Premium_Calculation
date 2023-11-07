@@ -40,35 +40,58 @@ public class EfficiencyService {
     public Efficiency calculateEfficiency() {
         Efficiency efficiency = efficiencyRepository.findById(1L).orElse(new Efficiency());
 
-        preliminaryCreditResultService.calculatePreliminaryCreditResults();
-        BigDecimal premiumForCredit = preliminaryCreditResultRepository.getSumCreditTotal();
+        BigDecimal premiumForCredit = calculatePreliminaryCreditResult();
         efficiency.setPremiumForCredits(premiumForCredit);
 
-        BigDecimal furBonus = furResultService.culculateFurResult().getBonus();
+        BigDecimal furBonus = calculateFurBonus();
         efficiency.setFurBonus(furBonus);
 
-        BigDecimal totalProductivity = productivityResultService
-                .calculateProductivityResult()
-                .getGeneralLevel()
-                .getPremium();
+        BigDecimal totalProductivity = calculateTotalProductivity();
         efficiency.setTotalProductivity(totalProductivity);
 
-        BigDecimal premiumInsurance = insuranceResultService.calculateInsuranceResult().getTotalBonus();
+        BigDecimal premiumInsurance = calculatePremiumInsurance();
         efficiency.setPremiumInsurance(premiumInsurance);
 
-        BigDecimal maxPremium = premiumLimitRepository
-                .findById(1L)
-                .orElseThrow()
-                .getMaxTotalPremium();
-
-        BigDecimal totalPremium = premiumForCredit
-                .add(furBonus)
-                .add(totalProductivity)
-                .add(premiumInsurance)
-                .min(maxPremium);
+        BigDecimal totalPremium = calculateTotalPremium(premiumForCredit, furBonus,
+                totalProductivity, premiumInsurance);
         efficiency.setTotalPremium(totalPremium);
 
         efficiencyRepository.save(efficiency);
         return efficiency;
     }
+
+    private BigDecimal calculatePreliminaryCreditResult() {
+        preliminaryCreditResultService.calculatePreliminaryCreditResults();
+        return preliminaryCreditResultRepository.getSumCreditTotal();
+    }
+
+    private BigDecimal calculateFurBonus() {
+        return furResultService.calculateFurResult().getBonus();
+    }
+
+   private BigDecimal calculateTotalProductivity() {
+        return productivityResultService
+            .calculateProductivityResult()
+            .getGeneralLevel()
+            .getPremium();}
+
+    private BigDecimal calculatePremiumInsurance() {
+        return insuranceResultService.calculateInsuranceResult().getTotalBonus();
+    }
+
+    private BigDecimal calculateTotalPremium(BigDecimal premiumForCredit, BigDecimal furBonus,
+                                             BigDecimal totalProductivity, BigDecimal premiumInsurance) {
+        BigDecimal maxPremium = premiumLimitRepository
+                .findById(1L)
+                .orElseThrow()
+                .getMaxTotalPremium();
+
+        return premiumForCredit
+                .add(furBonus)
+                .add(totalProductivity)
+                .add(premiumInsurance)
+                .min(maxPremium);
+    }
+
+
 }

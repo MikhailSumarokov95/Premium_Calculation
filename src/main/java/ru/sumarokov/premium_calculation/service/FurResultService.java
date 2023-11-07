@@ -26,34 +26,55 @@ public class FurResultService {
         this.creditRepository = creditRepository;
     }
 
-    public FurResult culculateFurResult() {
+    public FurResult calculateFurResult() {
         FurResult furResult = furResultRepository.findById(1L).orElse(new FurResult());
 
-        Integer countCreditsCategoryFur = creditRepository.getCountCreditsCategoryFur();
+        Integer countCreditsCategoryFur = calculateCreditsCategoryFur();
         if (countCreditsCategoryFur == 0) {
             furResult = new FurResult(BigDecimal.ZERO, 0, 0, BigDecimal.ZERO, BigDecimal.ZERO);
         } else {
             furResult.setCountCreditsCategoryFur(countCreditsCategoryFur);
 
-            Integer countCreditsCategoryFurWithSms = creditRepository.getCountCreditsCategoryFurWithSms();
+            Integer countCreditsCategoryFurWithSms = calculateCountCreditsCategoryFurWithSms();
             furResult.setCountCreditsCategoryFurWithSms(countCreditsCategoryFurWithSms);
 
-            BigDecimal shareCreditsCategoryFurWithSms =
-                    BigDecimal.valueOf(countCreditsCategoryFurWithSms)
-                            .divide(BigDecimal.valueOf(countCreditsCategoryFur), 5, RoundingMode.HALF_UP)
-                            .multiply(BigDecimal.valueOf(100));
-            furResult.setPenetrationSmsCreditsCategoryFur(shareCreditsCategoryFurWithSms);
+            BigDecimal penetrationSmsCreditsCategoryFur =
+                    calculatePenetrationSmsCreditsCategoryFur(countCreditsCategoryFur, countCreditsCategoryFurWithSms);
+            furResult.setPenetrationSmsCreditsCategoryFur(penetrationSmsCreditsCategoryFur);
 
-            BigDecimal sumAmountCreditsCategoryFur = creditRepository.getSumAmountCreditsCategoryFur();
+            BigDecimal sumAmountCreditsCategoryFur = calculateSumAmountCreditsCategoryFur();
             furResult.setSumAmountCreditsCategoryFur(sumAmountCreditsCategoryFur);
 
-            BigDecimal bonus = criteriaBonusForFurRepository
-                    .getBonus(sumAmountCreditsCategoryFur, shareCreditsCategoryFurWithSms)
-                    .orElse(BigDecimal.ZERO);
+            BigDecimal bonus = calculateBonus(sumAmountCreditsCategoryFur, penetrationSmsCreditsCategoryFur);
             furResult.setBonus(bonus);
         }
-
         furResultRepository.save(furResult);
         return furResult;
+    }
+
+    private Integer calculateCreditsCategoryFur() {
+        return creditRepository.getCountCreditsCategoryFur();
+    }
+
+    private Integer calculateCountCreditsCategoryFurWithSms() {
+        return creditRepository.getCountCreditsCategoryFurWithSms();
+    }
+
+    private BigDecimal calculatePenetrationSmsCreditsCategoryFur(Integer countCreditsCategoryFur,
+                                                                 Integer countCreditsCategoryFurWithSms) {
+        return BigDecimal.valueOf(countCreditsCategoryFurWithSms)
+                .divide(BigDecimal.valueOf(countCreditsCategoryFur), 5, RoundingMode.HALF_UP)
+                .multiply(BigDecimal.valueOf(100));
+    }
+
+    private BigDecimal calculateSumAmountCreditsCategoryFur() {
+        return creditRepository.getSumAmountCreditsCategoryFur();
+    }
+
+    private BigDecimal calculateBonus(BigDecimal sumAmountCreditsCategoryFur,
+                                      BigDecimal penetrationSmsCreditsCategoryFur) {
+        return criteriaBonusForFurRepository
+                .getBonus(sumAmountCreditsCategoryFur, penetrationSmsCreditsCategoryFur)
+                .orElse(BigDecimal.ZERO);
     }
 }
