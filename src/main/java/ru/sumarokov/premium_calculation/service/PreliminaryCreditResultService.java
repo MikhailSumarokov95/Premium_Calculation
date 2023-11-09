@@ -36,7 +36,6 @@ public class PreliminaryCreditResultService {
                 .stream()
                 .map(this::calculatePreliminaryCreditResult)
                 .toList();
-        //preliminaryCreditResultRepository.deleteAll();
         preliminaryCreditResultRepository.saveAll(preliminaryCreditResults);
         return preliminaryCreditResults;
     }
