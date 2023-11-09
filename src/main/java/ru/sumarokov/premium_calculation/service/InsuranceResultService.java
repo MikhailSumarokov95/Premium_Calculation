@@ -26,6 +26,10 @@ public class InsuranceResultService {
         this.creditRepository = creditRepository;
     }
 
+    public InsuranceResult getInsuranceResult() {
+        return insuranceResultRepository.findById(1L).orElse(new InsuranceResult());
+    }
+
     public InsuranceResult calculateInsuranceResult() {
         InsuranceResult insuranceResult = insuranceResultRepository
                 .findById(1L)

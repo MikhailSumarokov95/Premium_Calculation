@@ -25,6 +25,10 @@ public class PreliminaryCreditResultService {
         this.creditRepository = creditRepository;
     }
 
+    public List<PreliminaryCreditResult> getPreliminaryCreditResults() {
+        return preliminaryCreditResultRepository.findAll();
+    }
+
     public List<PreliminaryCreditResult> calculatePreliminaryCreditResults() {
         List<Credit> credits = creditRepository.findAll();
 
@@ -32,6 +36,7 @@ public class PreliminaryCreditResultService {
                 .stream()
                 .map(this::calculatePreliminaryCreditResult)
                 .toList();
+        //preliminaryCreditResultRepository.deleteAll();
         preliminaryCreditResultRepository.saveAll(preliminaryCreditResults);
         return preliminaryCreditResults;
     }

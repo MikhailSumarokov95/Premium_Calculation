@@ -34,5 +34,6 @@ public class CreditService {
 
     public void deleteCredit(Long id) {
         creditRepository.deleteById(id);
+        efficiencyService.calculateEfficiency();
     }
 }

@@ -37,6 +37,10 @@ public class EfficiencyService {
         this.insuranceResultService = insuranceResultService;
     }
 
+    public Efficiency getEfficiency() {
+        return efficiencyRepository.findById(1L).orElse(new Efficiency());
+    }
+
     public Efficiency calculateEfficiency() {
         Efficiency efficiency = efficiencyRepository.findById(1L).orElse(new Efficiency());
 

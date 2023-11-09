@@ -8,44 +8,54 @@ import ru.sumarokov.premium_calculation.entity.Credit;
 import ru.sumarokov.premium_calculation.entity.Insurance;
 import ru.sumarokov.premium_calculation.entity.ProductGroup;
 import ru.sumarokov.premium_calculation.repository.InsuranceRepository;
+import ru.sumarokov.premium_calculation.repository.PremiumLimitRepository;
 import ru.sumarokov.premium_calculation.repository.ProductGroupRepository;
-import ru.sumarokov.premium_calculation.service.CreditService;
+import ru.sumarokov.premium_calculation.service.*;
 
 @Controller
 @RequestMapping("credit")
 public class CreditController {
 
     private final CreditService creditService;
-    private final ProductGroupRepository productGroupRepository;
-    private final InsuranceRepository insuranceRepository;
+    private final ProductGroupService productGroupService;
+    private final InsuranceService insuranceService;
+    private final EfficiencyService efficiencyService;
+    private final PreliminaryCreditResultService preliminaryCreditResultService;
 
     @Autowired
-    public CreditController(CreditService creditService, ProductGroupRepository productGroupRepository,
-                            InsuranceRepository insuranceRepository) {
+    public CreditController(CreditService creditService,
+                            ProductGroupService productGroupService,
+                            InsuranceService insuranceService,
+                            EfficiencyService efficiencyService,
+                            PreliminaryCreditResultService preliminaryCreditResultService) {
         this.creditService = creditService;
-        this.productGroupRepository = productGroupRepository;
-        this.insuranceRepository = insuranceRepository;
+        this.productGroupService = productGroupService;
+        this.insuranceService = insuranceService;
+        this.efficiencyService = efficiencyService;
+        this.preliminaryCreditResultService = preliminaryCreditResultService;
     }
 
     @GetMapping()
     public String getCreditList(Model model) {
         model.addAttribute("credits", creditService.getCredits());
+        model.addAttribute("efficiency", efficiencyService.getEfficiency());
+        model.addAttribute("preliminaryCreditResults", preliminaryCreditResultService.getPreliminaryCreditResults());
         return "credit/list";
     }
 
     @GetMapping("/create")
     public String getCreditForm(Model model) {
         model.addAttribute("credit", new Credit());
-        model.addAttribute("productGroups", productGroupRepository.findAll());
-        model.addAttribute("insurances", insuranceRepository.findAll());
+        model.addAttribute("productGroups", productGroupService.getProductGroup());
+        model.addAttribute("insurances", insuranceService.getInsurance());
         return "credit/form";
     }
 
     @GetMapping("/{id}")
     public String getCreditForm(@PathVariable Long id, Model model) {
         model.addAttribute("credit", creditService.getCredit(id));
-        model.addAttribute("productGroups", productGroupRepository.findAll());
-        model.addAttribute("insurances", insuranceRepository.findAll());
+        model.addAttribute("productGroups",  productGroupService.getProductGroup());
+        model.addAttribute("insurances", insuranceService.getInsurance());
         return "credit/form";
     }
 

@@ -26,6 +26,10 @@ public class FurResultService {
         this.creditRepository = creditRepository;
     }
 
+    public FurResult getFurResult() {
+        return furResultRepository.findById(1L).orElse(new FurResult());
+    }
+
     public FurResult calculateFurResult() {
         FurResult furResult = furResultRepository.findById(1L).orElse(new FurResult());
 

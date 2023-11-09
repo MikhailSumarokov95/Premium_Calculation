@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--/*/ <th:block th:insert="~{bootstrap/head.html :: head}">
+          </th:block> /*/-->
+    <title>Premium</title>
+</head>
+<body>
+<!--/*/ <th:block th:insert="~{bootstrap/navbar.html :: navbar}">
+          </th:block> /*/-->
+<br>
+<h1 style="text-align: center;">Эффективность</h1>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th style="text-align: center;" scope="col">Общая премия</th>
+            <th style="text-align: center;" scope="col">Премия за кредиты</th>
+            <th style="text-align: center;" scope="col">Бонус за меха</th>
+            <th style="text-align: center;" scope="col">Общая продуктивность</th>
+            <th style="text-align: center;" scope="col">Премия за страховки</th>
+        </tr>
+        </thead>
+        <tbody>
+            <td style="text-align: center;" th:text="${efficiency.totalPremium}"></td>
+            <td style="text-align: center;" th:text="${efficiency.premiumForCredits}"></td>
+            <td style="text-align: center;" th:text="${efficiency.furBonus}"></td>
+            <td style="text-align: center;" th:text="${efficiency.totalProductivity}"></td>
+            <td style="text-align: center;" th:text="${efficiency.premiumInsurance}"></td>
+        </tbody>
+    </table>
+</div>
+<br>
+<h1 style="text-align: center;">Уровень продуктивности</h1>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th style="text-align: center;" scope="col">Общий уровень</th>
+            <th style="text-align: center;" scope="col">Сумма кредитов</th>
+            <th style="text-align: center;" scope="col">Количество Кредитов</th>
+            <th style="text-align: center;" scope="col">Страхование</th>
+            <th style="text-align: center;" scope="col">СМС</th>
+        </tr>
+        </thead>
+        <tbody>
+            <td style="text-align: center;" th:text="${productivityResult.generalLevel.name}"></td>
+            <td style="text-align: center;" th:text="${productivityResult.sumAmountCreditsLevel.name}"></td>
+            <td style="text-align: center;" th:text="${productivityResult.countCreditsLevel.name}"></td>
+            <td style="text-align: center;" th:text="${productivityResult.insurancePenetrationLevel.name}"></td>
+            <td style="text-align: center;" th:text="${productivityResult.smsPenetrationLevel.name}"></td>
+        </tbody>
+    </table>
+</div>
+<br>
+<h1 style="text-align: center;">Бонус за меха</h1>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th style="text-align: center;" scope="col">Бонус</th>
+            <th style="text-align: center;" scope="col">Количество кредитов</th>
+            <th style="text-align: center;" scope="col">Количество кредитов с СМС</th>
+            <th style="text-align: center;" scope="col">Проникновение СМС</th>
+            <th style="text-align: center;" scope="col">Сумма кредитов</th>
+        </tr>
+        </thead>
+        <tbody>
+            <td style="text-align: center;" th:text="${furResult.bonus}"></td>
+            <td style="text-align: center;" th:text="${furResult.countCreditsCategoryFur}"></td>
+            <td style="text-align: center;" th:text="${furResult.countCreditsCategoryFurWithSms}"></td>
+            <td style="text-align: center;" th:text="${furResult.penetrationSmsCreditsCategoryFur}"></td>
+            <td style="text-align: center;" th:text="${furResult.sumAmountCreditsCategoryFur}"></td>
+        </tbody>
+    </table>
+</div>
+<br>
+<h1 style="text-align: center;">Премия за страховку</h1>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th style="text-align: center;" scope="col">Премия</th>
+            <th style="text-align: center;" scope="col">Проникновение</th>
+        </tr>
+        </thead>
+        <tbody>
+            <td style="text-align: center;" th:text="${insuranceResult.totalBonus}"></td>
+            <td style="text-align: center;" th:text="${insuranceResult.penetration}"></td>
+        </tbody>
+    </table>
+</div>
+
+<!--/*/ <th:block th:insert="~{bootstrap/tail.html :: tail}">
+          </th:block> /*/-->
+</body>
+</html>

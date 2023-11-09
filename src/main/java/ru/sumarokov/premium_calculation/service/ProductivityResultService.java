@@ -30,6 +30,10 @@ public class ProductivityResultService {
         this.insuranceResultService = insuranceResultService;
     }
 
+    public ProductivityResult getProductivityResult() {
+        return productivityResultRepository.findById(1L).orElse(new ProductivityResult());
+    }
+
     public ProductivityResult calculateProductivityResult() {
         ProductivityResult productivityResult = productivityResultRepository
                 .findById(1L)
