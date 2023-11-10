@@ -4,18 +4,18 @@ premium_limit, insurance_result CASCADE;
 
 CREATE TABLE IF NOT EXISTS insurance(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(32) NOT NULL,
+    name VARCHAR(64) NOT NULL,
     factor_insurance_volume NUMERIC NOT NULL,
     factor_insurance_bonus NUMERIC NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS product_group(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(32) NOT NULL,
+    name VARCHAR(64) NOT NULL,
     factor_premium NUMERIC NOT NULL,
     min_premium NUMERIC NOT NULL,
     max_premium NUMERIC NOT NULL,
-    type_credit VARCHAR(32) NOT NULL,
+    type_credit VARCHAR(64) NOT NULL,
     min_amount_for_calculating_credit_premium NUMERIC NOT NULL
 );
 
