@@ -2,9 +2,7 @@ package ru.sumarokov.premium_calculation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.sumarokov.premium_calculation.entity.Insurance;
 import ru.sumarokov.premium_calculation.entity.ProductGroup;
-import ru.sumarokov.premium_calculation.repository.InsuranceRepository;
 import ru.sumarokov.premium_calculation.repository.ProductGroupRepository;
 
 import java.util.List;
@@ -19,7 +17,19 @@ public class ProductGroupService {
         this.productGroupRepository = productGroupRepository;
     }
 
-    public List<ProductGroup> getProductGroup() {
+    public List<ProductGroup> getProductGroups() {
         return productGroupRepository.findAll();
+    }
+
+    public ProductGroup getProductGroup(Long id) {
+        return productGroupRepository.findById(id).orElseThrow();
+    }
+
+    public void saveProductGroup(ProductGroup productGroup) {
+        productGroupRepository.save(productGroup);
+    }
+
+    public void deleteProductGroup(Long id) {
+        productGroupRepository.deleteById(id);
     }
 }

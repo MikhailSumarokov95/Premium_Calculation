@@ -70,7 +70,7 @@ public class PreliminaryCreditResultService {
 
     private BigDecimal calculateCreditPreviously(Credit credit) {
         BigDecimal creditPreviously;
-        if (credit.getProductGroup().getTypeCredit() == TypeCredit.CashOnCard) {
+        if (credit.getProductGroup().getTypeCredit() == TypeCredit.CASH_ON_CARD) {
             if (credit.getProductGroup()
                     .getMinAmountForCalculatingCreditPremium()
                     .compareTo(credit.getAmount()) < 0) {

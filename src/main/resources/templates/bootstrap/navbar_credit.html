@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div th:fragment="navbar">
+    <nav class="navbar navbar-expand bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white">КАЛЬКУЛЯТОР ПРЕМИИ</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Переключатель навигации">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="/credit">Список кредитов</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="/premium">Разбор премирования</a>
+                    </li>
+                </ul>
+            </div>
+            <form class="d-flex" th:action="@{/login}">
+                <button class="btn btn-outline-success text-white" type="submit">Выход</button>
+            </form>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

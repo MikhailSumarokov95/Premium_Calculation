@@ -66,6 +66,7 @@ public class EfficiencyService {
 
     private BigDecimal calculatePreliminaryCreditResult() {
         preliminaryCreditResultService.calculatePreliminaryCreditResults();
+        //TODO: без БД
         return preliminaryCreditResultRepository.getSumCreditTotal();
     }
 
@@ -73,11 +74,12 @@ public class EfficiencyService {
         return furResultService.calculateFurResult().getBonus();
     }
 
-   private BigDecimal calculateTotalProductivity() {
+    private BigDecimal calculateTotalProductivity() {
         return productivityResultService
-            .calculateProductivityResult()
-            .getGeneralLevel()
-            .getPremium();}
+                .calculateProductivityResult()
+                .getGeneralLevel()
+                .getPremium();
+    }
 
     private BigDecimal calculatePremiumInsurance() {
         return insuranceResultService.calculateInsuranceResult().getTotalBonus();
@@ -90,12 +92,11 @@ public class EfficiencyService {
                 .orElseThrow()
                 .getMaxTotalPremium();
 
-        return premiumForCredit
+        BigDecimal totalPremium = premiumForCredit
                 .add(furBonus)
                 .add(totalProductivity)
-                .add(premiumInsurance)
-                .min(maxPremium);
+                .add(premiumInsurance);
+
+        return totalPremium.min(maxPremium);
     }
-
-
 }

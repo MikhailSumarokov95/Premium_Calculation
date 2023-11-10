@@ -18,7 +18,19 @@ public class InsuranceService {
         this.insuranceRepository = insuranceRepository;
     }
 
-    public List<Insurance> getInsurance() {
+    public List<Insurance> getInsurances() {
         return insuranceRepository.findAll();
+    }
+
+    public Insurance getInsurance(Long id) {
+        return insuranceRepository.findById(id).orElseThrow();
+    }
+
+    public void saveInsurance(Insurance insurance) {
+        insuranceRepository.save(insurance);
+    }
+
+    public void deleteInsurance(Long id) {
+        insuranceRepository.deleteById(id);
     }
 }

@@ -44,9 +44,9 @@ public class PremiumCalculationApplication implements CommandLineRunner {
         insuranceRepository.save(new Insurance(2L, "Life", new BigDecimal(1), new BigDecimal("1.4")));
         insuranceRepository.save(new Insurance(3L, "Unemployment", new BigDecimal(1), new BigDecimal("1.6")));
         insuranceRepository.save(new Insurance(4L, "Combo", new BigDecimal(2), new BigDecimal(3)));
-        productGroupRepository.save(new ProductGroup(1L, "Dns", new BigDecimal("0.002"), new BigDecimal(30), new BigDecimal(3000), TypeCredit.PointOfSale, new BigDecimal(0)));
-        productGroupRepository.save(new ProductGroup(2L, "FURNITURE_FURS_AND_CLOTHING", new BigDecimal("0.0032"), new BigDecimal(30), new BigDecimal(3000), TypeCredit.PointOfSale, new BigDecimal(0)));
-        productGroupRepository.save(new ProductGroup(3L, "COC_PREFERENTIAL", new BigDecimal("0.0009"), new BigDecimal(30), new BigDecimal(3000), TypeCredit.CashOnCard, new BigDecimal(100000)));
+        productGroupRepository.save(new ProductGroup(1L, "Dns", new BigDecimal("0.002"), new BigDecimal(30), new BigDecimal(3000), TypeCredit.POINT_OF_SALE, new BigDecimal(0)));
+        productGroupRepository.save(new ProductGroup(2L, "FURNITURE_FURS_AND_CLOTHING", new BigDecimal("0.0032"), new BigDecimal(30), new BigDecimal(3000), TypeCredit.POINT_OF_SALE, new BigDecimal(0)));
+        productGroupRepository.save(new ProductGroup(3L, "COC_PREFERENTIAL", new BigDecimal("0.0009"), new BigDecimal(30), new BigDecimal(3000), TypeCredit.CASH_ON_CARD, new BigDecimal(100000)));
         criteriaBonusForFurRepository.save(new CriteriaBonusForFur(1L, new BigDecimal(750000), new BigDecimal(70), new BigDecimal(7500)));
         productivityLevelRepository.save(new ProductivityLevel(1L, "Level 0", BigDecimal.ZERO, 0, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
         productivityLevelRepository.save(new ProductivityLevel(2L, "Level 1", new BigDecimal(7000), 16, new BigDecimal(500001), new BigDecimal(75), BigDecimal.ZERO));

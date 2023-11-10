@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--/*/ <th:block th:insert="~{bootstrap/head.html :: head}">
+          </th:block> /*/-->
+    <title>Критерии получения бонуса за меха</title>
+</head>
+<body>
+<!--/*/ <th:block th:insert="~{bootstrap/navbar_admin.html :: navbar}">
+          </th:block> /*/-->
+<br>
+<form action="#" th:action="@{/criteria-bonus-for-fur/save}" th:object="${criteria}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-4 text-center">
+                <label for="inputMinSum" class="control-label"><b>Минимальная сумма</b></label>
+                <div class="input-group">
+                    <input type="number" th:field="*{minSum}" id="inputMinSum" class="form-control"
+                           placeholder="Введите мин. сумму">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-4 text-center">
+                <label for="inputMinSms" class="control-label"><b>Минимальное проникновение СМС</b></label>
+                <div class="input-group">
+                    <input type="number" th:field="*{minSms}" id="inputMinSms" class="form-control"
+                           placeholder="Введите мин. проникновение СМС">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-4 text-center">
+                <label for="inputBonus" class="control-label"><b>Бонус</b></label>
+                <div class="input-group">
+                    <input type="number" th:field="*{bonus}" id="inputBonus" class="form-control"
+                           placeholder="Введите бонус">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-4 text-center">
+                <input type="submit" value="Сохранить" class="btn btn-primary btn-lg">
+            </div>
+        </div>
+    </div>
+</form>
+
+<!--/*/ <th:block th:insert="~{bootstrap/tail.html :: tail}">
+          </th:block> /*/-->
+</body>
+</html>

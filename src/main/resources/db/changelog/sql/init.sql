@@ -1,4 +1,6 @@
-DROP TABLE IF EXISTS credit, preliminary_credit_result, efficiency, insured, product_group CASCADE;
+DROP TABLE IF EXISTS insurance, product_group, credit, preliminary_credit_result,
+efficiency, criteria_bonus_for_fur, fur_result, productivity_level, productivity_result,
+premium_limit, insurance_result CASCADE;
 
 CREATE TABLE IF NOT EXISTS insurance(
     id SERIAL PRIMARY KEY,

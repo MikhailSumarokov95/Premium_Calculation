@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--/*/ <th:block th:insert="~{bootstrap/head.html :: head}">
+          </th:block> /*/-->
+    <title>Home</title>
+</head>
+<body>
+<!--/*/ <th:block th:insert="~{bootstrap/navbar_admin.html :: navbar}">
+          </th:block> /*/-->
+<br>
+<h2 style="text-align: center;" >Уровни продуктивности</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th style="text-align: center;" scope="col">Название</th>
+            <th style="text-align: center;" scope="col">Премия</th>
+            <th style="text-align: center;" scope="col">Минимальное количество кредитов</th>
+            <th style="text-align: center;" scope="col">Минимальная сумма кредитов</th>
+            <th style="text-align: center;" scope="col">Минимальное проникновение СМС</th>
+            <th style="text-align: center;" scope="col">Минимальное проникновение страховок</th>
+            <th scope="col">
+                <div style="text-align: center;">Изменить</div>
+            </th>
+            <th scope="col">
+                <div style="text-align: center;">Удалить</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="level : ${productivityLevels}">
+            <td style="text-align: center;" th:text="${level.name}"></td>
+            <td style="text-align: center;" th:text="${level.premium}"></td>
+            <td style="text-align: center;" th:text="${level.minCountCredits}"></td>
+            <td style="text-align: center;" th:text="${level.minSumAmountCredits}"></td>
+            <td style="text-align: center;" th:text="${level.minPenetrationSms}"></td>
+            <td style="text-align: center;" th:text="${level.minPenetrationInsurance}"></td>
+            <td>
+                <div style="text-align: center;">
+                    <a class="icon-link" th:href="${'/productivity-level/' + level.id}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                             class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd"
+                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                        </svg>
+                    </a>
+                </div>
+            </td>
+            <td>
+                <div style="text-align: center;">
+                    <a class="icon-link" th:href="${'/productivity-level/' + level.id + '/delete'}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                             class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div style="text-align: center;">
+    <a class="icon-link" th:href="${'/productivity-level/create'}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-plus-circle"
+             viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+    </a>
+</div>
+
+<br>
+<h2 style="text-align: center;" >Группы продуктов</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th style="text-align: center;" scope="col">Название</th>
+            <th style="text-align: center;" scope="col">Множитель премии</th>
+            <th style="text-align: center;" scope="col">Минимальная премия</th>
+            <th style="text-align: center;" scope="col">Максимальная премия</th>
+            <th style="text-align: center;" scope="col">Тип кредита</th>
+            <th style="text-align: center;" scope="col">Минимальная сумма кредита для расчета премии</th>
+            <th scope="col">
+                <div style="text-align: center;">Изменить</div>
+            </th>
+            <th scope="col">
+                <div style="text-align: center;">Удалить</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${productGroup}">
+            <td style="text-align: center;" th:text="${product.name}"></td>
+            <td style="text-align: center;" th:text="${product.factorPremium}"></td>
+            <td style="text-align: center;" th:text="${product.minPremium}"></td>
+            <td style="text-align: center;" th:text="${product.maxPremium}"></td>
+            <td style="text-align: center;" th:text="${product.typeCredit}"></td>
+            <td style="text-align: center;" th:text="${product.minAmountForCalculatingCreditPremium}"></td>
+            <td>
+                <div style="text-align: center;">
+                    <a class="icon-link" th:href="${'/product-group/' + product.id}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                             class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd"
+                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                        </svg>
+                    </a>
+                </div>
+            </td>
+            <td>
+                <div style="text-align: center;">
+                    <a class="icon-link" th:href="${'/product-group/' + product.id + '/delete'}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                             class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div style="text-align: center;">
+    <a class="icon-link" th:href="${'/product-group/create'}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-plus-circle"
+             viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+    </a>
+</div>
+
+<br>
+<h2 style="text-align: center;" >Ограничение премии</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th style="text-align: center;" scope="col">Максимальная итоговая премия</th>
+            <th style="text-align: center;" scope="col">
+                <div style="text-align: center;">Изменить</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <td style="text-align: center;" th:text="${premiumLimit.maxTotalPremium}"></td>
+        <td>
+            <div style="text-align: center;">
+                <a class="icon-link" th:href="${'/premium-limit/' + premiumLimit.id}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                         class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd"
+                              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                    </svg>
+                </a>
+            </div>
+        </td>
+        </tbody>
+    </table>
+</div>
+
+<h2 style="text-align: center;" >Страховки</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th style="text-align: center;" scope="col">Название</th>
+            <th style="text-align: center;" scope="col">Множитель объема</th>
+            <th style="text-align: center;" scope="col">Минимальная премии</th>
+            <th style="text-align: center;" scope="col">
+                <div style="text-align: center;">Изменить</div>
+            </th>
+            <th scope="col">
+                <div style="text-align: center;">Удалить</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="insurance : ${insurances}">
+            <td style="text-align: center;" th:text="${insurance.name}"></td>
+            <td style="text-align: center;" th:text="${insurance.factorInsuranceVolume}"></td>
+            <td style="text-align: center;" th:text="${insurance.factorInsuranceBonus}"></td>
+            <td>
+                <div style="text-align: center;">
+                    <a class="icon-link" th:href="${'/insurance/' + insurance.id}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                             class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd"
+                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                        </svg>
+                    </a>
+                </div>
+            </td>
+            <td>
+                <div style="text-align: center;">
+                    <a class="icon-link" th:href="${'/insurance/' + insurance.id + '/delete'}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                             class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div style="text-align: center;">
+    <a class="icon-link" th:href="${'/insurance/create'}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-plus-circle"
+             viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+    </a>
+</div>
+
+<br>
+<h2 style="text-align: center;" >Критерии для получения бонуса за меха</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th style="text-align: center;" scope="col">Минимальная сумма кредитов категории меха</th>
+            <th style="text-align: center;" scope="col">Минимальное проникновение СМС в кредитах категории меха</th>
+            <th style="text-align: center;" scope="col">Бонус</th>
+            <th scope="col">
+                <div style="text-align: center;">Изменить</div>
+            </th>
+            <th scope="col">
+                <div style="text-align: center;">Удалить</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="criteria : ${criteriasFur}">
+            <td style="text-align: center;" th:text="${criteria.minSum}"></td>
+            <td style="text-align: center;" th:text="${criteria.minSms}"></td>
+            <td style="text-align: center;" th:text="${criteria.bonus}"></td>
+            <td>
+                <div style="text-align: center;">
+                    <a class="icon-link" th:href="${'/criteria-bonus-for-fur/' + criteria.id}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                             class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd"
+                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                        </svg>
+                    </a>
+                </div>
+            </td>
+            <td>
+                <div style="text-align: center;">
+                    <a class="icon-link" th:href="${'/criteria-bonus-for-fur/' + criteria.id + '/delete'}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                             class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div style="text-align: center;">
+    <a class="icon-link" th:href="${'/criteria-bonus-for-fur/create'}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-plus-circle"
+             viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+    </a>
+</div>
+
+<!--/*/ <th:block th:insert="~{bootstrap/tail.html :: tail}">
+          </th:block> /*/-->
+</body>
+</html>

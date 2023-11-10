@@ -1,15 +1,10 @@
 package ru.sumarokov.premium_calculation.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.sumarokov.premium_calculation.entity.Credit;
-import ru.sumarokov.premium_calculation.entity.Insurance;
-import ru.sumarokov.premium_calculation.entity.ProductGroup;
-import ru.sumarokov.premium_calculation.repository.InsuranceRepository;
-import ru.sumarokov.premium_calculation.repository.PremiumLimitRepository;
-import ru.sumarokov.premium_calculation.repository.ProductGroupRepository;
 import ru.sumarokov.premium_calculation.service.*;
 
 @Controller
@@ -46,16 +41,16 @@ public class CreditController {
     @GetMapping("/create")
     public String getCreditForm(Model model) {
         model.addAttribute("credit", new Credit());
-        model.addAttribute("productGroups", productGroupService.getProductGroup());
-        model.addAttribute("insurances", insuranceService.getInsurance());
+        model.addAttribute("productGroups", productGroupService.getProductGroups());
+        model.addAttribute("insurances", insuranceService.getInsurances());
         return "credit/form";
     }
 
     @GetMapping("/{id}")
     public String getCreditForm(@PathVariable Long id, Model model) {
         model.addAttribute("credit", creditService.getCredit(id));
-        model.addAttribute("productGroups",  productGroupService.getProductGroup());
-        model.addAttribute("insurances", insuranceService.getInsurance());
+        model.addAttribute("productGroups",  productGroupService.getProductGroups());
+        model.addAttribute("insurances", insuranceService.getInsurances());
         return "credit/form";
     }
 
