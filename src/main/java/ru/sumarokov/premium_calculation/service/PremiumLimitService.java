@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import ru.sumarokov.premium_calculation.entity.PremiumLimit;
 import ru.sumarokov.premium_calculation.repository.PremiumLimitRepository;
 
-
 @Service
 public class PremiumLimitService {
 

@@ -2,6 +2,7 @@ package ru.sumarokov.premium_calculation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.sumarokov.premium_calculation.entity.Credit;
 import ru.sumarokov.premium_calculation.repository.CreditRepository;
 
@@ -27,11 +28,13 @@ public class CreditService {
         return creditRepository.findById(id).orElseThrow();
     }
 
+    @Transactional
     public void saveCredit(Credit credit) {
         creditRepository.save(credit);
         efficiencyService.calculateEfficiency();
     }
 
+    @Transactional
     public void deleteCredit(Long id) {
         creditRepository.deleteById(id);
         efficiencyService.calculateEfficiency();

@@ -44,8 +44,7 @@ public class ProductivityResultService {
         productivityResult.setSmsPenetrationLevel(calculateSmsPenetrationLevel());
         productivityResult.setInsurancePenetrationLevel(calculateInsurancePenetrationLevel());
         productivityResult.setGeneralLevel(calculateGeneralLevel());
-        productivityResultRepository.save(productivityResult);
-        return productivityResult;
+        return productivityResultRepository.save(productivityResult);
     }
 
     private ProductivityLevel calculateCountCreditsLevel() {

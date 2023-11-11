@@ -36,8 +36,7 @@ public class PreliminaryCreditResultService {
                 .stream()
                 .map(this::calculatePreliminaryCreditResult)
                 .toList();
-        preliminaryCreditResultRepository.saveAll(preliminaryCreditResults);
-        return preliminaryCreditResults;
+        return preliminaryCreditResultRepository.saveAll(preliminaryCreditResults);
     }
 
     public PreliminaryCreditResult calculatePreliminaryCreditResult(Credit credit) {

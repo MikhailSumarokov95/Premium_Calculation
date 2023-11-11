@@ -52,8 +52,6 @@ public class FurResultService {
             BigDecimal bonus = calculateBonus(sumAmountCreditsCategoryFur, penetrationSmsCreditsCategoryFur);
             furResult.setBonus(bonus);
         }
-
-        //TODO: Поправить везде сохранение + возрат
         return furResultRepository.save(furResult);
     }
 

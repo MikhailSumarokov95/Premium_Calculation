@@ -60,8 +60,7 @@ public class EfficiencyService {
                 totalProductivity, premiumInsurance);
         efficiency.setTotalPremium(totalPremium);
 
-        efficiencyRepository.save(efficiency);
-        return efficiency;
+        return efficiencyRepository.save(efficiency);
     }
 
     private BigDecimal calculatePreliminaryCreditResult() {

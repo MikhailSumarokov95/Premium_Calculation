@@ -37,8 +37,7 @@ public class InsuranceResultService {
 
         insuranceResult.setTotalBonus(calculateTotalBonus());
         insuranceResult.setPenetration(calculatePenetration());
-        insuranceResultRepository.save(insuranceResult);
-        return insuranceResult;
+        return insuranceResultRepository.save(insuranceResult);
     }
 
     private BigDecimal calculateTotalBonus() {
