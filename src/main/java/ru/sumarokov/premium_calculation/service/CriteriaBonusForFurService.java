@@ -3,7 +3,6 @@ package ru.sumarokov.premium_calculation.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sumarokov.premium_calculation.entity.CriteriaBonusForFur;
-import ru.sumarokov.premium_calculation.entity.ProductivityLevel;
 import ru.sumarokov.premium_calculation.repository.CriteriaBonusForFurRepository;
 
 import java.util.List;

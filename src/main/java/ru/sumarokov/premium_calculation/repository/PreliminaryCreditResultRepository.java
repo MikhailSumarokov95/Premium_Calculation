@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import ru.sumarokov.premium_calculation.entity.PreliminaryCreditResult;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 public interface PreliminaryCreditResultRepository extends JpaRepository<PreliminaryCreditResult, Long> {
 
