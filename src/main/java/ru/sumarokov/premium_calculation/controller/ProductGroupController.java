@@ -21,13 +21,13 @@ public class ProductGroupController {
     @GetMapping("/create")
     public String getProductGroupForm(Model model) {
         model.addAttribute("productGroup", new ProductGroup());
-        return "admin/productGroup/form";
+        return "admin/product_group/form";
     }
 
     @GetMapping("/{id}")
     public String getProductGroupForm(@PathVariable Long id, Model model) {
         model.addAttribute("productGroup", productGroupService.getProductGroup(id));
-        return "admin/productGroup/form";
+        return "admin/product_group/form";
     }
 
     @PostMapping("/save")

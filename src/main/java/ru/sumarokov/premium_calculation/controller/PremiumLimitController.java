@@ -21,7 +21,7 @@ public class PremiumLimitController {
     @GetMapping("/{id}")
     public String getPremiumLimitForm(@PathVariable Long id, Model model) {
         model.addAttribute("premiumLimit", premiumLimitService.getPremiumLimit());
-        return "admin/premiumLimit/form";
+        return "admin/premium_limit/form";
     }
 
     @PostMapping("/save")

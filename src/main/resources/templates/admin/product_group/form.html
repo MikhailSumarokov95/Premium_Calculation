@@ -56,7 +56,7 @@
             <div class="col-4 text-center">
                 <label class="form-label" for="inputTypeCredit"><b>Тип кредита</b></label>
                 <select class="form-control" th:field="*{typeCredit}" id="inputTypeCredit">
-                    <option th:each="type : ${T(ru.sumarokov.premium_calculation.helper.TypeCredit.values()}"
+                    <option th:each="type : ${T(ru.sumarokov.premium_calculation.helper.TypeCredit).values()}"
                             th:value="${type}" th:text="${type}"></option>
                 </select>
             </div>

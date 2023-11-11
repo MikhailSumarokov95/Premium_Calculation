@@ -21,13 +21,13 @@ public class ProductivityLevelController {
     @GetMapping("/create")
     public String getProductivityLevelForm(Model model) {
         model.addAttribute("productivityLevel", new ProductivityLevel());
-        return "admin/productivityLevel/form";
+        return "admin/productivity_level/form";
     }
 
     @GetMapping("/{id}")
     public String getProductivityLevelForm(@PathVariable Long id, Model model) {
         model.addAttribute("productivityLevel", productivityLevelService.getProductivityLevel(id));
-        return "admin/productivityLevel/form";
+        return "admin/productivity_level/form";
     }
 
     @PostMapping("/save")
