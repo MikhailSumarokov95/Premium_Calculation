@@ -60,8 +60,8 @@ CREATE TABLE IF NOT EXISTS criteria_bonus_for_fur(
 CREATE TABLE IF NOT EXISTS fur_result(
     id SERIAL PRIMARY KEY,
     bonus NUMERIC NOT NULL,
-    count_credits_category_fur INTEGER NOT NULL,
-    count_credits_category_fur_with_sms INTEGER NOT NULL,
+    count_credits_category_fur BIGINT NOT NULL,
+    count_credits_category_fur_with_sms BIGINT NOT NULL,
     penetration_sms_credits_category_fur NUMERIC NOT NULL,
     sum_amount_credits_category_fur NUMERIC NOT NULL
 );
@@ -93,5 +93,6 @@ CREATE TABLE IF NOT EXISTS premium_limit(
 CREATE TABLE IF NOT EXISTS insurance_result(
     id SERIAL PRIMARY KEY,
     total_bonus NUMERIC NOT NULL,
-    penetration NUMERIC NOT NULL
+    penetration NUMERIC NOT NULL,
+    sum_insurance_volume NUMERIC NOT NULL
 );

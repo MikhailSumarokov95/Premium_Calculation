@@ -13,6 +13,7 @@ public class InsuranceResult {
     private Long id;
     private BigDecimal totalBonus;
     private BigDecimal penetration;
+    private BigDecimal sumInsuranceVolume;
 
     public Long getId() {
         return id;
@@ -36,5 +37,13 @@ public class InsuranceResult {
 
     public void setPenetration(BigDecimal penetration) {
         this.penetration = penetration;
+    }
+
+    public BigDecimal getSumInsuranceVolume() {
+        return sumInsuranceVolume;
+    }
+
+    public void setSumInsuranceVolume(BigDecimal sumInsuranceVolume) {
+        this.sumInsuranceVolume = sumInsuranceVolume;
     }
 }

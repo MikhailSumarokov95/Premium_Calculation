@@ -5,17 +5,11 @@ import org.springframework.data.jpa.repository.Query;
 import ru.sumarokov.premium_calculation.entity.Credit;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface CreditRepository extends JpaRepository<Credit, Long> {
 
-    @Query("SELECT COUNT(c) FROM Credit c WHERE c.isFur = true")
-    Integer getCountCreditsCategoryFur();
-
-    @Query("SELECT COUNT(c) FROM Credit c WHERE c.isFur = true AND c.isConnectedSms = true")
-    Integer getCountCreditsCategoryFurWithSms();
-
-    @Query("SELECT SUM(c.amount) FROM Credit c WHERE c.isFur = true")
-    BigDecimal getSumAmountCreditsCategoryFur();
+    List<Credit> findByIsFurTrue();
 
     @Query("SELECT SUM(c.amount) FROM Credit c")
     BigDecimal getSumAmountCredits();

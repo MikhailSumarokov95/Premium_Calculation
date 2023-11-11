@@ -2,6 +2,7 @@ package ru.sumarokov.premium_calculation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.sumarokov.premium_calculation.entity.Credit;
 import ru.sumarokov.premium_calculation.entity.ProductivityLevel;
 import ru.sumarokov.premium_calculation.entity.ProductivityResult;
 import ru.sumarokov.premium_calculation.repository.CreditRepository;
@@ -10,6 +11,7 @@ import ru.sumarokov.premium_calculation.repository.ProductivityResultRepository;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @Service
 public class ProductivityResultService {
@@ -39,32 +41,25 @@ public class ProductivityResultService {
                 .findById(1L)
                 .orElse(new ProductivityResult());
 
-        productivityResult.setCountCreditsLevel(calculateCountCreditsLevel());
-        productivityResult.setSumAmountCreditsLevel(calculateSumAmountCreditsLevel());
-        productivityResult.setSmsPenetrationLevel(calculateSmsPenetrationLevel());
-        productivityResult.setInsurancePenetrationLevel(calculateInsurancePenetrationLevel());
-        productivityResult.setGeneralLevel(calculateGeneralLevel());
+        List<Credit> credits = creditRepository.findAll();
+        Long countCredits = (long) credits.size();
+        BigDecimal sumAmountCredits = calculateSumAmountCredits(credits);
+        BigDecimal insurancePenetration = insuranceResultService.calculateInsuranceResult().getPenetration();
+        BigDecimal smsPenetration = calculateSmsPenetration();
+        List<ProductivityLevel> productivityLevels = productivityLevelRepository.findAllByOrderByPremiumDesc();
+
+        productivityResult.setCountCreditsLevel(calculateCountCreditsLevel(countCredits, productivityLevels));
+        productivityResult.setSumAmountCreditsLevel(calculateSumAmountCreditsLevel(sumAmountCredits, productivityLevels));
+        productivityResult.setSmsPenetrationLevel(calculateSmsPenetrationLevel(smsPenetration, productivityLevels));
+        productivityResult.setInsurancePenetrationLevel(calculateInsurancePenetrationLevel(insurancePenetration, productivityLevels));
+        productivityResult.setGeneralLevel(calculateGeneralLevel(countCredits, sumAmountCredits, insurancePenetration, smsPenetration, productivityLevels));
         return productivityResultRepository.save(productivityResult);
     }
 
-    private ProductivityLevel calculateCountCreditsLevel() {
-        Integer countCredits = creditRepository.getCountCredits();
-        return productivityLevelRepository.getCountCreditsLevel(countCredits).orElseThrow();
-    }
-
-    private ProductivityLevel calculateSumAmountCreditsLevel() {
-        BigDecimal sumAmountCredits = creditRepository.getSumAmountCredits();
-        return productivityLevelRepository.getSumAmountCreditsLevel(sumAmountCredits).orElseThrow();
-    }
-
-    private ProductivityLevel calculateInsurancePenetrationLevel() {
-        BigDecimal insurancePenetration = insuranceResultService.calculateInsuranceResult().getPenetration();
-        return productivityLevelRepository.getInsurancePenetrationLevel(insurancePenetration).orElseThrow();
-    }
-
-    private ProductivityLevel calculateSmsPenetrationLevel() {
-        BigDecimal smsPenetration = calculateSmsPenetration();
-        return productivityLevelRepository.getSmsPenetrationLevel(smsPenetration).orElseThrow();
+    private BigDecimal calculateSumAmountCredits(List<Credit> credits) {
+        return credits.stream()
+                .map(Credit::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private BigDecimal calculateSmsPenetration() {
@@ -79,13 +74,49 @@ public class ProductivityResultService {
         }
     }
 
-    private ProductivityLevel calculateGeneralLevel() {
-        Integer countCredits = creditRepository.getCountCredits();
-        BigDecimal sumAmountCredits = creditRepository.getSumAmountCredits();
-        BigDecimal insurancePenetration = insuranceResultService.calculateInsuranceResult().getPenetration();
-        BigDecimal smsPenetration = calculateSmsPenetration();
-        return productivityLevelRepository
-                .getGeneralLevel(countCredits, sumAmountCredits, smsPenetration, insurancePenetration)
+    private ProductivityLevel calculateCountCreditsLevel(Long countCredits,
+                                                         List<ProductivityLevel> productivityLevels) {
+        return productivityLevels.stream()
+                .filter(p -> p.getMinCountCredits() < countCredits)
+                .findFirst()
+                .orElseThrow();
+    }
+
+    private ProductivityLevel calculateSumAmountCreditsLevel(BigDecimal sumAmountCredits,
+                                                             List<ProductivityLevel> productivityLevels) {
+        return productivityLevels.stream()
+                .filter(p -> p.getMinSumAmountCredits().compareTo(sumAmountCredits) < 0)
+                .findFirst()
+                .orElseThrow();
+    }
+
+    private ProductivityLevel calculateSmsPenetrationLevel(BigDecimal smsPenetration,
+                                                           List<ProductivityLevel> productivityLevels) {
+        return productivityLevels.stream()
+                .filter(p -> p.getMinPenetrationSms().compareTo(smsPenetration) < 0)
+                .findFirst()
+                .orElseThrow();
+    }
+
+    private ProductivityLevel calculateInsurancePenetrationLevel(BigDecimal insurancePenetration,
+                                                                 List<ProductivityLevel> productivityLevels) {
+        return productivityLevels.stream()
+                .filter(p -> p.getMinPenetrationInsurance().compareTo(insurancePenetration) < 0)
+                .findFirst()
+                .orElseThrow();
+    }
+
+    private ProductivityLevel calculateGeneralLevel(Long countCredits,
+                                                    BigDecimal sumAmountCredits,
+                                                    BigDecimal insurancePenetration,
+                                                    BigDecimal smsPenetration,
+                                                    List<ProductivityLevel> productivityLevels) {
+        return productivityLevels.stream()
+                .filter(p -> (p.getMinCountCredits() < (countCredits)
+                        || p.getMinSumAmountCredits().compareTo(sumAmountCredits) < 0)
+                        && p.getMinPenetrationInsurance().compareTo(insurancePenetration) < 0
+                        && p.getMinPenetrationSms().compareTo(smsPenetration) < 0)
+                .findFirst()
                 .orElseThrow();
     }
 }

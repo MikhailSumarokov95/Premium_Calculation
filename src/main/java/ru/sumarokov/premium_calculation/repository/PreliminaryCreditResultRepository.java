@@ -8,12 +8,6 @@ import java.math.BigDecimal;
 
 public interface PreliminaryCreditResultRepository extends JpaRepository<PreliminaryCreditResult, Long> {
 
-    @Query("SELECT SUM(pcr.creditTotal) FROM PreliminaryCreditResult pcr")
-    BigDecimal getSumCreditTotal();
-
     @Query("SELECT SUM(pcr.insuranceBonus) FROM PreliminaryCreditResult pcr")
     BigDecimal getSumInsuranceBonus();
-
-    @Query("SELECT SUM(pcr.insuranceVolume) FROM PreliminaryCreditResult pcr")
-    BigDecimal getSumInsuranceVolume();
 }

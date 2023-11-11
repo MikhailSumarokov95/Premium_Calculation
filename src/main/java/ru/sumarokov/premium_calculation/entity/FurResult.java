@@ -12,15 +12,15 @@ public class FurResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private BigDecimal bonus;
-    private Integer countCreditsCategoryFur;
-    private Integer countCreditsCategoryFurWithSms;
+    private Long countCreditsCategoryFur;
+    private Long countCreditsCategoryFurWithSms;
     private BigDecimal penetrationSmsCreditsCategoryFur;
     private BigDecimal sumAmountCreditsCategoryFur;
 
     public FurResult() {
     }
 
-    public FurResult(BigDecimal bonus, Integer countCreditsCategoryFur, Integer countCreditsCategoryFurWithSms,
+    public FurResult(BigDecimal bonus, Long countCreditsCategoryFur, Long countCreditsCategoryFurWithSms,
                      BigDecimal penetrationSmsCreditsCategoryFur, BigDecimal sumAmountCreditsCategoryFur) {
         this.bonus = bonus;
         this.countCreditsCategoryFur = countCreditsCategoryFur;
@@ -45,19 +45,19 @@ public class FurResult {
         this.bonus = bonus;
     }
 
-    public Integer getCountCreditsCategoryFur() {
+    public Long getCountCreditsCategoryFur() {
         return countCreditsCategoryFur;
     }
 
-    public void setCountCreditsCategoryFur(Integer countCreditsCategoryFur) {
+    public void setCountCreditsCategoryFur(Long countCreditsCategoryFur) {
         this.countCreditsCategoryFur = countCreditsCategoryFur;
     }
 
-    public Integer getCountCreditsCategoryFurWithSms() {
+    public Long getCountCreditsCategoryFurWithSms() {
         return countCreditsCategoryFurWithSms;
     }
 
-    public void setCountCreditsCategoryFurWithSms(Integer countCreditsCategoryFurWithSms) {
+    public void setCountCreditsCategoryFurWithSms(Long countCreditsCategoryFurWithSms) {
         this.countCreditsCategoryFurWithSms = countCreditsCategoryFurWithSms;
     }
 

@@ -5,9 +5,14 @@ import org.springframework.data.jpa.repository.Query;
 import ru.sumarokov.premium_calculation.entity.ProductivityLevel;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductivityLevelRepository extends JpaRepository<ProductivityLevel, Long> {
+
+    List<ProductivityLevel> findAllByOrderByPremiumDesc();
+
+    List<ProductivityLevel> findAllByOrderByPremiumAsc();
 
     @Query("SELECT pl FROM ProductivityLevel pl WHERE pl.minCountCredits <= ?1 ORDER BY pl.id DESC LIMIT 1")
     Optional<ProductivityLevel> getCountCreditsLevel(Integer countCredits);

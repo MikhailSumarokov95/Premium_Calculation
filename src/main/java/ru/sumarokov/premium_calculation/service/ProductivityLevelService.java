@@ -16,7 +16,7 @@ public class ProductivityLevelService {
     }
 
     public List<ProductivityLevel> getProductivityLevels() {
-        return productivityLevelRepository.findAll();
+        return productivityLevelRepository.findAllByOrderByPremiumAsc();
     }
 
     public ProductivityLevel getProductivityLevel(Long id) {
