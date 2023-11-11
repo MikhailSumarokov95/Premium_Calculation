@@ -11,5 +11,5 @@ public interface CriteriaBonusForFurRepository extends JpaRepository<CriteriaBon
 
     @Query("SELECT bonus FROM CriteriaBonusForFur cbff WHERE cbff.minSum <= ?1 AND cbff.minSms <= ?2")
     Optional<BigDecimal> getBonus(BigDecimal sumAmountCreditsCategoryFur,
-                                 BigDecimal shareCreditsCategoryFurWithSms);
+                                  BigDecimal shareCreditsCategoryFurWithSms);
 }

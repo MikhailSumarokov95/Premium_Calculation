@@ -49,7 +49,7 @@ public class CreditController {
     @GetMapping("/{id}")
     public String getCreditForm(@PathVariable Long id, Model model) {
         model.addAttribute("credit", creditService.getCredit(id));
-        model.addAttribute("productGroups",  productGroupService.getProductGroups());
+        model.addAttribute("productGroups", productGroupService.getProductGroups());
         model.addAttribute("insurances", insuranceService.getInsurances());
         return "credit/form";
     }

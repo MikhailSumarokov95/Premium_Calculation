@@ -77,9 +77,13 @@ public class Credit {
         this.insurance = insurance;
     }
 
-    public Boolean getIsConnectedSms() { return isConnectedSms; }
+    public Boolean getIsConnectedSms() {
+        return isConnectedSms;
+    }
 
-    public void setIsConnectedSms(Boolean connectedSMS) { isConnectedSms = connectedSMS; }
+    public void setIsConnectedSms(Boolean connectedSMS) {
+        isConnectedSms = connectedSMS;
+    }
 
     public Boolean getIsFur() {
         return isFur;
