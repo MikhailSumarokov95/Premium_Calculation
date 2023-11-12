@@ -45,7 +45,7 @@ public class ProductivityResultService {
         Long countCredits = (long) credits.size();
         BigDecimal sumAmountCredits = calculateSumAmountCredits(credits);
         BigDecimal insurancePenetration = insuranceResultService.calculateInsuranceResult().getPenetration();
-        BigDecimal smsPenetration = calculateSmsPenetration();
+        BigDecimal smsPenetration = calculateSmsPenetration(credits, BigDecimal.valueOf(countCredits));
         List<ProductivityLevel> productivityLevels = productivityLevelRepository.findAllByOrderByPremiumDesc();
 
         productivityResult.setCountCreditsLevel(calculateCountCreditsLevel(countCredits, productivityLevels));
@@ -62,9 +62,10 @@ public class ProductivityResultService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    private BigDecimal calculateSmsPenetration() {
-        BigDecimal countCreditsWithSms = BigDecimal.valueOf(creditRepository.getCountCreditsWithSms());
-        BigDecimal countCredits = BigDecimal.valueOf(creditRepository.getCountCredits());
+    private BigDecimal calculateSmsPenetration(List<Credit> credits, BigDecimal countCredits) {
+        BigDecimal countCreditsWithSms = BigDecimal.valueOf(credits.stream()
+                .filter(Credit::getIsConnectedSms)
+                .count());
         if (countCredits.compareTo(BigDecimal.ZERO) == 0) {
             return BigDecimal.ZERO;
         } else {

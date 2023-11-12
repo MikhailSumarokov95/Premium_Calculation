@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--/*/ <th:block th:insert="~{bootstrap/head.html :: head}">
+          </th:block> /*/-->
+    <title>Register</title>
+</head>
+<body>
+<br>
+<h3 class="text-center">Регистрация</h3>
+<br>
+<form action="#" th:action="@{/register}" th:object="${user}" method="post">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-4 text-center">
+                <label class="form-label" for="inputEmail"><b>Почта</b></label>
+                <div class="input-group">
+                    <input type="text" th:field="*{email}" id="inputEmail" class="form-control"
+                           placeholder="Введите адрес почты">
+                </div>
+                <label class="text-danger" for="inputEmail" th:if="${#fields.hasErrors('email')}"
+                       th:errors="*{email}"></label>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-4 text-center">
+                <label class="form-label" for="inputUsername"><b>Имя пользователя</b></label>
+                <div class="input-group">
+                    <input type="text" th:field="*{username}" id="inputUsername" class="form-control"
+                           placeholder="Введите имя пользователя">
+                </div>
+                <label class="text-danger" for="inputUsername" th:if="${#fields.hasErrors('username')}"
+                       th:errors="*{username}"></label>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-4 text-center">
+                <label class="form-label" for="inputPassword"><b>Пароль</b></label>
+                <div class="input-group">
+                    <input type="password" th:field="*{password}" id="inputPassword" class="form-control"
+                           placeholder="Введите пароль">
+                </div>
+                <label class="text-danger" for="inputPassword" th:if="${#fields.hasErrors('password')}"
+                       th:errors="*{password}"></label>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center" th:if="${param.error}">
+            <div class="alert alert-danger" role="alert">
+                <div class="text-danger" for="inputPassword">Неправильные имя или пароль</div>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-4 text-center">
+                <input type="submit" value="Создать" class="btn btn-primary">
+            </div>
+        </div>
+    </div>
+</form>
+<br>
+<form action="#" th:action="@{/login}" method="get">
+    <div class="row justify-content-center">
+        <div class="col-4 text-center">
+            <input type="submit" value="Назад" class="btn btn-link btn-lg"/>
+        </div>
+    </div>
+</form>
+
+<!--/*/ <th:block th:insert="~{bootstrap/tail.html :: tail}">
+          </th:block> /*/-->
+</body>
+</html>

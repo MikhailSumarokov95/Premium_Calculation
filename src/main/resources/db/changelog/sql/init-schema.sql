@@ -1,6 +1,13 @@
 DROP TABLE IF EXISTS insurance, product_group, credit, preliminary_credit_result,
 efficiency, criteria_bonus_for_fur, fur_result, productivity_level, productivity_result,
-premium_limit, insurance_result CASCADE;
+premium_limit, insurance_result, users CASCADE;
+
+CREATE TABLE IF NOT EXISTS users(
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(64) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS insurance(
     id SERIAL PRIMARY KEY,
