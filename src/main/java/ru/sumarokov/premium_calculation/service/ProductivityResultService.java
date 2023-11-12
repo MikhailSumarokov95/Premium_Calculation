@@ -78,7 +78,7 @@ public class ProductivityResultService {
     private ProductivityLevel calculateCountCreditsLevel(Long countCredits,
                                                          List<ProductivityLevel> productivityLevels) {
         return productivityLevels.stream()
-                .filter(p -> p.getMinCountCredits() < countCredits)
+                .filter(p -> p.getMinCountCredits() <= countCredits)
                 .findFirst()
                 .orElseThrow();
     }
@@ -86,7 +86,7 @@ public class ProductivityResultService {
     private ProductivityLevel calculateSumAmountCreditsLevel(BigDecimal sumAmountCredits,
                                                              List<ProductivityLevel> productivityLevels) {
         return productivityLevels.stream()
-                .filter(p -> p.getMinSumAmountCredits().compareTo(sumAmountCredits) < 0)
+                .filter(p -> p.getMinSumAmountCredits().compareTo(sumAmountCredits) <= 0)
                 .findFirst()
                 .orElseThrow();
     }
@@ -94,7 +94,7 @@ public class ProductivityResultService {
     private ProductivityLevel calculateSmsPenetrationLevel(BigDecimal smsPenetration,
                                                            List<ProductivityLevel> productivityLevels) {
         return productivityLevels.stream()
-                .filter(p -> p.getMinPenetrationSms().compareTo(smsPenetration) < 0)
+                .filter(p -> p.getMinPenetrationSms().compareTo(smsPenetration) <= 0)
                 .findFirst()
                 .orElseThrow();
     }
@@ -102,7 +102,7 @@ public class ProductivityResultService {
     private ProductivityLevel calculateInsurancePenetrationLevel(BigDecimal insurancePenetration,
                                                                  List<ProductivityLevel> productivityLevels) {
         return productivityLevels.stream()
-                .filter(p -> p.getMinPenetrationInsurance().compareTo(insurancePenetration) < 0)
+                .filter(p -> p.getMinPenetrationInsurance().compareTo(insurancePenetration) <= 0)
                 .findFirst()
                 .orElseThrow();
     }
@@ -113,10 +113,10 @@ public class ProductivityResultService {
                                                     BigDecimal smsPenetration,
                                                     List<ProductivityLevel> productivityLevels) {
         return productivityLevels.stream()
-                .filter(p -> (p.getMinCountCredits() < (countCredits)
-                        || p.getMinSumAmountCredits().compareTo(sumAmountCredits) < 0)
-                        && p.getMinPenetrationInsurance().compareTo(insurancePenetration) < 0
-                        && p.getMinPenetrationSms().compareTo(smsPenetration) < 0)
+                .filter(p -> (p.getMinCountCredits() <= (countCredits)
+                        || p.getMinSumAmountCredits().compareTo(sumAmountCredits) <= 0)
+                        && p.getMinPenetrationInsurance().compareTo(insurancePenetration) <= 0
+                        && p.getMinPenetrationSms().compareTo(smsPenetration) <= 0)
                 .findFirst()
                 .orElseThrow();
     }

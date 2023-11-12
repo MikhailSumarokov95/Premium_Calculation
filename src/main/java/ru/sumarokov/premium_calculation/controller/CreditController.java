@@ -1,8 +1,10 @@
 package ru.sumarokov.premium_calculation.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.sumarokov.premium_calculation.entity.Credit;
 import ru.sumarokov.premium_calculation.service.*;
@@ -55,7 +57,14 @@ public class CreditController {
     }
 
     @PostMapping("/save")
-    public String saveCredit(@ModelAttribute Credit credit) {
+    public String saveCredit(@ModelAttribute @Valid Credit credit,
+                             BindingResult bindingResult,
+                             Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("productGroups", productGroupService.getProductGroups());
+            model.addAttribute("insurances", insuranceService.getInsurances());
+            return "credit/form";
+        }
         creditService.saveCredit(credit);
         return "redirect:/credit";
     }

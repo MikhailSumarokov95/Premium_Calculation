@@ -10,7 +10,7 @@
           </th:block> /*/-->
 <br>
 <h1 style="text-align: center;"> Ваша премия <h1 style="text-align: center;"
-                                                 th:text="${#numbers.formatDecimal(efficiency.totalPremium, 0, 'COMMA', 1, 'POINT')}"></h1>
+                                                 th:text="${#numbers.formatDecimal(efficiency.totalPremium, 0, 'DEFAULT', 1, 'POINT')}"></h1>
 </h1>
 <br>
 <div class="table-responsive">
@@ -46,7 +46,7 @@
             <td th:text="${credit.isFur}"></td>
             <td th:text="${credit.isConsultantAvailability}"></td>
             <td th:text="${credit.isUsedSelfReject}"></td>
-            <td th:text="${credit.preliminaryCreditResult.premium}"></td>
+            <td th:text="${#numbers.formatDecimal(credit.preliminaryCreditResult.premium, 0, 'DEFAULT', 2, 'POINT')}"></td>
             <td>
                 <div style="text-align: center;">
                     <a class="icon-link" th:href="${'/credit/' + credit.id}">
