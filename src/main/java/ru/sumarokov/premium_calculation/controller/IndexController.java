@@ -12,8 +12,7 @@ public class IndexController {
     public String index(HttpServletRequest request) {
         if (request.isUserInRole(Role.ROLE_ADMIN.name())) {
             return "redirect:/admin";
-        }
-        else {
+        } else {
             return "redirect:/credit";
         }
     }
