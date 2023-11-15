@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY,
     username VARCHAR(64) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL
+    email VARCHAR(255) NOT NULL,
+    role VARCHAR(64) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS insurance(

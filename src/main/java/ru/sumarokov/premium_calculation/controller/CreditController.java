@@ -2,6 +2,7 @@ package ru.sumarokov.premium_calculation.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +33,7 @@ public class CreditController {
         this.preliminaryCreditResultService = preliminaryCreditResultService;
     }
 
+    @PreAuthorize("hasRole('ROLE_CREDIT_SPECIALIST')")
     @GetMapping()
     public String getCreditList(Model model) {
         model.addAttribute("credits", creditService.getCredits());
@@ -40,6 +42,7 @@ public class CreditController {
         return "credit/list";
     }
 
+    @PreAuthorize("hasRole('ROLE_CREDIT_SPECIALIST')")
     @GetMapping("/create")
     public String getCreditForm(Model model) {
         model.addAttribute("credit", new Credit());
@@ -48,6 +51,7 @@ public class CreditController {
         return "credit/form";
     }
 
+    @PreAuthorize("hasRole('ROLE_CREDIT_SPECIALIST')")
     @GetMapping("/{id}")
     public String getCreditForm(@PathVariable Long id, Model model) {
         model.addAttribute("credit", creditService.getCredit(id));
@@ -56,6 +60,7 @@ public class CreditController {
         return "credit/form";
     }
 
+    @PreAuthorize("hasRole('ROLE_CREDIT_SPECIALIST')")
     @PostMapping("/save")
     public String saveCredit(@ModelAttribute @Valid Credit credit,
                              BindingResult bindingResult,
@@ -69,6 +74,7 @@ public class CreditController {
         return "redirect:/credit";
     }
 
+    @PreAuthorize("hasRole('ROLE_CREDIT_SPECIALIST')")
     @GetMapping("{id}/delete")
     public String deleteCredit(@PathVariable Long id) {
         creditService.deleteCredit(id);

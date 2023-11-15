@@ -1,6 +1,7 @@
 package ru.sumarokov.premium_calculation.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,24 +19,28 @@ public class ProductGroupController {
         this.productGroupService = productGroupService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/create")
     public String getProductGroupForm(Model model) {
         model.addAttribute("productGroup", new ProductGroup());
         return "admin/product_group/form";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public String getProductGroupForm(@PathVariable Long id, Model model) {
         model.addAttribute("productGroup", productGroupService.getProductGroup(id));
         return "admin/product_group/form";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/save")
     public String saveProductGroup(@ModelAttribute ProductGroup productGroup) {
         productGroupService.saveProductGroup(productGroup);
         return "redirect:/admin";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("{id}/delete")
     public String deleteProductGroup(@PathVariable Long id) {
         productGroupService.deleteProductGroup(id);

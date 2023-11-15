@@ -1,6 +1,7 @@
 package ru.sumarokov.premium_calculation.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,24 +19,28 @@ public class CriteriaBonusForFurController {
         this.criteriaBonusForFurService = criteriaBonusForFurService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/create")
     public String getCriteriaBonusForFurForm(Model model) {
         model.addAttribute("criteria", new CriteriaBonusForFur());
         return "admin/criteria_bonus_for_fur/form";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public String getCriteriaBonusForFurForm(@PathVariable Long id, Model model) {
         model.addAttribute("criteria", criteriaBonusForFurService.getCriteriaBonusForFur(id));
         return "admin/criteria_bonus_for_fur/form";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/save")
     public String saveCriteriaBonusForFur(@ModelAttribute CriteriaBonusForFur criteriaBonusForFur) {
         criteriaBonusForFurService.saveCriteriaBonusForFur(criteriaBonusForFur);
         return "redirect:/admin";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("{id}/delete")
     public String deleteCriteriaBonusForFur(@PathVariable Long id) {
         criteriaBonusForFurService.deleteCriteriaBonusForFur(id);

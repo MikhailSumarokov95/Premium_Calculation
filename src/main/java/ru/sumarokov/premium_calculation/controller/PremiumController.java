@@ -1,6 +1,7 @@
 package ru.sumarokov.premium_calculation.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ public class PremiumController {
         this.productivityResultService = productivityResultService;
     }
 
+    @PreAuthorize("hasRole('ROLE_CREDIT_SPECIALIST')")
     @GetMapping()
     public String getCreditList(Model model) {
         model.addAttribute("efficiency", efficiencyService.getEfficiency());
