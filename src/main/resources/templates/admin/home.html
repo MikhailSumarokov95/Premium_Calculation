@@ -14,7 +14,7 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th style="text-align: center;" scope="col">Название</th>
+            <th scope="col">Название</th>
             <th style="text-align: center;" scope="col">Премия</th>
             <th style="text-align: center;" scope="col">Минимальное количество кредитов</th>
             <th style="text-align: center;" scope="col">Минимальная сумма кредитов</th>
@@ -30,7 +30,7 @@
         </thead>
         <tbody>
         <tr th:each="level : ${productivityLevels}">
-            <td style="text-align: center;" th:text="${level.name}"></td>
+            <td th:text="${level.name}"></td>
             <td style="text-align: center;" th:text="${level.premium}"></td>
             <td style="text-align: center;" th:text="${level.minCountCredits}"></td>
             <td style="text-align: center;" th:text="${level.minSumAmountCredits}"></td>
@@ -79,8 +79,8 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th style="text-align: center;" scope="col">Название</th>
-            <th style="text-align: center;" scope="col">Множитель премии</th>
+            <th scope="col">Название</th>
+            <th style="text-align: center;" scope="col">Множитель премии, %</th>
             <th style="text-align: center;" scope="col">Минимальная премия</th>
             <th style="text-align: center;" scope="col">Максимальная премия</th>
             <th style="text-align: center;" scope="col">Тип кредита</th>
@@ -95,7 +95,7 @@
         </thead>
         <tbody>
         <tr th:each="product : ${productGroup}">
-            <td style="text-align: center;" th:text="${product.name}"></td>
+            <td th:text="${product.name}"></td>
             <td style="text-align: center;" th:text="${product.factorPremium}"></td>
             <td style="text-align: center;" th:text="${product.minPremium}"></td>
             <td style="text-align: center;" th:text="${product.maxPremium}"></td>
@@ -173,9 +173,9 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th style="text-align: center;" scope="col">Название</th>
-            <th style="text-align: center;" scope="col">Множитель объема, %</th>
+            <th scope="col">Название</th>
             <th style="text-align: center;" scope="col">Множитель премии, %</th>
+            <th style="text-align: center;" scope="col">Множитель объема, %</th>
             <th style="text-align: center;" scope="col">
                 <div style="text-align: center;">Изменить</div>
             </th>
@@ -186,9 +186,9 @@
         </thead>
         <tbody>
         <tr th:each="insurance : ${insurances}">
-            <td style="text-align: center;" th:text="${insurance.name}"></td>
-            <td style="text-align: center;" th:text="${insurance.factorInsuranceVolume}"></td>
+            <td  th:text="${insurance.name}"></td>
             <td style="text-align: center;" th:text="${insurance.factorInsuranceBonus}"></td>
+            <td style="text-align: center;" th:text="${insurance.factorInsuranceVolume}"></td>
             <td>
                 <div style="text-align: center;">
                     <a class="icon-link" th:href="${'/insurance/' + insurance.id}">
@@ -232,9 +232,9 @@
     <table class="table table-striped">
         <thead>
         <tr>
+            <th style="text-align: center;" scope="col">Бонус</th>
             <th style="text-align: center;" scope="col">Минимальная сумма кредитов категории меха</th>
             <th style="text-align: center;" scope="col">Минимальное проникновение СМС в кредитах категории меха</th>
-            <th style="text-align: center;" scope="col">Бонус</th>
             <th scope="col">
                 <div style="text-align: center;">Изменить</div>
             </th>
@@ -245,9 +245,9 @@
         </thead>
         <tbody>
         <tr th:each="criteria : ${criteriasFur}">
+            <td style="text-align: center;" th:text="${criteria.bonus}"></td>
             <td style="text-align: center;" th:text="${criteria.minSum}"></td>
             <td style="text-align: center;" th:text="${criteria.minSms}"></td>
-            <td style="text-align: center;" th:text="${criteria.bonus}"></td>
             <td>
                 <div style="text-align: center;">
                     <a class="icon-link" th:href="${'/criteria-bonus-for-fur/' + criteria.id}">

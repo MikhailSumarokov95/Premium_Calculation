@@ -19,7 +19,7 @@ public class InsuranceService {
     }
 
     public List<Insurance> getInsurances() {
-        return insuranceRepository.findAll();
+        return insuranceRepository.findAllByOrderByFactorInsuranceBonusDesc();
     }
 
     public Insurance getInsurance(Long id) {

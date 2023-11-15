@@ -74,12 +74,14 @@ public class PreliminaryCreditResultService {
                     .getMinAmountForCalculatingCreditPremium()
                     .compareTo(credit.getAmount()) < 0) {
                 creditPreviously = credit.getProductGroup().getFactorPremium()
+                        .divide(BigDecimal.valueOf(100), 5, RoundingMode.HALF_UP)
                         .multiply(credit.getAmount());
             } else {
                 creditPreviously = new BigDecimal(0);
             }
         } else {
             creditPreviously = credit.getProductGroup().getFactorPremium()
+                    .divide(BigDecimal.valueOf(100), 5, RoundingMode.HALF_UP)
                     .multiply(credit.getAmount())
                     .multiply(BigDecimal.valueOf(credit.getTerm()))
                     .multiply(credit.getRate());

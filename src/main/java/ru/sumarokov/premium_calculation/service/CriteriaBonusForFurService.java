@@ -18,7 +18,7 @@ public class CriteriaBonusForFurService {
     }
 
     public List<CriteriaBonusForFur> getCriteriasBonusForFur() {
-        return criteriaBonusForFurRepository.findAll();
+        return criteriaBonusForFurRepository.findAllByOrderByBonusDesc();
     }
 
     public CriteriaBonusForFur getCriteriaBonusForFur(Long id) {

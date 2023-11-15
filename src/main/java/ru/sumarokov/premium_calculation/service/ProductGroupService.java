@@ -18,7 +18,7 @@ public class ProductGroupService {
     }
 
     public List<ProductGroup> getProductGroups() {
-        return productGroupRepository.findAll();
+        return productGroupRepository.findAllByOrderByFactorPremiumDesc();
     }
 
     public ProductGroup getProductGroup(Long id) {
