@@ -9,26 +9,30 @@
 <!--/*/ <th:block th:insert="~{bootstrap/navbar_admin.html :: navbar}">
           </th:block> /*/-->
 <br>
-<form action="#" th:action="@{/criteria-bonus-for-fur/save}" th:object="${criteria}" method="post">
+<form action="#" th:action="@{/criteria-bonus-for-fur/save}" th:object="${criteriaBonusForFur}" method="post">
     <input type="hidden" th:field="*{id}"/>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-4 text-center">
                 <label for="inputMinSum" class="control-label"><b>Минимальная сумма</b></label>
                 <div class="input-group">
-                    <input type="number" th:field="*{minSum}" id="inputMinSum" class="form-control"
+                    <input type="number" th:field="*{minSum}" step="0.01" id="inputMinSum" class="form-control"
                            placeholder="Введите мин. сумму">
                 </div>
+                <label class="text-danger" for="inputMinSum" th:if="${#fields.hasErrors('minSum')}"
+                       th:errors="*{minSum}"></label>
             </div>
         </div>
         <br>
         <div class="row justify-content-center">
             <div class="col-4 text-center">
-                <label for="inputMinSms" class="control-label"><b>Минимальное проникновение СМС</b></label>
+                <label for="inputMinSms" class="control-label"><b>Минимальное проникновение СМС, %</b></label>
                 <div class="input-group">
-                    <input type="number" th:field="*{minSms}" id="inputMinSms" class="form-control"
+                    <input type="number" th:field="*{minSms}" step="0.01" id="inputMinSms" class="form-control"
                            placeholder="Введите мин. проникновение СМС">
                 </div>
+                <label class="text-danger" for="inputMinSms" th:if="${#fields.hasErrors('minSms')}"
+                       th:errors="*{minSms}"></label>
             </div>
         </div>
         <br>
@@ -36,9 +40,11 @@
             <div class="col-4 text-center">
                 <label for="inputBonus" class="control-label"><b>Бонус</b></label>
                 <div class="input-group">
-                    <input type="number" th:field="*{bonus}" id="inputBonus" class="form-control"
+                    <input type="number" th:field="*{bonus}" step="0.01" id="inputBonus" class="form-control"
                            placeholder="Введите бонус">
                 </div>
+                <label class="text-danger" for="inputBonus" th:if="${#fields.hasErrors('bonus')}"
+                       th:errors="*{bonus}"></label>
             </div>
         </div>
         <br>

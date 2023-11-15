@@ -1,9 +1,11 @@
 package ru.sumarokov.premium_calculation.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.sumarokov.premium_calculation.entity.ProductivityLevel;
 import ru.sumarokov.premium_calculation.service.ProductivityLevelService;
@@ -35,7 +37,11 @@ public class ProductivityLevelController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/save")
-    public String saveProductivityLevel(@ModelAttribute ProductivityLevel productivityLevel) {
+    public String saveProductivityLevel(@ModelAttribute @Valid ProductivityLevel productivityLevel,
+                                        BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/productivity_level/form";
+        }
         productivityLevelService.saveProductivityLevel(productivityLevel);
         return "redirect:/admin";
     }

@@ -16,9 +16,12 @@
             <div class="col-4 text-center">
                 <label for="inputMaxTotalPremium" class="control-label"><b>Максимальная итоговая премия</b></label>
                 <div class="input-group">
-                    <input type="number" th:field="*{maxTotalPremium}" id="inputMaxTotalPremium" class="form-control"
+                    <input type="number" th:field="*{maxTotalPremium}" step="0.01" id="inputMaxTotalPremium"
+                           class="form-control"
                            placeholder="Введите максимальную итоговую премию">
                 </div>
+                <label class="text-danger" for="inputMaxTotalPremium" th:if="${#fields.hasErrors('maxTotalPremium')}"
+                       th:errors="*{maxTotalPremium}"></label>
             </div>
         </div>
         <br>

@@ -1,9 +1,11 @@
 package ru.sumarokov.premium_calculation.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.sumarokov.premium_calculation.entity.ProductGroup;
 import ru.sumarokov.premium_calculation.service.ProductGroupService;
@@ -35,7 +37,11 @@ public class ProductGroupController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/save")
-    public String saveProductGroup(@ModelAttribute ProductGroup productGroup) {
+    public String saveProductGroup(@ModelAttribute @Valid ProductGroup productGroup,
+                                   BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/product_group/form";
+        }
         productGroupService.saveProductGroup(productGroup);
         return "redirect:/admin";
     }

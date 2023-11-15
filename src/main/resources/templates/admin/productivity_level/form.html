@@ -19,6 +19,8 @@
                     <input type="text" th:field="*{name}" id="inputName" class="form-control"
                            placeholder="Введите название">
                 </div>
+                <label class="text-danger" for="inputName" th:if="${#fields.hasErrors('name')}"
+                       th:errors="*{name}"></label>
             </div>
         </div>
         <br>
@@ -26,9 +28,11 @@
             <div class="col-4 text-center">
                 <label for="inputPremium" class="control-label"><b>Премия</b></label>
                 <div class="input-group">
-                    <input type="number" th:field="*{premium}" id="inputPremium" class="form-control"
+                    <input type="number" th:field="*{premium}" step="0.01" id="inputPremium" class="form-control"
                            placeholder="Введите премию">
                 </div>
+                <label class="text-danger" for="inputPremium" th:if="${#fields.hasErrors('premium')}"
+                       th:errors="*{premium}"></label>
             </div>
         </div>
         <br>
@@ -39,6 +43,9 @@
                     <input type="number" th:field="*{minCountCredits}" id="inputMinCountCredits" class="form-control"
                            placeholder="Введите минимальное количество кредитов">
                 </div>
+                <label class="text-danger" for="inputMinCountCredits"
+                       th:if="${#fields.hasErrors('minCountCredits')}"
+                       th:errors="*{minCountCredits}"></label>
             </div>
         </div>
         <br>
@@ -46,33 +53,44 @@
             <div class="col-4 text-center">
                 <label for="inputMinSumAmountCredits" class="control-label"><b>Минимальная сумма кредитов</b></label>
                 <div class="input-group">
-                    <input type="number" th:field="*{minSumAmountCredits}" id="inputMinSumAmountCredits"
+                    <input type="number" th:field="*{minSumAmountCredits}" step="0.01" id="inputMinSumAmountCredits"
                            class="form-control"
                            placeholder="Введите минимальную сумму кредитов">
                 </div>
+                <label class="text-danger" for="inputMinSumAmountCredits"
+                       th:if="${#fields.hasErrors('minSumAmountCredits')}"
+                       th:errors="*{minSumAmountCredits}"></label>
             </div>
         </div>
         <br>
         <div class="row justify-content-center">
             <div class="col-4 text-center">
-                <label for="inputMinPenetrationSms" class="control-label"><b>Минимальное проникновение СМС</b></label>
+                <label for="inputMinPenetrationSms" class="control-label"><b>Минимальное проникновение СМС,
+                    %</b></label>
                 <div class="input-group">
-                    <input type="number" th:field="*{minPenetrationSms}" id="inputMinPenetrationSms"
+                    <input type="number" th:field="*{minPenetrationSms}" step="0.01" id="inputMinPenetrationSms"
                            class="form-control"
                            placeholder="Введите минимальное проникновение смс">
                 </div>
+                <label class="text-danger" for="inputMinPenetrationSms"
+                       th:if="${#fields.hasErrors('minPenetrationSms')}"
+                       th:errors="*{minPenetrationSms}"></label>
             </div>
         </div>
         <br>
         <div class="row justify-content-center">
             <div class="col-4 text-center">
-                <label for="inputMinPenetrationInsurance" class="control-label"><b>Минимальное проникновение
-                    с</b></label>
+                <label for="inputMinPenetrationInsurance" class="control-label"><b>Минимальное проникновение страховок,
+                    %</b></label>
                 <div class="input-group">
-                    <input type="number" th:field="*{minPenetrationInsurance}" id="inputMinPenetrationInsurance"
+                    <input type="number" th:field="*{minPenetrationInsurance}" step="0.01"
+                           id="inputMinPenetrationInsurance"
                            class="form-control"
                            placeholder="Введите минимальное проникновение страховок">
                 </div>
+                <label class="text-danger" for="inputMinPenetrationInsurance"
+                       th:if="${#fields.hasErrors('minPenetrationInsurance')}"
+                       th:errors="*{minPenetrationInsurance}"></label>
             </div>
         </div>
         <br>

@@ -17,14 +17,14 @@ public class Credit {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_group_id", nullable = false)
     private ProductGroup productGroup;
-    @NotNull(message = "Поле \'сумма\' должно быть заполнено")
-    @Min(value = 0, message = "\'сумма\' должна быть больше 0")
+    @NotNull(message = "Поле должно быть заполнено")
+    @Min(value = 0, message = "Значение должно быть больше 0")
     private BigDecimal amount;
-    @NotNull(message = "Поле \'срок\' должно быть заполнено")
-    @Min(value = 0, message = "\'срок\' должен быть больше 0")
+    @NotNull(message = "Поле должно быть заполнено")
+    @Min(value = 0, message = "Значение должно быть больше 0")
     private Integer term;
-    @NotNull(message = "Поле \'ставка\' должно быть заполнено")
-    @Min(value = 0, message = "\'ставка\' должна быть больше 0")
+    @NotNull(message = "Поле должно быть заполнено")
+    @Min(value = 0, message = "Значение должно быть больше 0")
     private BigDecimal rate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "insurance_id", nullable = false)

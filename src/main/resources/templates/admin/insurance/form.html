@@ -16,32 +16,41 @@
             <div class="col-4 text-center">
                 <label for="inputName" class="control-label"><b>Название</b></label>
                 <div class="input-group">
-                    <input type="text" th:field="*{name}" id="inputName" class="form-control"
+                    <input type="text" maxlength="64" th:field="*{name}" id="inputName" class="form-control"
                            placeholder="Введите название">
                 </div>
+                <label class="text-danger" for="inputName" th:if="${#fields.hasErrors('name')}"
+                       th:errors="*{name}"></label>
             </div>
         </div>
         <br>
         <div class="row justify-content-center">
             <div class="col-4 text-center">
-                <label for="inputFactorInsuranceVolume" class="control-label"><b>Множитель расчета объема страховки</b></label>
+                <label for="inputFactorInsuranceVolume" class="control-label"><b>Множитель расчета объема страховки,
+                    %</b></label>
                 <div class="input-group">
-                    <input type="number" th:field="*{factorInsuranceVolume}" id="inputFactorInsuranceVolume"
+                    <input type="number" th:field="*{factorInsuranceVolume}" step="0.01" id="inputFactorInsuranceVolume"
                            class="form-control"
                            placeholder="Введите множитель расчета объема страховки">
                 </div>
+                <label class="text-danger" for="inputFactorInsuranceVolume"
+                       th:if="${#fields.hasErrors('factorInsuranceVolume')}"
+                       th:errors="*{factorInsuranceVolume}"></label>
             </div>
         </div>
         <br>
         <div class="row justify-content-center">
             <div class="col-4 text-center">
                 <label for="inputInsuranceBonus" class="control-label"><b>Множитель расчета премии за
-                    страховку</b></label>
+                    страховку, %</b></label>
                 <div class="input-group">
                     <input type="number" th:field="*{factorInsuranceBonus}" id="inputInsuranceBonus"
                            class="form-control"
                            placeholder="Введите множитель расчета премии за страховку">
                 </div>
+                <label class="text-danger" for="inputInsuranceBonus"
+                       th:if="${#fields.hasErrors('factorInsuranceBonus')}"
+                       th:errors="*{factorInsuranceBonus}"></label>
             </div>
         </div>
         <br>

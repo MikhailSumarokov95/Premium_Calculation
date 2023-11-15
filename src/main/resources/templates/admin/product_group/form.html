@@ -16,19 +16,24 @@
             <div class="col-4 text-center">
                 <label for="inputName" class="control-label"><b>Название</b></label>
                 <div class="input-group">
-                    <input type="text" th:field="*{name}" id="inputName" class="form-control"
+                    <input type="text" maxlength="64" th:field="*{name}" id="inputName" class="form-control"
                            placeholder="Введите название">
                 </div>
+                <label class="text-danger" for="inputName" th:if="${#fields.hasErrors('name')}"
+                       th:errors="*{name}"></label>
             </div>
         </div>
         <br>
         <div class="row justify-content-center">
             <div class="col-4 text-center">
-                <label for="inputFactorPremium" class="control-label"><b>Множитель премии</b></label>
+                <label for="inputFactorPremium" class="control-label"><b>Множитель премии, %</b></label>
                 <div class="input-group">
-                    <input type="number" th:field="*{factorPremium}" id="inputFactorPremium" class="form-control"
+                    <input type="number" th:field="*{factorPremium}" step="0.01" id="inputFactorPremium"
+                           class="form-control"
                            placeholder="Введите множитель премии">
                 </div>
+                <label class="text-danger" for="inputFactorPremium" th:if="${#fields.hasErrors('factorPremium')}"
+                       th:errors="*{factorPremium}"></label>
             </div>
         </div>
         <br>
@@ -36,9 +41,11 @@
             <div class="col-4 text-center">
                 <label for="inputMinPremium" class="control-label"><b>Минимальная премия</b></label>
                 <div class="input-group">
-                    <input type="number" th:field="*{minPremium}" id="inputMinPremium" class="form-control"
+                    <input type="number" th:field="*{minPremium}" step="0.01" id="inputMinPremium" class="form-control"
                            placeholder="Введите минимальную премию">
                 </div>
+                <label class="text-danger" for="inputMinPremium" th:if="${#fields.hasErrors('minPremium')}"
+                       th:errors="*{minPremium}"></label>
             </div>
         </div>
         <br>
@@ -46,9 +53,11 @@
             <div class="col-4 text-center">
                 <label for="inputMaxPremium" class="control-label"><b>Максимальная премия</b></label>
                 <div class="input-group">
-                    <input type="number" th:field="*{maxPremium}" id="inputMaxPremium" class="form-control"
+                    <input type="number" th:field="*{maxPremium}" step="0.01" id="inputMaxPremium" class="form-control"
                            placeholder="Введите максимальную премию">
                 </div>
+                <label class="text-danger" for="inputMaxPremium" th:if="${#fields.hasErrors('maxPremium')}"
+                       th:errors="*{maxPremium}"></label>
             </div>
         </div>
         <br>
@@ -67,10 +76,13 @@
                 <label for="inputMinAmountForCalculatingCreditPremium" class="control-label"><b>Минимальная сумма
                     кредита для расчета премии</b></label>
                 <div class="input-group">
-                    <input type="number" th:field="*{minAmountForCalculatingCreditPremium}"
+                    <input type="number" th:field="*{minAmountForCalculatingCreditPremium}" step="0.01"
                            id="inputMinAmountForCalculatingCreditPremium" class="form-control"
                            placeholder="Введите сумму кредита">
                 </div>
+                <label class="text-danger" for="inputMinAmountForCalculatingCreditPremium"
+                       th:if="${#fields.hasErrors('minAmountForCalculatingCreditPremium')}"
+                       th:errors="*{minAmountForCalculatingCreditPremium}"></label>
             </div>
         </div>
         <br>

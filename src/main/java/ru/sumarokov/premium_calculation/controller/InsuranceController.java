@@ -1,9 +1,11 @@
 package ru.sumarokov.premium_calculation.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.sumarokov.premium_calculation.entity.Insurance;
 import ru.sumarokov.premium_calculation.service.InsuranceService;
@@ -35,7 +37,11 @@ public class InsuranceController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/save")
-    public String saveInsurance(@ModelAttribute Insurance insurance) {
+    public String saveInsurance(@ModelAttribute @Valid Insurance insurance,
+                                BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/insurance/form";
+        }
         insuranceService.saveInsurance(insurance);
         return "redirect:/admin";
     }
