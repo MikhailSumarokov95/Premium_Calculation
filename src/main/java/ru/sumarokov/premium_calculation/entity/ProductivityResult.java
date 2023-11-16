@@ -24,6 +24,17 @@ public class ProductivityResult {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sms_penetration_level", nullable = false)
     private ProductivityLevel smsPenetrationLevel;
+    @OneToOne()
+    @MapsId
+    @JoinColumn(name = "users_id")
+    private User user;
+
+    public ProductivityResult() {
+    }
+
+    public ProductivityResult(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -73,15 +84,11 @@ public class ProductivityResult {
         this.smsPenetrationLevel = smsPenetrationLevel;
     }
 
-    @Override
-    public String toString() {
-        return "ProductivityResult{" +
-                "id=" + id +
-                ", generalLevel=" + generalLevel +
-                ", sumAmountCreditsLevel=" + sumAmountCreditsLevel +
-                ", countCreditsLevel=" + countCreditsLevel +
-                ", insuranceLevel=" + insurancePenetrationLevel +
-                ", countSmsLevel=" + smsPenetrationLevel +
-                '}';
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

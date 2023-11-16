@@ -14,6 +14,17 @@ public class InsuranceResult {
     private BigDecimal totalBonus;
     private BigDecimal penetration;
     private BigDecimal sumInsuranceVolume;
+    @OneToOne()
+    @MapsId
+    @JoinColumn(name = "users_id")
+    private User user;
+
+    public InsuranceResult() {
+    }
+
+    public InsuranceResult(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -45,5 +56,13 @@ public class InsuranceResult {
 
     public void setSumInsuranceVolume(BigDecimal sumInsuranceVolume) {
         this.sumInsuranceVolume = sumInsuranceVolume;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

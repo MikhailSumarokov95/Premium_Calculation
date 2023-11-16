@@ -16,8 +16,16 @@ public class FurResult {
     private Long countCreditsCategoryFurWithSms;
     private BigDecimal penetrationSmsCreditsCategoryFur;
     private BigDecimal sumAmountCreditsCategoryFur;
+    @OneToOne()
+    @MapsId
+    @JoinColumn(name = "users_id")
+    private User user;
 
     public FurResult() {
+    }
+
+    public FurResult(User user) {
+        this.user = user;
     }
 
     public FurResult(BigDecimal bonus, Long countCreditsCategoryFur, Long countCreditsCategoryFurWithSms,
@@ -75,5 +83,13 @@ public class FurResult {
 
     public void setSumAmountCreditsCategoryFur(BigDecimal sumAmountCreditsCategoryFur) {
         this.sumAmountCreditsCategoryFur = sumAmountCreditsCategoryFur;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

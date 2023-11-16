@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sumarokov.premium_calculation.entity.Efficiency;
 import ru.sumarokov.premium_calculation.entity.PreliminaryCreditResult;
+import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.repository.EfficiencyRepository;
 import ru.sumarokov.premium_calculation.repository.PremiumLimitRepository;
 
@@ -19,6 +20,7 @@ public class EfficiencyService {
     private final ProductivityResultService productivityResultService;
     private final PremiumLimitRepository premiumLimitRepository;
     private final InsuranceResultService insuranceResultService;
+    private final AuthService authService;
 
     @Autowired
     public EfficiencyService(PreliminaryCreditResultService preliminaryCreditResultService,
@@ -26,21 +28,25 @@ public class EfficiencyService {
                              FurResultService furResultService,
                              ProductivityResultService productivityResultService,
                              PremiumLimitRepository premiumLimitRepository,
-                             InsuranceResultService insuranceResultService) {
+                             InsuranceResultService insuranceResultService,
+                             AuthService authService) {
         this.preliminaryCreditResultService = preliminaryCreditResultService;
         this.efficiencyRepository = efficiencyRepository;
         this.furResultService = furResultService;
         this.productivityResultService = productivityResultService;
         this.premiumLimitRepository = premiumLimitRepository;
         this.insuranceResultService = insuranceResultService;
+        this.authService = authService;
     }
 
     public Efficiency getEfficiency() {
-        return efficiencyRepository.findById(1L).orElse(new Efficiency());
+        User user = authService.getUser();
+        return efficiencyRepository.findByUserId(user.getId())
+                .orElse(new Efficiency(user));
     }
 
     public Efficiency calculateEfficiency() {
-        Efficiency efficiency = efficiencyRepository.findById(1L).orElse(new Efficiency());
+        Efficiency efficiency = getEfficiency();
 
         BigDecimal premiumForCredit = calculatePreliminaryCreditResult();
         efficiency.setPremiumForCredits(premiumForCredit);

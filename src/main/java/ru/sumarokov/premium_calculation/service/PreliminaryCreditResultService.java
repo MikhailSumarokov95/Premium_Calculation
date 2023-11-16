@@ -17,20 +17,24 @@ public class PreliminaryCreditResultService {
 
     private final PreliminaryCreditResultRepository preliminaryCreditResultRepository;
     private final CreditRepository creditRepository;
+    private final AuthService authService;
 
     @Autowired
     public PreliminaryCreditResultService(PreliminaryCreditResultRepository preliminaryCreditResultRepository,
-                                          CreditRepository creditRepository) {
+                                          CreditRepository creditRepository,
+                                          AuthService authService) {
         this.preliminaryCreditResultRepository = preliminaryCreditResultRepository;
         this.creditRepository = creditRepository;
+        this.authService = authService;
     }
 
     public List<PreliminaryCreditResult> getPreliminaryCreditResults() {
-        return preliminaryCreditResultRepository.findAll();
+        return preliminaryCreditResultRepository
+                .findByCreditUserIdOrderByCreditIdAsc(authService.getUser().getId());
     }
 
     public List<PreliminaryCreditResult> calculatePreliminaryCreditResults() {
-        List<Credit> credits = creditRepository.findAll();
+        List<Credit> credits = creditRepository.findByUserId(authService.getUser().getId());
 
         List<PreliminaryCreditResult> preliminaryCreditResults = credits
                 .stream()
@@ -40,16 +44,16 @@ public class PreliminaryCreditResultService {
     }
 
     public PreliminaryCreditResult calculatePreliminaryCreditResult(Credit credit) {
-        PreliminaryCreditResult preliminaryCreditResult = preliminaryCreditResultRepository.
-                findById(credit.getId())
-                .orElse(new PreliminaryCreditResult());
+        PreliminaryCreditResult preliminaryCreditResult =
+                credit.getPreliminaryCreditResult() == null ?
+                        new PreliminaryCreditResult(credit) :
+                        credit.getPreliminaryCreditResult();
 
         preliminaryCreditResult.setInsuranceVolume(calculateFactorInsuranceVolume(credit));
         preliminaryCreditResult.setInsuranceBonus(calculateFactorInsuranceBonus(credit));
         preliminaryCreditResult.setCreditPreviously(calculateCreditPreviously(credit));
         preliminaryCreditResult.setCreditTotal(calculateCreditTotal(credit, preliminaryCreditResult));
         preliminaryCreditResult.setPremium(calculatePremium(preliminaryCreditResult));
-        preliminaryCreditResult.setCredit(credit);
         return preliminaryCreditResult;
     }
 

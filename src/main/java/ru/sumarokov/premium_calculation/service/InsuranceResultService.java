@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sumarokov.premium_calculation.entity.InsuranceResult;
 import ru.sumarokov.premium_calculation.entity.PreliminaryCreditResult;
+import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.repository.InsuranceResultRepository;
 import ru.sumarokov.premium_calculation.repository.PreliminaryCreditResultRepository;
 
@@ -16,22 +17,25 @@ public class InsuranceResultService {
 
     private final InsuranceResultRepository insuranceResultRepository;
     private final PreliminaryCreditResultRepository preliminaryCreditResultRepository;
+    private final AuthService authService;
 
     @Autowired
     public InsuranceResultService(InsuranceResultRepository insuranceResultRepository,
-                                  PreliminaryCreditResultRepository preliminaryCreditResultRepository) {
+                                  PreliminaryCreditResultRepository preliminaryCreditResultRepository,
+                                  AuthService authService) {
         this.insuranceResultRepository = insuranceResultRepository;
         this.preliminaryCreditResultRepository = preliminaryCreditResultRepository;
+        this.authService = authService;
     }
 
     public InsuranceResult getInsuranceResult() {
-        return insuranceResultRepository.findById(1L).orElse(new InsuranceResult());
+        User user = authService.getUser();
+        return insuranceResultRepository.findByUserId(user.getId())
+                .orElse(new InsuranceResult(user));
     }
 
     public InsuranceResult calculateInsuranceResult() {
-        InsuranceResult insuranceResult = insuranceResultRepository
-                .findById(1L)
-                .orElse(new InsuranceResult());
+        InsuranceResult insuranceResult = getInsuranceResult();
 
         List<PreliminaryCreditResult> preliminaryCreditResults = preliminaryCreditResultRepository.findAll();
         insuranceResult.setTotalBonus(calculateSumInsuranceBonus(preliminaryCreditResults));

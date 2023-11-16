@@ -18,15 +18,15 @@
         <thead>
         <tr>
             <th scope="col">Категория</th>
-            <th scope="col">Сумма</th>
-            <th scope="col">Срок</th>
-            <th scope="col">Ставка</th>
-            <th scope="col">Страхование</th>
-            <th scope="col">СМС</th>
-            <th scope="col">Меха</th>
-            <th scope="col">Консультант</th>
-            <th scope="col">Self reject</th>
-            <th scope="col">Премия</th>
+            <th style="text-align: center;" scope="col">Сумма</th>
+            <th style="text-align: center;" scope="col">Срок</th>
+            <th style="text-align: center;" scope="col">Ставка</th>
+            <th style="text-align: center;" scope="col">Страхование</th>
+            <th style="text-align: center;" scope="col">СМС</th>
+            <th style="text-align: center;" scope="col">Меха</th>
+            <th style="text-align: center;" scope="col">Консультант</th>
+            <th style="text-align: center;" scope="col">Self reject</th>
+            <th style="text-align: center;" scope="col">Премия</th>
             <th scope="col">
                 <div style="text-align: center;">Изменить</div>
             </th>
@@ -38,15 +38,15 @@
         <tbody>
         <tr th:each="credit: ${credits}">
             <td th:text="${credit.productGroup.name}"></td>
-            <td th:text="${credit.amount}"></td>
-            <td th:text="${credit.term}"></td>
-            <td th:text="${credit.rate}"></td>
-            <td th:text="${credit.insurance.name}"></td>
-            <td th:text="${credit.isConnectedSms}"></td>
-            <td th:text="${credit.isFur}"></td>
-            <td th:text="${credit.isConsultantAvailability}"></td>
-            <td th:text="${credit.isUsedSelfReject}"></td>
-            <td th:text="${#numbers.formatDecimal(credit.preliminaryCreditResult.premium, 0, 'DEFAULT', 2, 'POINT')}"></td>
+            <td style="text-align: center;" th:text="${credit.amount}"></td>
+            <td style="text-align: center;" th:text="${credit.term}"></td>
+            <td style="text-align: center;" th:text="${credit.rate}"></td>
+            <td style="text-align: center;" th:text="${credit.insurance.name}"></td>
+            <td style="text-align: center;" th:text="${credit.isConnectedSms}"></td>
+            <td style="text-align: center;" th:text="${credit.isFur}"></td>
+            <td style="text-align: center;" th:text="${credit.isConsultantAvailability}"></td>
+            <td style="text-align: center;" th:text="${credit.isUsedSelfReject}"></td>
+            <td style="text-align: center;" th:text="${#numbers.formatDecimal(credit.preliminaryCreditResult.premium, 0, 'DEFAULT', 2, 'POINT')}"></td>
             <td>
                 <div style="text-align: center;">
                     <a class="icon-link" th:href="${'/credit/' + credit.id}">

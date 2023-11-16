@@ -11,6 +11,7 @@
 <br>
 <form action="#" th:action="@{/credit/save}" th:object="${credit}" method="post">
     <input type="hidden" th:field="*{id}"/>
+    <input type="hidden" th:field="*{user}"/>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-4 text-center">

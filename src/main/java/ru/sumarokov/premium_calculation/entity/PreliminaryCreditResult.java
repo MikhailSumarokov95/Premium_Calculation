@@ -16,11 +16,17 @@ public class PreliminaryCreditResult {
     private BigDecimal insuranceBonus;
     private BigDecimal insuranceVolume;
     private BigDecimal creditPreviously;
-
     @OneToOne()
     @MapsId
     @JoinColumn(name = "credit_id")
     private Credit credit;
+
+    public PreliminaryCreditResult() {
+    }
+
+    public PreliminaryCreditResult(Credit credit) {
+        this.credit = credit;
+    }
 
     public Long getId() {
         return id;

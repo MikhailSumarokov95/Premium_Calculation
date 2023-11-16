@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.sumarokov.premium_calculation.entity.Credit;
 import ru.sumarokov.premium_calculation.entity.ProductivityLevel;
 import ru.sumarokov.premium_calculation.entity.ProductivityResult;
+import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.repository.CreditRepository;
 import ru.sumarokov.premium_calculation.repository.ProductivityLevelRepository;
 import ru.sumarokov.premium_calculation.repository.ProductivityResultRepository;
@@ -20,26 +21,29 @@ public class ProductivityResultService {
     private final ProductivityResultRepository productivityResultRepository;
     private final CreditRepository creditRepository;
     private final InsuranceResultService insuranceResultService;
+    private final AuthService authService;
 
     @Autowired
     public ProductivityResultService(ProductivityLevelRepository productivityLevelRepository,
                                      ProductivityResultRepository productivityResultRepository,
                                      CreditRepository creditRepository,
-                                     InsuranceResultService insuranceResultService) {
+                                     InsuranceResultService insuranceResultService,
+                                     AuthService authService) {
         this.productivityLevelRepository = productivityLevelRepository;
         this.productivityResultRepository = productivityResultRepository;
         this.creditRepository = creditRepository;
         this.insuranceResultService = insuranceResultService;
+        this.authService = authService;
     }
 
     public ProductivityResult getProductivityResult() {
-        return productivityResultRepository.findById(1L).orElse(new ProductivityResult());
+        User user = authService.getUser();
+        return productivityResultRepository.findByUserId(user.getId())
+                .orElse(new ProductivityResult(user));
     }
 
     public ProductivityResult calculateProductivityResult() {
-        ProductivityResult productivityResult = productivityResultRepository
-                .findById(1L)
-                .orElse(new ProductivityResult());
+        ProductivityResult productivityResult = getProductivityResult();
 
         List<Credit> credits = creditRepository.findAll();
         Long countCredits = (long) credits.size();

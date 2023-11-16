@@ -10,6 +10,7 @@ import ru.sumarokov.premium_calculation.helper.Role;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -28,9 +29,20 @@ public class User implements UserDetails {
     private String email;
     @Enumerated(EnumType.STRING)
     private Role role;
-
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<TaskGroup> taskGroup;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Credit> credit;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Efficiency efficiency;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private FurResult furResult;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private InsuranceResult insuranceResult;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private ProductivityResult productivityResult;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -79,13 +91,45 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    //    public List<TaskGroup> getTaskGroup() {
-//        return taskGroup;
-//    }
-//
-//    public void setTaskGroup(List<TaskGroup> taskGroup) {
-//        this.taskGroup = taskGroup;
-//    }
+    public List<Credit> getCredit() {
+        return credit;
+    }
+
+    public void setCredit(List<Credit> credit) {
+        this.credit = credit;
+    }
+
+    public Efficiency getEfficiency() {
+        return efficiency;
+    }
+
+    public void setEfficiency(Efficiency efficiency) {
+        this.efficiency = efficiency;
+    }
+
+    public FurResult getFurResult() {
+        return furResult;
+    }
+
+    public void setFurResult(FurResult furResult) {
+        this.furResult = furResult;
+    }
+
+    public InsuranceResult getInsuranceResult() {
+        return insuranceResult;
+    }
+
+    public void setInsuranceResult(InsuranceResult insuranceResult) {
+        this.insuranceResult = insuranceResult;
+    }
+
+    public ProductivityResult getProductivityResult() {
+        return productivityResult;
+    }
+
+    public void setProductivityResult(ProductivityResult productivityResult) {
+        this.productivityResult = productivityResult;
+    }
 
     @Override
     public boolean isAccountNonExpired() {

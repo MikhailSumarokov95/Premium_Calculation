@@ -3,7 +3,9 @@ package ru.sumarokov.premium_calculation.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sumarokov.premium_calculation.entity.Credit;
+import ru.sumarokov.premium_calculation.entity.Efficiency;
 import ru.sumarokov.premium_calculation.entity.FurResult;
+import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.repository.CreditRepository;
 import ru.sumarokov.premium_calculation.repository.CriteriaBonusForFurRepository;
 import ru.sumarokov.premium_calculation.repository.FurResultRepository;
@@ -18,24 +20,29 @@ public class FurResultService {
     private final CriteriaBonusForFurRepository criteriaBonusForFurRepository;
     private final FurResultRepository furResultRepository;
     private final CreditRepository creditRepository;
+    private final AuthService authService;
 
     @Autowired
     public FurResultService(CriteriaBonusForFurRepository criteriaBonusForFurRepository,
                             FurResultRepository furResultRepository,
-                            CreditRepository creditRepository) {
+                            CreditRepository creditRepository,
+                            AuthService authService) {
         this.criteriaBonusForFurRepository = criteriaBonusForFurRepository;
         this.furResultRepository = furResultRepository;
         this.creditRepository = creditRepository;
+        this.authService = authService;
     }
 
     public FurResult getFurResult() {
-        return furResultRepository.findById(1L).orElse(new FurResult());
+        User user = authService.getUser();
+        return furResultRepository.findByUserId(user.getId())
+                .orElse(new FurResult(user));
     }
 
     public FurResult calculateFurResult() {
-        FurResult furResult = furResultRepository.findById(1L).orElse(new FurResult());
+        FurResult furResult = getFurResult();
 
-        List<Credit> creditsCategoryFur = creditRepository.findByIsFurTrue();
+        List<Credit> creditsCategoryFur = creditRepository.findByUserIdAndIsFurTrue(authService.getUser().getId());
         Long countCreditsCategoryFur = (long) creditsCategoryFur.size();
         if (countCreditsCategoryFur == 0L) {
             furResult = new FurResult(BigDecimal.ZERO, 0L, 0L, BigDecimal.ZERO, BigDecimal.ZERO);

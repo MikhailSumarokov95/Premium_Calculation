@@ -36,6 +36,16 @@ public class Credit {
     @OneToOne(mappedBy = "credit", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private PreliminaryCreditResult preliminaryCreditResult;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "users_id", nullable = false)
+    private User user;
+
+    public Credit() {
+    }
+
+    public Credit(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -123,6 +133,14 @@ public class Credit {
 
     public void setPreliminaryCreditResult(PreliminaryCreditResult preliminaryCreditResult) {
         this.preliminaryCreditResult = preliminaryCreditResult;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
 

@@ -16,6 +16,17 @@ public class Efficiency {
     private BigDecimal furBonus;
     private BigDecimal totalProductivity;
     private BigDecimal premiumInsurance;
+    @OneToOne()
+    @MapsId
+    @JoinColumn(name = "users_id")
+    private User user;
+
+    public Efficiency() {
+    }
+
+    public Efficiency(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -63,5 +74,13 @@ public class Efficiency {
 
     public void setPremiumInsurance(BigDecimal premiumInsurance) {
         this.premiumInsurance = premiumInsurance;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

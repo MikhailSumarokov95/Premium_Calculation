@@ -19,18 +19,21 @@ public class CreditController {
     private final InsuranceService insuranceService;
     private final EfficiencyService efficiencyService;
     private final PreliminaryCreditResultService preliminaryCreditResultService;
+    private final AuthService authService;
 
     @Autowired
     public CreditController(CreditService creditService,
                             ProductGroupService productGroupService,
                             InsuranceService insuranceService,
                             EfficiencyService efficiencyService,
-                            PreliminaryCreditResultService preliminaryCreditResultService) {
+                            PreliminaryCreditResultService preliminaryCreditResultService,
+                            AuthService authService) {
         this.creditService = creditService;
         this.productGroupService = productGroupService;
         this.insuranceService = insuranceService;
         this.efficiencyService = efficiencyService;
         this.preliminaryCreditResultService = preliminaryCreditResultService;
+        this.authService = authService;
     }
 
     @PreAuthorize("hasRole('ROLE_CREDIT_SPECIALIST')")
@@ -45,7 +48,7 @@ public class CreditController {
     @PreAuthorize("hasRole('ROLE_CREDIT_SPECIALIST')")
     @GetMapping("/create")
     public String getCreditForm(Model model) {
-        model.addAttribute("credit", new Credit());
+        model.addAttribute("credit", new Credit(authService.getUser()));
         model.addAttribute("productGroups", productGroupService.getProductGroups());
         model.addAttribute("insurances", insuranceService.getInsurances());
         return "credit/form";

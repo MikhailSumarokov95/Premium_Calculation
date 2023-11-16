@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS users(
     username VARCHAR(64) NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    role VARCHAR(64) NOT NULL
+    role VARCHAR(64) NOT NULL,
+    CONSTRAINT username_unique UNIQUE (username)
 );
 
 CREATE TABLE IF NOT EXISTS insurance(
@@ -37,7 +38,8 @@ CREATE TABLE IF NOT EXISTS credit(
     is_connected_sms BOOLEAN NOT NULL DEFAULT FALSE,
     is_fur BOOLEAN NOT NULL DEFAULT FALSE,
     is_consultant_availability BOOLEAN NOT NULL DEFAULT FALSE,
-    is_used_self_reject BOOLEAN NOT NULL DEFAULT FALSE
+    is_used_self_reject BOOLEAN NOT NULL DEFAULT FALSE,
+    users_id INTEGER NOT NULL REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS preliminary_credit_result(
@@ -50,7 +52,7 @@ CREATE TABLE IF NOT EXISTS preliminary_credit_result(
 );
 
 CREATE TABLE IF NOT EXISTS efficiency(
-    id SERIAL PRIMARY KEY,
+    users_id SERIAL PRIMARY KEY REFERENCES users(id),
     total_premium NUMERIC NOT NULL,
     premium_for_credits NUMERIC NOT NULL,
     fur_bonus NUMERIC NOT NULL,
@@ -66,7 +68,7 @@ CREATE TABLE IF NOT EXISTS criteria_bonus_for_fur(
 );
 
 CREATE TABLE IF NOT EXISTS fur_result(
-    id SERIAL PRIMARY KEY,
+    users_id SERIAL PRIMARY KEY REFERENCES users(id),
     bonus NUMERIC NOT NULL,
     count_credits_category_fur BIGINT NOT NULL,
     count_credits_category_fur_with_sms BIGINT NOT NULL,
@@ -85,7 +87,7 @@ CREATE TABLE IF NOT EXISTS productivity_level(
 );
 
 CREATE TABLE IF NOT EXISTS productivity_result(
-    id SERIAL PRIMARY KEY,
+    users_id SERIAL PRIMARY KEY REFERENCES users(id),
     general_level INTEGER NOT NULL REFERENCES productivity_level(id),
     sum_amount_credits_level INTEGER NOT NULL REFERENCES productivity_level(id),
     count_credits_level INTEGER NOT NULL REFERENCES productivity_level(id),
@@ -99,7 +101,7 @@ CREATE TABLE IF NOT EXISTS premium_limit(
 );
 
 CREATE TABLE IF NOT EXISTS insurance_result(
-    id SERIAL PRIMARY KEY,
+    users_id SERIAL PRIMARY KEY REFERENCES users(id),
     total_bonus NUMERIC NOT NULL,
     penetration NUMERIC NOT NULL,
     sum_insurance_volume NUMERIC NOT NULL
