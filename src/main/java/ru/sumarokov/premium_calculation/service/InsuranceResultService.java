@@ -37,14 +37,27 @@ public class InsuranceResultService {
     public InsuranceResult calculateInsuranceResult() {
         InsuranceResult insuranceResult = getInsuranceResult();
 
-        List<PreliminaryCreditResult> preliminaryCreditResults = preliminaryCreditResultRepository.findAll();
-        insuranceResult.setTotalBonus(calculateSumInsuranceBonus(preliminaryCreditResults));
-        BigDecimal sumInsuranceVolume = calculateSumInsuranceVolume(preliminaryCreditResults);
-        insuranceResult.setSumInsuranceVolume(sumInsuranceVolume);
-        insuranceResult.setPenetration(calculatePenetration(sumInsuranceVolume, preliminaryCreditResults));
-
+        List<PreliminaryCreditResult> preliminaryCreditResults =
+                preliminaryCreditResultRepository.findByCreditUserId(authService.getUser().getId());
+        if (calculateSumAmountCredits(preliminaryCreditResults).compareTo(BigDecimal.ZERO) == 0) {
+            insuranceResult.setSumInsuranceVolume(BigDecimal.ZERO);
+            insuranceResult.setTotalBonus(BigDecimal.ZERO);
+            insuranceResult.setPenetration(BigDecimal.ZERO);
+        } else {
+            insuranceResult.setTotalBonus(calculateSumInsuranceBonus(preliminaryCreditResults));
+            BigDecimal sumInsuranceVolume = calculateSumInsuranceVolume(preliminaryCreditResults);
+            insuranceResult.setSumInsuranceVolume(sumInsuranceVolume);
+            insuranceResult.setPenetration(calculatePenetration(sumInsuranceVolume, preliminaryCreditResults));
+        }
         return insuranceResultRepository.save(insuranceResult);
     }
+
+    private BigDecimal calculateSumAmountCredits(List<PreliminaryCreditResult> preliminaryCreditResults) {
+        return preliminaryCreditResults.stream()
+                .map(p -> p.getCredit().getAmount())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
 
     private BigDecimal calculateSumInsuranceBonus(List<PreliminaryCreditResult> preliminaryCreditResults) {
         return preliminaryCreditResults.stream()
@@ -59,10 +72,7 @@ public class InsuranceResultService {
     }
 
     private BigDecimal calculatePenetration(BigDecimal sumInsuranceVolume, List<PreliminaryCreditResult> preliminaryCreditResults) {
-        BigDecimal sumAmountCredits = preliminaryCreditResults.stream()
-                .map(p -> p.getCredit().getAmount())
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
+        BigDecimal sumAmountCredits = calculateSumAmountCredits(preliminaryCreditResults);
         return sumInsuranceVolume
                 .divide(sumAmountCredits, 5, RoundingMode.HALF_UP)
                 .multiply(new BigDecimal(100));

@@ -8,4 +8,6 @@ import java.util.List;
 public interface PreliminaryCreditResultRepository extends JpaRepository<PreliminaryCreditResult, Long> {
 
     List<PreliminaryCreditResult> findByCreditUserIdOrderByCreditIdAsc(Long id);
+
+    List<PreliminaryCreditResult> findByCreditUserId(Long id);
 }

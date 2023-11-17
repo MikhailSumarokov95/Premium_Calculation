@@ -28,13 +28,17 @@ public class FurResult {
         this.user = user;
     }
 
-    public FurResult(BigDecimal bonus, Long countCreditsCategoryFur, Long countCreditsCategoryFurWithSms,
-                     BigDecimal penetrationSmsCreditsCategoryFur, BigDecimal sumAmountCreditsCategoryFur) {
+    public FurResult(BigDecimal bonus, Long countCreditsCategoryFur,
+                     Long countCreditsCategoryFurWithSms,
+                     BigDecimal penetrationSmsCreditsCategoryFur,
+                     BigDecimal sumAmountCreditsCategoryFur,
+                     User user) {
         this.bonus = bonus;
         this.countCreditsCategoryFur = countCreditsCategoryFur;
         this.countCreditsCategoryFurWithSms = countCreditsCategoryFurWithSms;
         this.penetrationSmsCreditsCategoryFur = penetrationSmsCreditsCategoryFur;
         this.sumAmountCreditsCategoryFur = sumAmountCreditsCategoryFur;
+        this.user = user;
     }
 
     public Long getId() {

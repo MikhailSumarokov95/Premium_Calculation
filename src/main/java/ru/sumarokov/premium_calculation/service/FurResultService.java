@@ -3,7 +3,6 @@ package ru.sumarokov.premium_calculation.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sumarokov.premium_calculation.entity.Credit;
-import ru.sumarokov.premium_calculation.entity.Efficiency;
 import ru.sumarokov.premium_calculation.entity.FurResult;
 import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.repository.CreditRepository;
@@ -45,7 +44,11 @@ public class FurResultService {
         List<Credit> creditsCategoryFur = creditRepository.findByUserIdAndIsFurTrue(authService.getUser().getId());
         Long countCreditsCategoryFur = (long) creditsCategoryFur.size();
         if (countCreditsCategoryFur == 0L) {
-            furResult = new FurResult(BigDecimal.ZERO, 0L, 0L, BigDecimal.ZERO, BigDecimal.ZERO);
+            furResult.setCountCreditsCategoryFur(0L);
+            furResult.setCountCreditsCategoryFurWithSms(0L);
+            furResult.setPenetrationSmsCreditsCategoryFur(BigDecimal.ZERO);
+            furResult.setSumAmountCreditsCategoryFur(BigDecimal.ZERO);
+            furResult.setBonus(BigDecimal.ZERO);
         } else {
             furResult.setCountCreditsCategoryFur(countCreditsCategoryFur);
 

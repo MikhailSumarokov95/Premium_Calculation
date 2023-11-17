@@ -35,7 +35,6 @@ public class PreliminaryCreditResultService {
 
     public List<PreliminaryCreditResult> calculatePreliminaryCreditResults() {
         List<Credit> credits = creditRepository.findByUserId(authService.getUser().getId());
-
         List<PreliminaryCreditResult> preliminaryCreditResults = credits
                 .stream()
                 .map(this::calculatePreliminaryCreditResult)
@@ -45,10 +44,10 @@ public class PreliminaryCreditResultService {
 
     public PreliminaryCreditResult calculatePreliminaryCreditResult(Credit credit) {
         PreliminaryCreditResult preliminaryCreditResult =
-                credit.getPreliminaryCreditResult() == null ?
-                        new PreliminaryCreditResult(credit) :
-                        credit.getPreliminaryCreditResult();
+                preliminaryCreditResultRepository.findById(credit.getId())
+                        .orElse(new PreliminaryCreditResult());
 
+        preliminaryCreditResult.setCredit(credit);
         preliminaryCreditResult.setInsuranceVolume(calculateFactorInsuranceVolume(credit));
         preliminaryCreditResult.setInsuranceBonus(calculateFactorInsuranceBonus(credit));
         preliminaryCreditResult.setCreditPreviously(calculateCreditPreviously(credit));
