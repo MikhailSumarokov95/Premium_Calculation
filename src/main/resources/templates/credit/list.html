@@ -38,9 +38,11 @@
         <tbody>
         <tr th:each="credit: ${credits}">
             <td th:text="${credit.productGroup.name}"></td>
-            <td style="text-align: center;" th:text="${credit.amount}"></td>
+            <td style="text-align: center;"
+                th:text="${#numbers.formatDecimal(credit.amount, 0, 'DEFAULT', 1, 'POINT')}"></td>
             <td style="text-align: center;" th:text="${credit.term}"></td>
-            <td style="text-align: center;" th:text="${credit.rate}"></td>
+            <td style="text-align: center;"
+                th:text="${#numbers.formatDecimal(credit.rate, 0, 'DEFAULT', 1, 'POINT')}"></td>
             <td style="text-align: center;" th:text="${credit.insurance.name}"></td>
             <td style="text-align: center;" th:text="${credit.isConnectedSms}"></td>
             <td style="text-align: center;" th:text="${credit.isFur}"></td>

@@ -22,11 +22,16 @@
         </tr>
         </thead>
         <tbody>
-        <td style="text-align: center;" th:text="${efficiency.totalPremium}"></td>
-        <td style="text-align: center;" th:text="${efficiency.premiumForCredits}"></td>
-        <td style="text-align: center;" th:text="${efficiency.furBonus}"></td>
-        <td style="text-align: center;" th:text="${efficiency.totalProductivity}"></td>
-        <td style="text-align: center;" th:text="${efficiency.premiumInsurance}"></td>
+        <td style="text-align: center;"
+            th:text="${#numbers.formatDecimal(efficiency.totalPremium, 0, 'DEFAULT', 1, 'POINT')}"></td>
+        <td style="text-align: center;"
+            th:text="${#numbers.formatDecimal(efficiency.premiumForCredits, 0, 'DEFAULT', 1, 'POINT')}"></td>
+        <td style="text-align: center;"
+            th:text="${#numbers.formatDecimal(efficiency.furBonus, 0, 'DEFAULT', 1, 'POINT')}"></td>
+        <td style="text-align: center;"
+            th:text="${#numbers.formatDecimal(efficiency.totalProductivity, 0, 'DEFAULT', 1, 'POINT')}"></td>
+        <td style="text-align: center;"
+            th:text="${#numbers.formatDecimal(efficiency.premiumInsurance, 0, 'DEFAULT', 1, 'POINT')}"></td>
         </tbody>
     </table>
 </div>
@@ -61,7 +66,7 @@
             <th style="text-align: center;" scope="col">Бонус</th>
             <th style="text-align: center;" scope="col">Количество кредитов</th>
             <th style="text-align: center;" scope="col">Количество кредитов с СМС</th>
-            <th style="text-align: center;" scope="col">Проникновение СМС</th>
+            <th style="text-align: center;" scope="col">Проникновение СМС, %</th>
             <th style="text-align: center;" scope="col">Сумма кредитов</th>
         </tr>
         </thead>
@@ -69,8 +74,10 @@
         <td style="text-align: center;" th:text="${furResult.bonus}"></td>
         <td style="text-align: center;" th:text="${furResult.countCreditsCategoryFur}"></td>
         <td style="text-align: center;" th:text="${furResult.countCreditsCategoryFurWithSms}"></td>
-        <td style="text-align: center;" th:text="${furResult.penetrationSmsCreditsCategoryFur}"></td>
-        <td style="text-align: center;" th:text="${furResult.sumAmountCreditsCategoryFur}"></td>
+        <td style="text-align: center;"
+            th:text="${#numbers.formatDecimal(furResult.penetrationSmsCreditsCategoryFur, 0, 'DEFAULT', 1, 'POINT')}"></td>
+        <td style="text-align: center;"
+            th:text="${#numbers.formatDecimal(furResult.sumAmountCreditsCategoryFur, 0, 'DEFAULT', 1, 'POINT')}"></td>
         </tbody>
     </table>
 </div>
@@ -81,12 +88,14 @@
         <thead>
         <tr>
             <th style="text-align: center;" scope="col">Премия</th>
-            <th style="text-align: center;" scope="col">Проникновение</th>
+            <th style="text-align: center;" scope="col">Проникновение, %</th>
         </tr>
         </thead>
         <tbody>
-        <td style="text-align: center;" th:text="${insuranceResult.totalBonus}"></td>
-        <td style="text-align: center;" th:text="${insuranceResult.penetration}"></td>
+        <td style="text-align: center;"
+            th:text="${#numbers.formatDecimal(insuranceResult.totalBonus, 0, 'DEFAULT', 1, 'POINT')}"></td>
+        <td style="text-align: center;"
+            th:text="${#numbers.formatDecimal(insuranceResult.penetration, 0, 'DEFAULT', 1, 'POINT')}"></td>
         </tbody>
     </table>
 </div>

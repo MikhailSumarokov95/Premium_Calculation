@@ -26,6 +26,7 @@ public class CreditService {
     }
 
     public List<Credit> getCredits() {
+        efficiencyService.calculateEfficiency();
         return creditRepository.findByUserIdOrderByIdAsc(authService.getUser().getId());
     }
 

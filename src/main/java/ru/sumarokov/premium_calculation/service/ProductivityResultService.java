@@ -45,7 +45,7 @@ public class ProductivityResultService {
     public ProductivityResult calculateProductivityResult() {
         ProductivityResult productivityResult = getProductivityResult();
 
-        List<Credit> credits = creditRepository.findAll();
+        List<Credit> credits = creditRepository.findByUserId(authService.getUser().getId());
         Long countCredits = (long) credits.size();
         BigDecimal sumAmountCredits = calculateSumAmountCredits(credits);
         BigDecimal insurancePenetration = insuranceResultService.calculateInsuranceResult().getPenetration();

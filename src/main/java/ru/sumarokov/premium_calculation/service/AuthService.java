@@ -9,6 +9,7 @@ import ru.sumarokov.premium_calculation.repository.UserRepository;
 
 @Component
 public class AuthService {
+
     private final UserRepository userRepository;
 
     @Autowired
