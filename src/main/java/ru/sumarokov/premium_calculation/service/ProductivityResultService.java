@@ -2,14 +2,16 @@ package ru.sumarokov.premium_calculation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.sumarokov.premium_calculation.entity.*;
+import ru.sumarokov.premium_calculation.entity.Credit;
+import ru.sumarokov.premium_calculation.entity.ProductivityLevel;
+import ru.sumarokov.premium_calculation.entity.ProductivityResult;
+import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.repository.CreditRepository;
 import ru.sumarokov.premium_calculation.repository.ProductivityLevelRepository;
 import ru.sumarokov.premium_calculation.repository.ProductivityResultRepository;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Comparator;
 import java.util.List;
 
 @Service

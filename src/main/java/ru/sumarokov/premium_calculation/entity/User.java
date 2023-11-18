@@ -11,7 +11,6 @@ import ru.sumarokov.premium_calculation.helper.Role;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "users")
