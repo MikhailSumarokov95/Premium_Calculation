@@ -44,6 +44,19 @@ public class User implements UserDetails {
     @PrimaryKeyJoinColumn
     private ProductivityResult productivityResult;
 
+    public User() {
+    }
+
+    public User(String username,
+                String password,
+                String email,
+                Role role) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(role.name()));
@@ -151,16 +164,34 @@ public class User implements UserDetails {
         return true;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        User user = (User) o;
+//        return Objects.equals(id, user.id)
+//                && Objects.equals(username, user.username)
+//                && Objects.equals(password, user.password)
+//                && Objects.equals(email, user.email)
+//                && role == user.role
+//                && Objects.equals(credit, user.credit)
+//                && Objects.equals(efficiency, user.efficiency)
+//                && Objects.equals(furResult, user.furResult)
+//                && Objects.equals(insuranceResult, user.insuranceResult)
+//                && Objects.equals(productivityResult, user.productivityResult);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id,
+//                username,
+//                password,
+//                email,
+//                role,
+//                credit,
+//                efficiency,
+//                furResult,
+//                insuranceResult,
+//                productivityResult);
+//    }
 }

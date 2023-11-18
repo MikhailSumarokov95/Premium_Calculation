@@ -28,9 +28,9 @@ public class Insurance {
     public Insurance() {
     }
 
-    public Insurance(Long id, String name, BigDecimal factorInsuranceVolume,
+    public Insurance(String name,
+                     BigDecimal factorInsuranceVolume,
                      BigDecimal factorInsuranceBonus) {
-        this.id = id;
         this.name = name;
         this.factorInsuranceVolume = factorInsuranceVolume;
         this.factorInsuranceBonus = factorInsuranceBonus;

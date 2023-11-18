@@ -11,8 +11,4 @@ import java.util.Optional;
 public interface CriteriaBonusForFurRepository extends JpaRepository<CriteriaBonusForFur, Long> {
 
     List<CriteriaBonusForFur> findAllByOrderByBonusDesc();
-
-    @Query("SELECT bonus FROM CriteriaBonusForFur cbff WHERE cbff.minSum <= ?1 AND cbff.minSms <= ?2")
-    Optional<BigDecimal> getBonus(BigDecimal sumAmountCreditsCategoryFur,
-                                  BigDecimal shareCreditsCategoryFurWithSms);
 }

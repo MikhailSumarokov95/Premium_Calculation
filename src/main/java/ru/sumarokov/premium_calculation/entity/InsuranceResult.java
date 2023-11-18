@@ -3,6 +3,7 @@ package ru.sumarokov.premium_calculation.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "insurance_result")
@@ -23,6 +24,16 @@ public class InsuranceResult {
     }
 
     public InsuranceResult(User user) {
+        this.user = user;
+    }
+
+    public InsuranceResult(BigDecimal totalBonus,
+                           BigDecimal penetration,
+                           BigDecimal sumInsuranceVolume,
+                           User user) {
+        this.totalBonus = totalBonus;
+        this.penetration = penetration;
+        this.sumInsuranceVolume = sumInsuranceVolume;
         this.user = user;
     }
 
@@ -64,5 +75,22 @@ public class InsuranceResult {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        InsuranceResult that = (InsuranceResult) o;
+        return Objects.equals(id, that.id)
+                && Objects.equals(totalBonus, that.totalBonus)
+                && Objects.equals(penetration, that.penetration)
+                && Objects.equals(sumInsuranceVolume, that.sumInsuranceVolume)
+                && Objects.equals(user, that.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, totalBonus, penetration, sumInsuranceVolume, user);
     }
 }

@@ -3,6 +3,7 @@ package ru.sumarokov.premium_calculation.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sumarokov.premium_calculation.entity.Credit;
+import ru.sumarokov.premium_calculation.entity.CriteriaBonusForFur;
 import ru.sumarokov.premium_calculation.entity.FurResult;
 import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.repository.CreditRepository;
@@ -11,6 +12,7 @@ import ru.sumarokov.premium_calculation.repository.FurResultRepository;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -62,7 +64,8 @@ public class FurResultService {
             BigDecimal sumAmountCreditsCategoryFur = calculateSumAmountCreditsCategoryFur(creditsCategoryFur);
             furResult.setSumAmountCreditsCategoryFur(sumAmountCreditsCategoryFur);
 
-            BigDecimal bonus = calculateBonus(sumAmountCreditsCategoryFur, penetrationSmsCreditsCategoryFur);
+            BigDecimal bonus = calculateBonus(sumAmountCreditsCategoryFur,
+                    penetrationSmsCreditsCategoryFur, criteriaBonusForFurRepository.findAll());
             furResult.setBonus(bonus);
         }
         return furResultRepository.save(furResult);
@@ -88,9 +91,18 @@ public class FurResultService {
     }
 
     private BigDecimal calculateBonus(BigDecimal sumAmountCreditsCategoryFur,
-                                      BigDecimal penetrationSmsCreditsCategoryFur) {
-        return criteriaBonusForFurRepository
-                .getBonus(sumAmountCreditsCategoryFur, penetrationSmsCreditsCategoryFur)
-                .orElse(BigDecimal.ZERO);
+                                      BigDecimal penetrationSmsCreditsCategoryFur,
+                                      List<CriteriaBonusForFur> criteriaBonusForFurs) {
+        CriteriaBonusForFur criteriaBonusForFurZeroBonus = new CriteriaBonusForFur();
+        criteriaBonusForFurZeroBonus.setBonus(BigDecimal.ZERO);
+
+        return criteriaBonusForFurs
+                .stream()
+                .sorted(Comparator.comparing(CriteriaBonusForFur::getBonus).reversed())
+                .filter(p -> p.getMinSum().compareTo(sumAmountCreditsCategoryFur) <= 0
+                        && p.getMinSms().compareTo(penetrationSmsCreditsCategoryFur) <= 0)
+                .findFirst()
+                .orElse(criteriaBonusForFurZeroBonus)
+                .getBonus();
     }
 }
