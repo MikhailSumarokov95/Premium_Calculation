@@ -8,7 +8,7 @@ import ru.sumarokov.premium_calculation.helper.Role;
 @Controller
 public class IndexController {
 
-    @RequestMapping("/default")
+    @RequestMapping("/")
     public String index(HttpServletRequest request) {
         if (request.isUserInRole(Role.ROLE_ADMIN.name())) {
             return "redirect:/admin";
