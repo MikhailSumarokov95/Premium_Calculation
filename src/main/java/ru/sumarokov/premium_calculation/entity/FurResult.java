@@ -28,7 +28,8 @@ public class FurResult {
         this.user = user;
     }
 
-    public FurResult(BigDecimal bonus, Long countCreditsCategoryFur,
+    public FurResult(BigDecimal bonus,
+                     Long countCreditsCategoryFur,
                      Long countCreditsCategoryFurWithSms,
                      BigDecimal penetrationSmsCreditsCategoryFur,
                      BigDecimal sumAmountCreditsCategoryFur,

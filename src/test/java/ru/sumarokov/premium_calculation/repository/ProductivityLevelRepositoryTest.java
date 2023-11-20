@@ -33,7 +33,7 @@ public class ProductivityLevelRepositoryTest extends AbstractApplicationTest {
         productivityLevelRepository.save(productivityLevel);
 
         //when
-        Integer count =  productivityLevelRepository.findAll().size();
+        Integer count = productivityLevelRepository.findAll().size();
 
         //then
         assertEquals(1, count);
@@ -52,7 +52,7 @@ public class ProductivityLevelRepositoryTest extends AbstractApplicationTest {
         productivityLevelRepository.save(productivityLevel);
 
         //when
-        Integer count =  productivityLevelRepository.findAll().size();
+        Integer count = productivityLevelRepository.findAll().size();
 
         //then
         assertEquals(1, count);

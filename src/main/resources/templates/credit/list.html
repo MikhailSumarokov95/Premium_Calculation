@@ -48,7 +48,8 @@
             <td style="text-align: center;" th:text="${credit.isFur}"></td>
             <td style="text-align: center;" th:text="${credit.isConsultantAvailability}"></td>
             <td style="text-align: center;" th:text="${credit.isUsedSelfReject}"></td>
-            <td style="text-align: center;" th:text="${#numbers.formatDecimal(credit.preliminaryCreditResult.premium, 0, 'DEFAULT', 2, 'POINT')}"></td>
+            <td style="text-align: center;"
+                th:text="${#numbers.formatDecimal(credit.preliminaryCreditResult.premium, 0, 'DEFAULT', 2, 'POINT')}"></td>
             <td>
                 <div style="text-align: center;">
                     <a class="icon-link" th:href="${'/credit/' + credit.id}">

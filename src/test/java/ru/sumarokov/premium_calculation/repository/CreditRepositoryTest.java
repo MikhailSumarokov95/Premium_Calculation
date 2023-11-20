@@ -1,10 +1,6 @@
 package ru.sumarokov.premium_calculation.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.testng.annotations.Test;
 import ru.sumarokov.premium_calculation.config.AbstractApplicationTest;
-import ru.sumarokov.premium_calculation.entity.Credit;
-import ru.sumarokov.premium_calculation.entity.ProductGroup;
 
 public class CreditRepositoryTest extends AbstractApplicationTest {
 

@@ -1,15 +1,9 @@
 package ru.sumarokov.premium_calculation.repository;
 
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.test.context.annotation.SecurityTestExecutionListeners;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.sumarokov.premium_calculation.config.AbstractApplicationTest;
 import ru.sumarokov.premium_calculation.entity.InsuranceResult;
 import ru.sumarokov.premium_calculation.entity.User;
@@ -24,7 +18,7 @@ public class InsuranceResultServiceTest extends AbstractApplicationTest {
     @Autowired
     private InsuranceResultRepository insuranceResultRepository;
     @Autowired
-    private InsuranceResultService insuranceResultService ;
+    private InsuranceResultService insuranceResultService;
 
     @PreAuthorize("authenticated")
     public String getMessage() {
@@ -38,9 +32,7 @@ public class InsuranceResultServiceTest extends AbstractApplicationTest {
         getMessage();
     }
 
-    //@org.junit.Test
-    @org.testng.annotations.Test
-    @WithMockUser(username = "admin", roles = {"ROLE_CREDIT_SPECIALIST"})
+
     public void getInsuranceResultTest() {
         User userOne = new User("userOne", "pass", "emailOne@mail.ru", Role.ROLE_CREDIT_SPECIALIST);
         User userTwo = new User("userTwo", "pass", "emailTwo@mail.ru", Role.ROLE_CREDIT_SPECIALIST);
