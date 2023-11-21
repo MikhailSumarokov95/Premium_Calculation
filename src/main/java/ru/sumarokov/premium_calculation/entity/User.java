@@ -1,8 +1,6 @@
 package ru.sumarokov.premium_calculation.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,12 +17,8 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty(message = "Поле \"Имя\" должно быть заполнено")
     private String username;
-    @NotEmpty(message = "Поле \"Пароль\" должно быть заполнено")
     private String password;
-    @NotEmpty(message = "Поле \"Электронный адрес\" должно быть заполнено")
-    @Email(message = "Неверный формат электронной почты")
     private String email;
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -46,10 +40,12 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username,
+    public User(Long id,
+                String username,
                 String password,
                 String email,
                 Role role) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;

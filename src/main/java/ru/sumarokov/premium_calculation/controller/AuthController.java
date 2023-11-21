@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.sumarokov.premium_calculation.dto.UserDto;
 import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.service.UserService;
 
@@ -31,14 +32,16 @@ public class AuthController {
 
     @GetMapping("/register")
     public String registerPage(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("userDto", new UserDto());
         return "auth/register";
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) return "auth/register";
-        userService.createNewUser(user);
+    public String register(@ModelAttribute("userDto") @Valid UserDto userDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "auth/register";
+        }
+        userService.createNewUser(userDto.toEntity());
         return "redirect:/login";
     }
 
