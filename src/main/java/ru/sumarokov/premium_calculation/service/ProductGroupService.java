@@ -3,6 +3,7 @@ package ru.sumarokov.premium_calculation.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sumarokov.premium_calculation.entity.ProductGroup;
+import ru.sumarokov.premium_calculation.exception.EntityNotFoundException;
 import ru.sumarokov.premium_calculation.repository.ProductGroupRepository;
 
 import java.util.List;
@@ -22,7 +23,8 @@ public class ProductGroupService {
     }
 
     public ProductGroup getProductGroup(Long id) {
-        return productGroupRepository.findById(id).orElseThrow();
+        return productGroupRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     public void saveProductGroup(ProductGroup productGroup) {
@@ -30,6 +32,9 @@ public class ProductGroupService {
     }
 
     public void deleteProductGroup(Long id) {
+        if (!productGroupRepository.existsById(id)) {
+            throw new EntityNotFoundException();
+        }
         productGroupRepository.deleteById(id);
     }
 }

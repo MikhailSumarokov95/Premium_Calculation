@@ -42,7 +42,7 @@ public class InsuranceResultServiceTest extends AbstractApplicationTest {
 //        insuranceResultRepository.save(new InsuranceResult(BigDecimal.valueOf(3000), BigDecimal.valueOf(95), BigDecimal.valueOf(30000), userThree));
 
         System.out.println(SecurityContextHolder.getContext().getAuthentication());
-        InsuranceResult insuranceResults = insuranceResultService.getInsuranceResult();
+//        InsuranceResult insuranceResults = insuranceResultService.getInsuranceResult();
 
     }
 }

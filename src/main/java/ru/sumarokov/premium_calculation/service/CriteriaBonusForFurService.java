@@ -3,6 +3,7 @@ package ru.sumarokov.premium_calculation.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sumarokov.premium_calculation.entity.CriteriaBonusForFur;
+import ru.sumarokov.premium_calculation.exception.EntityNotFoundException;
 import ru.sumarokov.premium_calculation.repository.CriteriaBonusForFurRepository;
 
 import java.util.List;
@@ -22,7 +23,8 @@ public class CriteriaBonusForFurService {
     }
 
     public CriteriaBonusForFur getCriteriaBonusForFur(Long id) {
-        return criteriaBonusForFurRepository.findById(id).orElseThrow();
+        return criteriaBonusForFurRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     public void saveCriteriaBonusForFur(CriteriaBonusForFur criteriaBonusForFur) {
@@ -30,6 +32,9 @@ public class CriteriaBonusForFurService {
     }
 
     public void deleteCriteriaBonusForFur(Long id) {
+        if (!criteriaBonusForFurRepository.existsById(id)) {
+            throw new EntityNotFoundException();
+        }
         criteriaBonusForFurRepository.deleteById(id);
     }
 }
