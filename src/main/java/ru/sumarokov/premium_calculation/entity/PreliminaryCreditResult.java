@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class PreliminaryCreditResult {
 
     @Id
-    @Column(name = "credit_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private BigDecimal premium;
     private BigDecimal creditTotal;
@@ -17,7 +17,6 @@ public class PreliminaryCreditResult {
     private BigDecimal insuranceVolume;
     private BigDecimal creditPreviously;
     @OneToOne()
-    @MapsId
     @JoinColumn(name = "credit_id")
     private Credit credit;
 
@@ -25,6 +24,20 @@ public class PreliminaryCreditResult {
     }
 
     public PreliminaryCreditResult(Credit credit) {
+        this.credit = credit;
+    }
+
+    public PreliminaryCreditResult(BigDecimal premium,
+                                   BigDecimal creditTotal,
+                                   BigDecimal insuranceBonus,
+                                   BigDecimal insuranceVolume,
+                                   BigDecimal creditPreviously,
+                                   Credit credit) {
+        this.premium = premium;
+        this.creditTotal = creditTotal;
+        this.insuranceBonus = insuranceBonus;
+        this.insuranceVolume = insuranceVolume;
+        this.creditPreviously = creditPreviously;
         this.credit = credit;
     }
 

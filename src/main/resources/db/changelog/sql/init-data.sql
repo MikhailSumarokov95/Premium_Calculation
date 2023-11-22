@@ -29,3 +29,7 @@ VALUES
 ('Бронзовый', 10000, 21, 650000, 85, 30),
 ('Серебрянный', 15000, 30, 1000000, 90, 40),
 ('Золотой', 20000, 36, 1500000, 95, 60);
+
+INSERT INTO users(username, password, email, role)
+VALUES
+('admin', '$2a$10$dBNeCDYDgf6bLz9BhGXO9e7TTqCWb1NHYyHPlPVFo5TuOe10i8u/2', 'admin@mail.ru', 'ROLE_ADMIN');

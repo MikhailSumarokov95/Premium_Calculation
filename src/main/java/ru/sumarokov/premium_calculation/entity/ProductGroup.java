@@ -37,13 +37,12 @@ public class ProductGroup {
     public ProductGroup() {
     }
 
-    public ProductGroup(Long id, String name,
+    public ProductGroup(String name,
                         BigDecimal factorPremium,
                         BigDecimal minPremium,
                         BigDecimal maxPremium,
                         TypeCredit typeCredit,
                         BigDecimal minAmountForCalculatingCreditPremium) {
-        this.id = id;
         this.name = name;
         this.factorPremium = factorPremium;
         this.minPremium = minPremium;

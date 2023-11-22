@@ -33,9 +33,9 @@ public class Credit {
     private Boolean isFur;
     private Boolean isConsultantAvailability;
     private Boolean isUsedSelfReject;
-    @OneToOne(mappedBy = "credit", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private PreliminaryCreditResult preliminaryCreditResult;
+//    @OneToOne(mappedBy = "credit", cascade = CascadeType.ALL)
+//    @PrimaryKeyJoinColumn
+//    private PreliminaryCreditResult preliminaryCreditResult;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id", nullable = false)
     private User user;
@@ -44,6 +44,28 @@ public class Credit {
     }
 
     public Credit(User user) {
+        this.user = user;
+    }
+
+    public Credit(ProductGroup productGroup,
+                  BigDecimal amount,
+                  Integer term,
+                  BigDecimal rate,
+                  Insurance insurance,
+                  Boolean isConnectedSms,
+                  Boolean isFur,
+                  Boolean isConsultantAvailability,
+                  Boolean isUsedSelfReject,
+                  User user) {
+        this.productGroup = productGroup;
+        this.amount = amount;
+        this.term = term;
+        this.rate = rate;
+        this.insurance = insurance;
+        this.isConnectedSms = isConnectedSms;
+        this.isFur = isFur;
+        this.isConsultantAvailability = isConsultantAvailability;
+        this.isUsedSelfReject = isUsedSelfReject;
         this.user = user;
     }
 
@@ -127,13 +149,13 @@ public class Credit {
         isUsedSelfReject = usedSelfReject;
     }
 
-    public PreliminaryCreditResult getPreliminaryCreditResult() {
-        return preliminaryCreditResult;
-    }
-
-    public void setPreliminaryCreditResult(PreliminaryCreditResult preliminaryCreditResult) {
-        this.preliminaryCreditResult = preliminaryCreditResult;
-    }
+//    public PreliminaryCreditResult getPreliminaryCreditResult() {
+//        return preliminaryCreditResult;
+//    }
+//
+//    public void setPreliminaryCreditResult(PreliminaryCreditResult preliminaryCreditResult) {
+//        this.preliminaryCreditResult = preliminaryCreditResult;
+//    }
 
     public User getUser() {
         return user;

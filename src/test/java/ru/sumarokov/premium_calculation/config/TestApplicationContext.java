@@ -13,11 +13,6 @@ import ru.sumarokov.premium_calculation.service.AuthService;
 @Profile("test")
 public class TestApplicationContext {
 
-//    @Bean
-//    public PasswordEncoder passwordEncoderTest() {
-//        return new BCryptPasswordEncoder();
-//    }
-
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
