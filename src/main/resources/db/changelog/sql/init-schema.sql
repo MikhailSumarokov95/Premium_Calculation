@@ -97,8 +97,12 @@ CREATE TABLE IF NOT EXISTS productivity_result(
 
 CREATE TABLE IF NOT EXISTS premium_limit(
     id SERIAL PRIMARY KEY,
-    max_total_premium NUMERIC NOT NULL
+    max_total_premium NUMERIC NOT NULL,
+    is_actual BOOLEAN DEFAULT false
 );
+
+CREATE UNIQUE INDEX ON premium_limit (is_actual)
+WHERE is_actual = true;
 
 CREATE TABLE IF NOT EXISTS insurance_result(
     users_id SERIAL PRIMARY KEY REFERENCES users(id),

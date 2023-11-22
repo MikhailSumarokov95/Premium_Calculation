@@ -2,6 +2,7 @@ package ru.sumarokov.premium_calculation.service;
 
 import org.springframework.stereotype.Service;
 import ru.sumarokov.premium_calculation.entity.ProductivityLevel;
+import ru.sumarokov.premium_calculation.exception.EntityNotFoundException;
 import ru.sumarokov.premium_calculation.repository.ProductivityLevelRepository;
 
 import java.util.List;
@@ -20,7 +21,8 @@ public class ProductivityLevelService {
     }
 
     public ProductivityLevel getProductivityLevel(Long id) {
-        return productivityLevelRepository.findById(id).orElseThrow();
+        return productivityLevelRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     public void saveProductivityLevel(ProductivityLevel productivityLevel) {
@@ -28,6 +30,9 @@ public class ProductivityLevelService {
     }
 
     public void deleteProductivityLevel(Long id) {
+        if (!productivityLevelRepository.existsById(id)) {
+            throw new EntityNotFoundException();
+        }
         productivityLevelRepository.deleteById(id);
     }
 }

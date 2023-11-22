@@ -15,4 +15,6 @@ public interface CreditRepository extends JpaRepository<Credit, Long> {
     List<Credit> findByUserIdOrderByIdAsc(Long user_id);
 
     Optional<Credit> findByIdAndUserId(Long id, Long user_id);
+
+    Boolean existsByIdAndUserId(Long id, Long user_id);
 }

@@ -1,16 +1,11 @@
-package ru.sumarokov.premium_calculation.repository;
+package ru.sumarokov.premium_calculation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import ru.sumarokov.premium_calculation.config.AbstractApplicationTest;
-import ru.sumarokov.premium_calculation.entity.InsuranceResult;
-import ru.sumarokov.premium_calculation.entity.User;
-import ru.sumarokov.premium_calculation.helper.Role;
-import ru.sumarokov.premium_calculation.service.InsuranceResultService;
-
-import java.math.BigDecimal;
+import ru.sumarokov.premium_calculation.repository.InsuranceResultRepository;
 
 
 public class InsuranceResultServiceTest extends AbstractApplicationTest {
@@ -42,7 +37,7 @@ public class InsuranceResultServiceTest extends AbstractApplicationTest {
 //        insuranceResultRepository.save(new InsuranceResult(BigDecimal.valueOf(3000), BigDecimal.valueOf(95), BigDecimal.valueOf(30000), userThree));
 
         System.out.println(SecurityContextHolder.getContext().getAuthentication());
-        InsuranceResult insuranceResults = insuranceResultService.getInsuranceResult();
+//        InsuranceResult insuranceResults = insuranceResultService.getInsuranceResult();
 
     }
 }

@@ -16,6 +16,7 @@ public class PremiumLimit {
     @NotNull(message = "Поле должно быть заполнено")
     @Min(value = 0, message = "Значение должно быть больше 0")
     private BigDecimal maxTotalPremium;
+    private Boolean isActual;
 
     public PremiumLimit() {
     }
@@ -39,5 +40,13 @@ public class PremiumLimit {
 
     public void setMaxTotalPremium(BigDecimal maxTotalPremium) {
         this.maxTotalPremium = maxTotalPremium;
+    }
+
+    public Boolean getIsActual() {
+        return isActual;
+    }
+
+    public void setIsActual(Boolean actual) {
+        isActual = actual;
     }
 }

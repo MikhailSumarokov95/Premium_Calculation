@@ -35,14 +35,19 @@ public class CreditService {
 
     @Transactional
     public void saveCredit(Credit credit, User user) {
-        if (credit.getId() != null) getCredit(credit.getId(), user);
+        if (credit.getId() != null
+                && !creditRepository.existsByIdAndUserId(credit.getId(), user.getId())) {
+            throw new EntityNotFoundException();
+        }
         creditRepository.save(credit);
         efficiencyService.calculateEfficiency(user);
     }
 
     @Transactional
     public void deleteCredit(Long id, User user) {
-        getCredit(id, user);
+        if (!creditRepository.existsByIdAndUserId(id, user.getId())) {
+            throw new EntityNotFoundException();
+        }
         creditRepository.deleteById(id);
         efficiencyService.calculateEfficiency(user);
     }

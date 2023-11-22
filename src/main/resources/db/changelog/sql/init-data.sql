@@ -1,5 +1,5 @@
-INSERT INTO premium_limit(max_total_premium)
-VALUES (100000);
+INSERT INTO premium_limit(max_total_premium, is_actual)
+VALUES (100000, 'true');
 
 INSERT INTO insurance(name, factor_insurance_volume, factor_insurance_bonus)
 VALUES
