@@ -9,7 +9,6 @@ import ru.sumarokov.premium_calculation.repository.PremiumLimitRepository;
 public class PremiumLimitService {
 
     private final PremiumLimitRepository premiumLimitRepository;
-    private final static Long ID = 1L;
 
     @Autowired
     public PremiumLimitService(PremiumLimitRepository premiumLimitRepository) {
@@ -17,11 +16,12 @@ public class PremiumLimitService {
     }
 
     public PremiumLimit getPremiumLimit() {
-        return premiumLimitRepository.findById(ID).orElse(new PremiumLimit());
+        return premiumLimitRepository.findByIsActualTrue()
+                .orElse(new PremiumLimit());
     }
 
     public void savePremiumLimit(PremiumLimit premiumLimit) {
-        premiumLimit.setId(ID);
+        premiumLimit.setIsActual(true);
         premiumLimitRepository.save(premiumLimit);
     }
 }
