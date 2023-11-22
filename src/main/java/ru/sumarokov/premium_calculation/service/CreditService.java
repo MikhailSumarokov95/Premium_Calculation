@@ -36,7 +36,7 @@ public class CreditService {
     @Transactional
     public void saveCredit(Credit credit, User user) {
         if (credit.getId() != null
-                && !creditRepository.existsByIdAndUserId(user.getId(), user.getId())) {
+                && !creditRepository.existsByIdAndUserId(credit.getId(), user.getId())) {
             throw new EntityNotFoundException();
         }
         creditRepository.save(credit);
