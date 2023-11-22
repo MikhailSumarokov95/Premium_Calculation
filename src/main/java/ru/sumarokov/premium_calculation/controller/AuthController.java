@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.sumarokov.premium_calculation.dto.UserDto;
-import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.service.UserService;
 
 @Controller

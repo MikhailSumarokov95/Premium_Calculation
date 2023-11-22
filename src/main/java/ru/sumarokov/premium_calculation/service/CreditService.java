@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sumarokov.premium_calculation.entity.Credit;
+import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.exception.EntityNotFoundException;
 import ru.sumarokov.premium_calculation.repository.CreditRepository;
 
@@ -14,38 +15,35 @@ public class CreditService {
 
     private final CreditRepository creditRepository;
     private final EfficiencyService efficiencyService;
-    private final AuthService authService;
 
     @Autowired
     public CreditService(CreditRepository creditRepository,
-                         EfficiencyService efficiencyService,
-                         AuthService authService) {
+                         EfficiencyService efficiencyService) {
         this.creditRepository = creditRepository;
         this.efficiencyService = efficiencyService;
-        this.authService = authService;
     }
 
-    public List<Credit> getCredits() {
-        efficiencyService.calculateEfficiency();
-        return creditRepository.findByUserIdOrderByIdAsc(authService.getUser().getId());
+    public List<Credit> getCredits(User user) {
+        efficiencyService.calculateEfficiency(user);
+        return creditRepository.findByUserIdOrderByIdAsc(user.getId());
     }
 
-    public Credit getCredit(Long id) {
-        return creditRepository.findByIdAndUserId(id, authService.getUser().getId())
+    public Credit getCredit(Long id, User user) {
+        return creditRepository.findByIdAndUserId(id, user.getId())
                 .orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional
-    public void saveCredit(Credit credit) {
-        if (credit.getId() != null) getCredit(credit.getId());
+    public void saveCredit(Credit credit, User user) {
+        if (credit.getId() != null) getCredit(credit.getId(), user);
         creditRepository.save(credit);
-        efficiencyService.calculateEfficiency();
+        efficiencyService.calculateEfficiency(user);
     }
 
     @Transactional
-    public void deleteCredit(Long id) {
-        getCredit(id);
+    public void deleteCredit(Long id, User user) {
+        getCredit(id, user);
         creditRepository.deleteById(id);
-        efficiencyService.calculateEfficiency();
+        efficiencyService.calculateEfficiency(user);
     }
 }

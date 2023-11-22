@@ -20,7 +20,6 @@ public class EfficiencyService {
     private final ProductivityResultService productivityResultService;
     private final PremiumLimitRepository premiumLimitRepository;
     private final InsuranceResultService insuranceResultService;
-    private final AuthService authService;
 
     @Autowired
     public EfficiencyService(PreliminaryCreditResultService preliminaryCreditResultService,
@@ -28,36 +27,33 @@ public class EfficiencyService {
                              FurResultService furResultService,
                              ProductivityResultService productivityResultService,
                              PremiumLimitRepository premiumLimitRepository,
-                             InsuranceResultService insuranceResultService,
-                             AuthService authService) {
+                             InsuranceResultService insuranceResultService) {
         this.preliminaryCreditResultService = preliminaryCreditResultService;
         this.efficiencyRepository = efficiencyRepository;
         this.furResultService = furResultService;
         this.productivityResultService = productivityResultService;
         this.premiumLimitRepository = premiumLimitRepository;
         this.insuranceResultService = insuranceResultService;
-        this.authService = authService;
     }
 
-    public Efficiency getEfficiency() {
-        User user = authService.getUser();
+    public Efficiency getEfficiency(User user) {
         return efficiencyRepository.findByUserId(user.getId())
                 .orElse(new Efficiency(user));
     }
 
-    public Efficiency calculateEfficiency() {
-        Efficiency efficiency = getEfficiency();
+    public Efficiency calculateEfficiency(User user) {
+        Efficiency efficiency = getEfficiency(user);
 
-        BigDecimal premiumForCredit = calculatePreliminaryCreditResult();
+        BigDecimal premiumForCredit = calculatePreliminaryCreditResult(user);
         efficiency.setPremiumForCredits(premiumForCredit);
 
-        BigDecimal furBonus = furResultService.calculateFurResult().getBonus();
+        BigDecimal furBonus = furResultService.calculateFurResult(user).getBonus();
         efficiency.setFurBonus(furBonus);
 
-        BigDecimal totalProductivity = calculateTotalProductivity();
+        BigDecimal totalProductivity = calculateTotalProductivity(user);
         efficiency.setTotalProductivity(totalProductivity);
 
-        BigDecimal premiumInsurance = insuranceResultService.calculateInsuranceResult().getTotalBonus();
+        BigDecimal premiumInsurance = insuranceResultService.calculateInsuranceResult(user).getTotalBonus();
         efficiency.setPremiumInsurance(premiumInsurance);
 
         BigDecimal totalPremium = calculateTotalPremium(premiumForCredit, furBonus,
@@ -67,17 +63,17 @@ public class EfficiencyService {
         return efficiencyRepository.save(efficiency);
     }
 
-    private BigDecimal calculatePreliminaryCreditResult() {
+    private BigDecimal calculatePreliminaryCreditResult(User user) {
         List<PreliminaryCreditResult> preliminaryCreditResults =
-                preliminaryCreditResultService.calculatePreliminaryCreditResults();
+                preliminaryCreditResultService.calculatePreliminaryCreditResults(user);
         return preliminaryCreditResults.stream()
                 .map(PreliminaryCreditResult::getCreditTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    private BigDecimal calculateTotalProductivity() {
+    private BigDecimal calculateTotalProductivity(User user) {
         return productivityResultService
-                .calculateProductivityResult()
+                .calculateProductivityResult(user)
                 .getGeneralLevel()
                 .getPremium();
     }

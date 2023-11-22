@@ -34,10 +34,10 @@ public class InsuranceResultServiceTest extends AbstractApplicationTest {
 
 
     public void getInsuranceResultTest() {
-        User userOne = new User("userOne", "pass", "emailOne@mail.ru", Role.ROLE_CREDIT_SPECIALIST);
-        User userTwo = new User("userTwo", "pass", "emailTwo@mail.ru", Role.ROLE_CREDIT_SPECIALIST);
-        User userThree = new User("userThree", "pass", "emailThree@mail.ru", Role.ROLE_CREDIT_SPECIALIST);
-        insuranceResultRepository.save(new InsuranceResult(BigDecimal.valueOf(1000), BigDecimal.valueOf(75), BigDecimal.valueOf(10000), userOne));
+//        User userOne = new User("userOne", "pass", "emailOne@mail.ru", Role.ROLE_CREDIT_SPECIALIST);
+//        User userTwo = new User("userTwo", "pass", "emailTwo@mail.ru", Role.ROLE_CREDIT_SPECIALIST);
+//        User userThree = new User("userThree", "pass", "emailThree@mail.ru", Role.ROLE_CREDIT_SPECIALIST);
+//        insuranceResultRepository.save(new InsuranceResult(BigDecimal.valueOf(1000), BigDecimal.valueOf(75), BigDecimal.valueOf(10000), userOne));
 //        insuranceResultRepository.save(new InsuranceResult(BigDecimal.valueOf(2000), BigDecimal.valueOf(95), BigDecimal.valueOf(20000), userTwo));
 //        insuranceResultRepository.save(new InsuranceResult(BigDecimal.valueOf(3000), BigDecimal.valueOf(95), BigDecimal.valueOf(30000), userThree));
 

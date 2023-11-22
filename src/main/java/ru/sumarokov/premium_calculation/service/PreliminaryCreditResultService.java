@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sumarokov.premium_calculation.entity.Credit;
 import ru.sumarokov.premium_calculation.entity.PreliminaryCreditResult;
+import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.helper.TypeCredit;
 import ru.sumarokov.premium_calculation.repository.CreditRepository;
 import ru.sumarokov.premium_calculation.repository.PreliminaryCreditResultRepository;
@@ -17,24 +18,21 @@ public class PreliminaryCreditResultService {
 
     private final PreliminaryCreditResultRepository preliminaryCreditResultRepository;
     private final CreditRepository creditRepository;
-    private final AuthService authService;
 
     @Autowired
     public PreliminaryCreditResultService(PreliminaryCreditResultRepository preliminaryCreditResultRepository,
-                                          CreditRepository creditRepository,
-                                          AuthService authService) {
+                                          CreditRepository creditRepository) {
         this.preliminaryCreditResultRepository = preliminaryCreditResultRepository;
         this.creditRepository = creditRepository;
-        this.authService = authService;
     }
 
-    public List<PreliminaryCreditResult> getPreliminaryCreditResults() {
+    public List<PreliminaryCreditResult> getPreliminaryCreditResults(User user) {
         return preliminaryCreditResultRepository
-                .findByCreditUserIdOrderByCreditIdAsc(authService.getUser().getId());
+                .findByCreditUserIdOrderByCreditIdAsc(user.getId());
     }
 
-    public List<PreliminaryCreditResult> calculatePreliminaryCreditResults() {
-        List<Credit> credits = creditRepository.findByUserId(authService.getUser().getId());
+    public List<PreliminaryCreditResult> calculatePreliminaryCreditResults(User user) {
+        List<Credit> credits = creditRepository.findByUserId(user.getId());
         List<PreliminaryCreditResult> preliminaryCreditResults = credits
                 .stream()
                 .map(this::calculatePreliminaryCreditResult)

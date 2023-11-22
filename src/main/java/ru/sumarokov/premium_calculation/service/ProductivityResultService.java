@@ -21,34 +21,30 @@ public class ProductivityResultService {
     private final ProductivityResultRepository productivityResultRepository;
     private final CreditRepository creditRepository;
     private final InsuranceResultService insuranceResultService;
-    private final AuthService authService;
 
     @Autowired
     public ProductivityResultService(ProductivityLevelRepository productivityLevelRepository,
                                      ProductivityResultRepository productivityResultRepository,
                                      CreditRepository creditRepository,
-                                     InsuranceResultService insuranceResultService,
-                                     AuthService authService) {
+                                     InsuranceResultService insuranceResultService) {
         this.productivityLevelRepository = productivityLevelRepository;
         this.productivityResultRepository = productivityResultRepository;
         this.creditRepository = creditRepository;
         this.insuranceResultService = insuranceResultService;
-        this.authService = authService;
     }
 
-    public ProductivityResult getProductivityResult() {
-        User user = authService.getUser();
+    public ProductivityResult getProductivityResult(User user) {
         return productivityResultRepository.findByUserId(user.getId())
                 .orElse(new ProductivityResult(user));
     }
 
-    public ProductivityResult calculateProductivityResult() {
-        ProductivityResult productivityResult = getProductivityResult();
+    public ProductivityResult calculateProductivityResult(User user) {
+        ProductivityResult productivityResult = getProductivityResult(user);
 
-        List<Credit> credits = creditRepository.findByUserId(authService.getUser().getId());
+        List<Credit> credits = creditRepository.findByUserId(user.getId());
         Long countCredits = (long) credits.size();
         BigDecimal sumAmountCredits = calculateSumAmountCredits(credits);
-        BigDecimal insurancePenetration = insuranceResultService.calculateInsuranceResult().getPenetration();
+        BigDecimal insurancePenetration = insuranceResultService.calculateInsuranceResult(user).getPenetration();
         BigDecimal smsPenetration = calculateSmsPenetration(credits, BigDecimal.valueOf(countCredits));
         List<ProductivityLevel> productivityLevels = productivityLevelRepository.findAllByOrderByPremiumDesc();
 

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.sumarokov.premium_calculation.entity.Credit;
+import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.service.*;
 
 @Controller
@@ -39,9 +40,10 @@ public class CreditController {
     @PreAuthorize("hasRole('ROLE_CREDIT_SPECIALIST')")
     @GetMapping()
     public String getCreditList(Model model) {
-        model.addAttribute("credits", creditService.getCredits());
-        model.addAttribute("efficiency", efficiencyService.getEfficiency());
-        model.addAttribute("preliminaryCreditResults", preliminaryCreditResultService.getPreliminaryCreditResults());
+        User user = authService.getUser();
+        model.addAttribute("credits", creditService.getCredits(user));
+        model.addAttribute("efficiency", efficiencyService.getEfficiency(user));
+        model.addAttribute("preliminaryCreditResults", preliminaryCreditResultService.getPreliminaryCreditResults(user));
         return "credit/list";
     }
 
@@ -57,7 +59,7 @@ public class CreditController {
     @PreAuthorize("hasRole('ROLE_CREDIT_SPECIALIST')")
     @GetMapping("/{id}")
     public String getCreditForm(@PathVariable Long id, Model model) {
-        model.addAttribute("credit", creditService.getCredit(id));
+        model.addAttribute("credit", creditService.getCredit(id, authService.getUser()));
         model.addAttribute("productGroups", productGroupService.getProductGroups());
         model.addAttribute("insurances", insuranceService.getInsurances());
         return "credit/form";
@@ -73,14 +75,14 @@ public class CreditController {
             model.addAttribute("insurances", insuranceService.getInsurances());
             return "credit/form";
         }
-        creditService.saveCredit(credit);
+        creditService.saveCredit(credit, authService.getUser());
         return "redirect:/credit";
     }
 
     @PreAuthorize("hasRole('ROLE_CREDIT_SPECIALIST')")
     @GetMapping("{id}/delete")
     public String deleteCredit(@PathVariable Long id) {
-        creditService.deleteCredit(id);
+        creditService.deleteCredit(id, authService.getUser());
         return "redirect:/credit";
     }
 }

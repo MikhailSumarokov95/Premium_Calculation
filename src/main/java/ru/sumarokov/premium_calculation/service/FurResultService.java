@@ -21,29 +21,25 @@ public class FurResultService {
     private final CriteriaBonusForFurRepository criteriaBonusForFurRepository;
     private final FurResultRepository furResultRepository;
     private final CreditRepository creditRepository;
-    private final AuthService authService;
 
     @Autowired
     public FurResultService(CriteriaBonusForFurRepository criteriaBonusForFurRepository,
                             FurResultRepository furResultRepository,
-                            CreditRepository creditRepository,
-                            AuthService authService) {
+                            CreditRepository creditRepository) {
         this.criteriaBonusForFurRepository = criteriaBonusForFurRepository;
         this.furResultRepository = furResultRepository;
         this.creditRepository = creditRepository;
-        this.authService = authService;
     }
 
-    public FurResult getFurResult() {
-        User user = authService.getUser();
+    public FurResult getFurResult(User user) {
         return furResultRepository.findByUserId(user.getId())
                 .orElse(new FurResult(user));
     }
 
-    public FurResult calculateFurResult() {
-        FurResult furResult = getFurResult();
+    public FurResult calculateFurResult(User user) {
+        FurResult furResult = getFurResult(user);
 
-        List<Credit> creditsCategoryFur = creditRepository.findByUserIdAndIsFurTrue(authService.getUser().getId());
+        List<Credit> creditsCategoryFur = creditRepository.findByUserIdAndIsFurTrue(user.getId());
         Long countCreditsCategoryFur = (long) creditsCategoryFur.size();
         if (countCreditsCategoryFur == 0L) {
             furResult.setCountCreditsCategoryFur(0L);

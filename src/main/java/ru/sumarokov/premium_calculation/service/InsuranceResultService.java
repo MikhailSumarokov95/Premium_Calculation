@@ -17,28 +17,24 @@ public class InsuranceResultService {
 
     private final InsuranceResultRepository insuranceResultRepository;
     private final PreliminaryCreditResultRepository preliminaryCreditResultRepository;
-    private final AuthService authService;
 
     @Autowired
     public InsuranceResultService(InsuranceResultRepository insuranceResultRepository,
-                                  PreliminaryCreditResultRepository preliminaryCreditResultRepository,
-                                  AuthService authService) {
+                                  PreliminaryCreditResultRepository preliminaryCreditResultRepository) {
         this.insuranceResultRepository = insuranceResultRepository;
         this.preliminaryCreditResultRepository = preliminaryCreditResultRepository;
-        this.authService = authService;
     }
 
-    public InsuranceResult getInsuranceResult() {
-        User user = authService.getUser();
+    public InsuranceResult getInsuranceResult(User user) {
         return insuranceResultRepository.findByUserId(user.getId())
                 .orElse(new InsuranceResult(user));
     }
 
-    public InsuranceResult calculateInsuranceResult() {
-        InsuranceResult insuranceResult = getInsuranceResult();
+    public InsuranceResult calculateInsuranceResult(User user) {
+        InsuranceResult insuranceResult = getInsuranceResult(user);
 
         List<PreliminaryCreditResult> preliminaryCreditResults =
-                preliminaryCreditResultRepository.findByCreditUserId(authService.getUser().getId());
+                preliminaryCreditResultRepository.findByCreditUserId(user.getId());
         if (calculateSumAmountCredits(preliminaryCreditResults).compareTo(BigDecimal.ZERO) == 0) {
             insuranceResult.setSumInsuranceVolume(BigDecimal.ZERO);
             insuranceResult.setTotalBonus(BigDecimal.ZERO);
