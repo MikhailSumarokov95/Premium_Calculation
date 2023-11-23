@@ -15,7 +15,7 @@ public class InsuranceResult {
     private BigDecimal penetration;
     private BigDecimal sumInsuranceVolume;
     @OneToOne()
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "users_id")
     private User user;
 
     public InsuranceResult() {

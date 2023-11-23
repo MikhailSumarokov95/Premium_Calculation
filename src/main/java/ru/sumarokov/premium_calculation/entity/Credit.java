@@ -12,7 +12,6 @@ public class Credit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_group_id", nullable = false)
@@ -33,9 +32,6 @@ public class Credit {
     private Boolean isFur;
     private Boolean isConsultantAvailability;
     private Boolean isUsedSelfReject;
-//    @OneToOne(mappedBy = "credit", cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-//    private PreliminaryCreditResult preliminaryCreditResult;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id", nullable = false)
     private User user;
@@ -148,14 +144,6 @@ public class Credit {
     public void setIsUsedSelfReject(Boolean usedSelfReject) {
         isUsedSelfReject = usedSelfReject;
     }
-
-//    public PreliminaryCreditResult getPreliminaryCreditResult() {
-//        return preliminaryCreditResult;
-//    }
-//
-//    public void setPreliminaryCreditResult(PreliminaryCreditResult preliminaryCreditResult) {
-//        this.preliminaryCreditResult = preliminaryCreditResult;
-//    }
 
     public User getUser() {
         return user;

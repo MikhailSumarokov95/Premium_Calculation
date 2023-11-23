@@ -25,7 +25,6 @@ public class ProductivityResult {
     @JoinColumn(name = "sms_penetration_level", nullable = false)
     private ProductivityLevel smsPenetrationLevel;
     @OneToOne()
-    @MapsId
     @JoinColumn(name = "users_id")
     private User user;
 
