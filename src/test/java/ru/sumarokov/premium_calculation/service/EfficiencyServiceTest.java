@@ -1,6 +1,7 @@
 package ru.sumarokov.premium_calculation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.sumarokov.premium_calculation.config.AbstractApplicationTest;
@@ -12,7 +13,6 @@ import ru.sumarokov.premium_calculation.repository.*;
 import java.math.BigDecimal;
 
 public class EfficiencyServiceTest extends AbstractApplicationTest {
-
 
     @Autowired
     private FurResultService furResultService;
@@ -36,6 +36,7 @@ public class EfficiencyServiceTest extends AbstractApplicationTest {
     private EfficiencyService efficiencyService;
 
     @Test
+
     public void calculateEfficiency() {
         User userCurrent = userRepository.save(new User("userOne", "pass", "emailOne@mail.ru", Role.ROLE_CREDIT_SPECIALIST));
         ProductGroup productGroup = productGroupRepository.save(new ProductGroup("Услуги", BigDecimal.valueOf(0.13), BigDecimal.valueOf(30), BigDecimal.valueOf(3000), TypeCredit.POINT_OF_SALE, BigDecimal.ZERO));

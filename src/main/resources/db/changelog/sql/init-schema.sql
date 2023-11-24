@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS credit(
     is_consultant_availability    BOOLEAN                  NOT NULL DEFAULT FALSE,
     is_used_self_reject           BOOLEAN                  NOT NULL DEFAULT FALSE,
     users_id                      INTEGER                  NOT NULL REFERENCES users(id)
+                                                           ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS preliminary_credit_result(
@@ -61,6 +62,7 @@ CREATE TABLE IF NOT EXISTS preliminary_credit_result(
     insurance_volume     NUMERIC                  NOT NULL,
     credit_previously    NUMERIC                  NOT NULL,
     credit_id            BIGINT                   NOT NULL REFERENCES credit(id)
+                                                  ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS efficiency(
@@ -71,6 +73,7 @@ CREATE TABLE IF NOT EXISTS efficiency(
     total_productivity     NUMERIC                  NOT NULL,
     premium_insurance      NUMERIC                  NOT NULL,
     users_id               BIGINT                   NOT NULL REFERENCES users(id)
+                                                    ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS criteria_bonus_for_fur(
@@ -88,6 +91,7 @@ CREATE TABLE IF NOT EXISTS fur_result(
     penetration_sms_credits_category_fur    NUMERIC                  NOT NULL,
     sum_amount_credits_category_fur         NUMERIC                  NOT NULL,
     users_id                                BIGINT                   NOT NULL REFERENCES users(id)
+                                                                     ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS productivity_level(
@@ -125,4 +129,5 @@ CREATE TABLE IF NOT EXISTS insurance_result(
     penetration             NUMERIC                  NOT NULL,
     sum_insurance_volume    NUMERIC                  NOT NULL,
     users_id                BIGINT                   NOT NULL REFERENCES users(id)
+                                                     ON DELETE CASCADE
 );

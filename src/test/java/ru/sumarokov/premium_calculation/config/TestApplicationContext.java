@@ -7,7 +7,6 @@ import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.helper.Role;
 import ru.sumarokov.premium_calculation.repository.UserRepository;
 import ru.sumarokov.premium_calculation.service.AuthService;
-import ru.sumarokov.premium_calculation.tools.Tools;
 
 @Configuration
 @Profile("test")
@@ -39,10 +38,5 @@ public class TestApplicationContext {
                 return user;
             }
         };
-    }
-
-    @Bean()
-    public Tools tools() {
-        return new Tools();
     }
 }

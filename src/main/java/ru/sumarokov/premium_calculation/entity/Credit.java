@@ -35,8 +35,6 @@ public class Credit {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id", nullable = false)
     private User user;
-    @OneToOne(mappedBy = "credit", cascade = CascadeType.ALL)
-    private PreliminaryCreditResult preliminaryCreditResult;
 
     public Credit() {
     }
@@ -153,14 +151,6 @@ public class Credit {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public PreliminaryCreditResult getPreliminaryCreditResult() {
-        return preliminaryCreditResult;
-    }
-
-    public void setPreliminaryCreditResult(PreliminaryCreditResult preliminaryCreditResult) {
-        this.preliminaryCreditResult = preliminaryCreditResult;
     }
 }
 
