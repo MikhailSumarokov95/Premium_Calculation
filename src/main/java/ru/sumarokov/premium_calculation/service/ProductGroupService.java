@@ -24,7 +24,7 @@ public class ProductGroupService {
 
     public ProductGroup getProductGroup(Long id) {
         return productGroupRepository.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> new EntityNotFoundException(ProductGroup.class, id));
     }
 
     public void saveProductGroup(ProductGroup productGroup) {
@@ -33,7 +33,7 @@ public class ProductGroupService {
 
     public void deleteProductGroup(Long id) {
         if (!productGroupRepository.existsById(id)) {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException(ProductGroup.class, id);
         }
         productGroupRepository.deleteById(id);
     }

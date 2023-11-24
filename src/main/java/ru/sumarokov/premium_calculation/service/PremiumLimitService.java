@@ -18,7 +18,7 @@ public class PremiumLimitService {
 
     public PremiumLimit getPremiumLimit() {
         return premiumLimitRepository.findByIsActualTrue()
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> new EntityNotFoundException(PremiumLimit.class));
     }
 
     public void savePremiumLimit(PremiumLimit premiumLimit) {
