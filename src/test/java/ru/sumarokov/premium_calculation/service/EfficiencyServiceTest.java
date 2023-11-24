@@ -1,8 +1,6 @@
 package ru.sumarokov.premium_calculation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.sumarokov.premium_calculation.config.AbstractApplicationTest;
@@ -41,7 +39,7 @@ public class EfficiencyServiceTest extends AbstractApplicationTest {
     public void calculateEfficiency() {
         User userCurrent = userRepository.save(new User("userOne", "pass", "emailOne@mail.ru", Role.ROLE_CREDIT_SPECIALIST));
         ProductGroup productGroup = productGroupRepository.save(new ProductGroup("Услуги", BigDecimal.valueOf(0.13), BigDecimal.valueOf(30), BigDecimal.valueOf(3000), TypeCredit.POINT_OF_SALE, BigDecimal.ZERO));
-        Insurance insurance = insuranceRepository.save(new Insurance("Безработица", BigDecimal.valueOf(100), BigDecimal.valueOf(1.6)));
+        Insurance insurance = insuranceRepository.save(new Insurance("Безработица", BigDecimal.valueOf(100), BigDecimal.valueOf(1.4)));
         Insurance insuranceNot = insuranceRepository.save(new Insurance("Нет", BigDecimal.ZERO, BigDecimal.ZERO));
         criteriaBonusForFurRepository.save(new CriteriaBonusForFur(BigDecimal.valueOf(750000), BigDecimal.valueOf(70), BigDecimal.valueOf(7500)));
         criteriaBonusForFurRepository.save(new CriteriaBonusForFur(BigDecimal.valueOf(1000000), BigDecimal.valueOf(75), BigDecimal.valueOf(17500)));
@@ -53,14 +51,14 @@ public class EfficiencyServiceTest extends AbstractApplicationTest {
         productivityLevelRepository.save(new ProductivityLevel("Золотой", BigDecimal.valueOf(20000), 36, BigDecimal.valueOf(1500000), BigDecimal.valueOf(95), BigDecimal.valueOf(60)));
         creditRepository.save(new Credit(productGroup, BigDecimal.valueOf(100000), 12, BigDecimal.valueOf(10), insurance, true, false, false, false, userCurrent));
         creditRepository.save(new Credit(productGroup, BigDecimal.valueOf(200000), 12, BigDecimal.valueOf(10), insurance, true, true, false, false, userCurrent));
-        creditRepository.save(new Credit(productGroup, BigDecimal.valueOf(600000), 24, BigDecimal.valueOf(10), insuranceNot, true, true, false, false, userCurrent));
+        creditRepository.save(new Credit(productGroup, BigDecimal.valueOf(600000), 24, BigDecimal.valueOf(10), insuranceNot, true, true, true, true, userCurrent));
 
         Efficiency efficiency = efficiencyService.calculateEfficiency(userCurrent);
 
         Assert.assertEquals(efficiency.getFurBonus().stripTrailingZeros(), BigDecimal.valueOf(7500).stripTrailingZeros());
         Assert.assertEquals(efficiency.getPremiumForCredits().stripTrailingZeros(), BigDecimal.valueOf(1354).stripTrailingZeros());
         Assert.assertEquals(efficiency.getPremiumInsurance().stripTrailingZeros(), BigDecimal.valueOf(4200).stripTrailingZeros());
-        Assert.assertEquals(efficiency.getTotalProductivity().stripTrailingZeros(), BigDecimal.valueOf(11500).stripTrailingZeros());
-        Assert.assertEquals(efficiency.getTotalPremium().stripTrailingZeros(), BigDecimal.valueOf(36054).stripTrailingZeros());
+        Assert.assertEquals(efficiency.getTotalProductivity().stripTrailingZeros(), BigDecimal.valueOf(10000).stripTrailingZeros());
+        Assert.assertEquals(efficiency.getTotalPremium().stripTrailingZeros(), BigDecimal.valueOf(23054).stripTrailingZeros());
     }
 }

@@ -1,7 +1,6 @@
 package ru.sumarokov.premium_calculation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.sumarokov.premium_calculation.config.AbstractApplicationTest;
@@ -33,7 +32,7 @@ public class ProductivityResultServiceTest extends AbstractApplicationTest {
     private void calculateProductivityResult() {
         User userCurrent = userRepository.save(new User("userOne", "pass", "emailOne@mail.ru", Role.ROLE_CREDIT_SPECIALIST));
         ProductGroup productGroup = productGroupRepository.save(new ProductGroup("Услуги", BigDecimal.valueOf(0.13), BigDecimal.valueOf(30), BigDecimal.valueOf(3000), TypeCredit.POINT_OF_SALE, BigDecimal.ZERO));
-        Insurance insurance = insuranceRepository.save(new Insurance("Безработица", BigDecimal.valueOf(100), BigDecimal.valueOf(1.6)));
+        Insurance insurance = insuranceRepository.save(new Insurance("Безработица", BigDecimal.valueOf(100), BigDecimal.valueOf(1.4)));
         Insurance insuranceNot = insuranceRepository.save(new Insurance("Нет", BigDecimal.ZERO, BigDecimal.ZERO));
         productivityLevelRepository.save(new ProductivityLevel("Уровень 0", BigDecimal.ZERO, 0, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
         productivityLevelRepository.save(new ProductivityLevel("Медный", BigDecimal.valueOf(7000), 16, BigDecimal.valueOf(500000), BigDecimal.valueOf(75), BigDecimal.ZERO));
