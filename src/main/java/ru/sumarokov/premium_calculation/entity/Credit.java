@@ -13,7 +13,7 @@ public class Credit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_group_id", nullable = false)
     private ProductGroup productGroup;
     @NotNull(message = "Поле должно быть заполнено")
@@ -25,7 +25,7 @@ public class Credit {
     @NotNull(message = "Поле должно быть заполнено")
     @Min(value = 0, message = "Значение должно быть больше 0")
     private BigDecimal rate;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "insurance_id", nullable = false)
     private Insurance insurance;
     private Boolean isConnectedSms;
@@ -35,6 +35,8 @@ public class Credit {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id", nullable = false)
     private User user;
+    @OneToOne(mappedBy = "credit", cascade = CascadeType.ALL)
+    private PreliminaryCreditResult preliminaryCreditResult;
 
     public Credit() {
     }
@@ -151,6 +153,14 @@ public class Credit {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public PreliminaryCreditResult getPreliminaryCreditResult() {
+        return preliminaryCreditResult;
+    }
+
+    public void setPreliminaryCreditResult(PreliminaryCreditResult preliminaryCreditResult) {
+        this.preliminaryCreditResult = preliminaryCreditResult;
     }
 }
 

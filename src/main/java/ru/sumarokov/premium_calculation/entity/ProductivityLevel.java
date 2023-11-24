@@ -38,13 +38,12 @@ public class ProductivityLevel {
     public ProductivityLevel() {
     }
 
-    public ProductivityLevel(Long id, String name,
+    public ProductivityLevel(String name,
                              BigDecimal premium,
                              Integer minCountCredits,
                              BigDecimal minSumAmountCredits,
                              BigDecimal minPenetrationSms,
                              BigDecimal minPenetrationInsurance) {
-        this.id = id;
         this.name = name;
         this.premium = premium;
         this.minCountCredits = minCountCredits;

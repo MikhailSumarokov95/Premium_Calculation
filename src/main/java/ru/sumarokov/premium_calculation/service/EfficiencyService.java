@@ -83,7 +83,7 @@ public class EfficiencyService {
                                              BigDecimal totalProductivity,
                                              BigDecimal premiumInsurance) {
         BigDecimal maxPremium = premiumLimitRepository
-                .findById(1L)
+                .findByIsActualTrue()
                 .orElseThrow()
                 .getMaxTotalPremium();
 

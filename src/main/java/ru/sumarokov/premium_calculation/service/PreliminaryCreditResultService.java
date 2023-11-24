@@ -85,6 +85,7 @@ public class PreliminaryCreditResultService {
                     .divide(BigDecimal.valueOf(100), 5, RoundingMode.HALF_UP)
                     .multiply(credit.getAmount())
                     .multiply(BigDecimal.valueOf(credit.getTerm()))
+                    .divide(BigDecimal.valueOf(100), 5, RoundingMode.HALF_UP)
                     .multiply(credit.getRate());
         }
 

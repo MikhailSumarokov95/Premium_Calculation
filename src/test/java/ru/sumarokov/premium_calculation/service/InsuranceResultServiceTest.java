@@ -3,7 +3,6 @@ package ru.sumarokov.premium_calculation.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.sumarokov.premium_calculation.config.AbstractApplicationTest;
 import ru.sumarokov.premium_calculation.entity.*;
@@ -30,22 +29,9 @@ public class InsuranceResultServiceTest extends AbstractApplicationTest {
     private CreditRepository creditRepository;
     @Autowired
     private PreliminaryCreditResultRepository preliminaryCreditResultRepository;
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    @BeforeMethod
-    void setUp() {
-        //jdbcTemplate.update("truncate preliminary_credit_result cascade;");
-        preliminaryCreditResultRepository.deleteAll();
-        insuranceResultRepository.deleteAll();
-        creditRepository.deleteAll();
-        userRepository.deleteAll();
-        productGroupRepository.deleteAll();
-        insuranceRepository.deleteAll();
-    }
 
     @Test
-    public void getInsuranceResultUserTest() {
+    public void getInsuranceResultUser() {
         User userOne = userRepository.save(new User("userOne", "pass", "emailOne@mail.ru", Role.ROLE_CREDIT_SPECIALIST));
         User userTwo = userRepository.save(new User("userTwo", "pass", "emailTwo@mail.ru", Role.ROLE_CREDIT_SPECIALIST));
         User userThree = userRepository.save(new User("userThree", "pass", "emailThree@mail.ru", Role.ROLE_CREDIT_SPECIALIST));
@@ -56,15 +42,15 @@ public class InsuranceResultServiceTest extends AbstractApplicationTest {
 
         InsuranceResult insuranceResults = insuranceResultService.getInsuranceResult(userExpected);
 
-        Assert.assertEquals(insuranceResults.getTotalBonus(), resultExpected.getTotalBonus());
-        Assert.assertEquals(insuranceResults.getSumInsuranceVolume(), resultExpected.getSumInsuranceVolume());
-        Assert.assertEquals(insuranceResults.getPenetration(), resultExpected.getPenetration());
+        Assert.assertEquals(insuranceResults.getTotalBonus().stripTrailingZeros(), resultExpected.getTotalBonus().stripTrailingZeros());
+        Assert.assertEquals(insuranceResults.getSumInsuranceVolume().stripTrailingZeros(), resultExpected.getSumInsuranceVolume().stripTrailingZeros());
+        Assert.assertEquals(insuranceResults.getPenetration().stripTrailingZeros(), resultExpected.getPenetration().stripTrailingZeros());
         Assert.assertEquals(insuranceResults.getId(), resultExpected.getId());
         Assert.assertEquals(insuranceResults.getUser().getUsername(), resultExpected.getUser().getUsername());
     }
 
     @Test
-    public void getInsuranceResultNewUserTest() {
+    public void getInsuranceResultNewUser() {
         User userCurrent = userRepository.save(new User("userOne", "pass", "emailOne@mail.ru", Role.ROLE_CREDIT_SPECIALIST));
         User userTwo = userRepository.save(new User("userTwo", "pass", "emailTwo@mail.ru", Role.ROLE_CREDIT_SPECIALIST));
         User userThree = userRepository.save(new User("userThree", "pass", "emailThree@mail.ru", Role.ROLE_CREDIT_SPECIALIST));
@@ -100,22 +86,22 @@ public class InsuranceResultServiceTest extends AbstractApplicationTest {
     }
 
     @Test
-    public void calculateInsuranceResult() {
+    public void calculateInsuranceResultAllZero() {
         User userCurrent = userRepository.save(new User("userOne", "pass", "emailOne@mail.ru", Role.ROLE_CREDIT_SPECIALIST));
         ProductGroup productGroup = productGroupRepository.save(new ProductGroup("group", BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, TypeCredit.CASH_ON_CARD, BigDecimal.ZERO));
         Insurance insurance = insuranceRepository.save(new Insurance("insurance", BigDecimal.ZERO, BigDecimal.ZERO));
         Credit credit1 = creditRepository.save(new Credit(productGroup, BigDecimal.ZERO, 0, BigDecimal.ZERO, insurance, false, false, false, false, userCurrent));
         Credit credit2 = creditRepository.save(new Credit(productGroup, BigDecimal.ZERO, 0, BigDecimal.ZERO, insurance, false, false, false, false, userCurrent));
         Credit credit3 = creditRepository.save(new Credit(productGroup, BigDecimal.ZERO, 0, BigDecimal.ZERO, insurance, false, false, false, false, userCurrent));
-        PreliminaryCreditResult result1 = preliminaryCreditResultRepository.save(new PreliminaryCreditResult(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, credit1));
-        PreliminaryCreditResult result2 = preliminaryCreditResultRepository.save(new PreliminaryCreditResult(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, credit2));
-        PreliminaryCreditResult result3 = preliminaryCreditResultRepository.save(new PreliminaryCreditResult(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, credit3));
+        preliminaryCreditResultRepository.save(new PreliminaryCreditResult(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, credit1));
+        preliminaryCreditResultRepository.save(new PreliminaryCreditResult(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, credit2));
+        preliminaryCreditResultRepository.save(new PreliminaryCreditResult(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, credit3));
 
         InsuranceResult insuranceResult = insuranceResultService.calculateInsuranceResult(userCurrent);
 
-        Assert.assertEquals(insuranceResult.getTotalBonus(), BigDecimal.ZERO);
-        Assert.assertEquals(insuranceResult.getSumInsuranceVolume(), BigDecimal.ZERO);
-        Assert.assertEquals(insuranceResult.getPenetration(), BigDecimal.ZERO);
+        Assert.assertEquals(insuranceResult.getTotalBonus().stripTrailingZeros(), BigDecimal.ZERO);
+        Assert.assertEquals(insuranceResult.getSumInsuranceVolume().stripTrailingZeros(), BigDecimal.ZERO);
+        Assert.assertEquals(insuranceResult.getPenetration().stripTrailingZeros(), BigDecimal.ZERO);
         Assert.assertEquals(insuranceResult.getUser().getUsername(), userCurrent.getUsername());
     }
 
@@ -126,8 +112,29 @@ public class InsuranceResultServiceTest extends AbstractApplicationTest {
         InsuranceResult insuranceResult = insuranceResultService.calculateInsuranceResult(userCurrent);
 
         Assert.assertEquals(insuranceResult.getUser().getUsername(), "userOne");
-        Assert.assertEquals(insuranceResult.getSumInsuranceVolume(), BigDecimal.ZERO);
-        Assert.assertEquals(insuranceResult.getPenetration(), BigDecimal.ZERO);
-        Assert.assertEquals(insuranceResult.getTotalBonus(), BigDecimal.ZERO);
+        Assert.assertEquals(insuranceResult.getSumInsuranceVolume().stripTrailingZeros(), BigDecimal.ZERO);
+        Assert.assertEquals(insuranceResult.getPenetration().stripTrailingZeros(), BigDecimal.ZERO);
+        Assert.assertEquals(insuranceResult.getTotalBonus().stripTrailingZeros(), BigDecimal.ZERO);
+    }
+
+    @Test
+    public void calculateInsuranceResult() {
+        User userCurrent = userRepository.save(new User("userOne", "pass", "emailOne@mail.ru", Role.ROLE_CREDIT_SPECIALIST));
+        ProductGroup productGroup = productGroupRepository.save(new ProductGroup("Услуги", BigDecimal.valueOf(0.13), BigDecimal.valueOf(30), BigDecimal.valueOf(3000), TypeCredit.POINT_OF_SALE, BigDecimal.ZERO));
+        Insurance insurance = insuranceRepository.save(new Insurance("Безработица", BigDecimal.valueOf(100), BigDecimal.valueOf(1.6)));
+        Insurance insuranceNot = insuranceRepository.save(new Insurance("Нет", BigDecimal.ZERO, BigDecimal.ZERO));
+        Credit credit1 = creditRepository.save(new Credit(productGroup, BigDecimal.valueOf(100000), 12, BigDecimal.valueOf(10), insurance, true, false, false, false, userCurrent));
+        Credit credit2 = creditRepository.save(new Credit(productGroup, BigDecimal.valueOf(200000), 12, BigDecimal.valueOf(10), insurance, true, false, false, false, userCurrent));
+        Credit credit3 = creditRepository.save(new Credit(productGroup, BigDecimal.valueOf(300000), 24, BigDecimal.valueOf(10), insuranceNot, true, false, false, false, userCurrent));
+        preliminaryCreditResultRepository.save(new PreliminaryCreditResult(BigDecimal.valueOf(1556), BigDecimal.valueOf(156), BigDecimal.valueOf(1400), BigDecimal.valueOf(100000), BigDecimal.valueOf(156), credit1));
+        preliminaryCreditResultRepository.save(new PreliminaryCreditResult(BigDecimal.valueOf(3112), BigDecimal.valueOf(312), BigDecimal.valueOf(2800), BigDecimal.valueOf(200000), BigDecimal.valueOf(312), credit2));
+        preliminaryCreditResultRepository.save(new PreliminaryCreditResult(BigDecimal.valueOf(936), BigDecimal.valueOf(936), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(936), credit3));
+
+        InsuranceResult insuranceResult = insuranceResultService.calculateInsuranceResult(userCurrent);
+
+        Assert.assertEquals(insuranceResult.getTotalBonus().stripTrailingZeros(), BigDecimal.valueOf(4200).stripTrailingZeros());
+        Assert.assertEquals(insuranceResult.getSumInsuranceVolume().stripTrailingZeros(), BigDecimal.valueOf(300000).stripTrailingZeros());
+        Assert.assertEquals(insuranceResult.getPenetration().stripTrailingZeros(), BigDecimal.valueOf(50).stripTrailingZeros());
+        Assert.assertEquals(insuranceResult.getUser().getUsername(), userCurrent.getUsername());
     }
 }

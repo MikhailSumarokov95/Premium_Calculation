@@ -4,8 +4,8 @@ VALUES (100000, 'true');
 INSERT INTO insurance(name, factor_insurance_volume, factor_insurance_bonus)
 VALUES
 ('Нет', 0, 0),
-('Жизнь', 100, 1.4),
-('Безработица', 100, 1.6),
+('Жизнь', 100, 1.6),
+('Безработица', 100, 1.4),
 ('Комбо', 200, 3);
 
 INSERT INTO product_group(name, factor_premium, min_premium, max_premium, type_credit, min_amount_for_calculating_credit_premium)

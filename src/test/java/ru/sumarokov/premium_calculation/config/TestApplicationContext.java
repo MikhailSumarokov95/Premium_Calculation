@@ -2,12 +2,14 @@ package ru.sumarokov.premium_calculation.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.helper.Role;
 import ru.sumarokov.premium_calculation.repository.UserRepository;
 import ru.sumarokov.premium_calculation.service.AuthService;
+import ru.sumarokov.premium_calculation.tools.Tools;
 
 @Configuration
 @Profile("test")
@@ -39,5 +41,10 @@ public class TestApplicationContext {
                 return user;
             }
         };
+    }
+
+    @Bean()
+    public Tools tools() {
+        return new Tools();
     }
 }

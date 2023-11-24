@@ -27,11 +27,9 @@ public class CriteriaBonusForFur {
     public CriteriaBonusForFur() {
     }
 
-    public CriteriaBonusForFur(Long id,
-                               BigDecimal minSum,
+    public CriteriaBonusForFur(BigDecimal minSum,
                                BigDecimal minSms,
                                BigDecimal bonus) {
-        this.id = id;
         this.minSum = minSum;
         this.minSms = minSms;
         this.bonus = bonus;
