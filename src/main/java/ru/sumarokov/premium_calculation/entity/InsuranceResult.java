@@ -15,7 +15,6 @@ public class InsuranceResult {
     private BigDecimal penetration;
     private BigDecimal sumInsuranceVolume;
     @OneToOne()
-    @MapsId
     @JoinColumn(name = "users_id")
     private User user;
 

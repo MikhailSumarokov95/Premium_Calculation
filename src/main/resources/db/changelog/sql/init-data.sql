@@ -4,8 +4,8 @@ VALUES (100000, 'true');
 INSERT INTO insurance(name, factor_insurance_volume, factor_insurance_bonus)
 VALUES
 ('Нет', 0, 0),
-('Жизнь', 100, 1.4),
-('Безработица', 100, 1.6),
+('Жизнь', 100, 1.6),
+('Безработица', 100, 1.4),
 ('Комбо', 200, 3);
 
 INSERT INTO product_group(name, factor_premium, min_premium, max_premium, type_credit, min_amount_for_calculating_credit_premium)
@@ -22,10 +22,15 @@ VALUES
 INSERT INTO criteria_bonus_for_fur( min_sum, min_sms, bonus)
 VALUES (750000, 70, 7500);
 
-INSERT INTO productivity_level(name, premium, min_count_credits, min_sum_amount_credits, min_penetration_sms, min_penetration_insurance)
+INSERT INTO productivity_level(name, premium, min_count_credits, min_sum_amount_credits, min_penetration_sms, min_penetration_insurance, is_default)
 VALUES
-('Уровень 0', 0, 0, 0, 0, 0),
-('Медный', 7000, 16, 500000, 75, 0),
-('Бронзовый', 10000, 21, 650000, 85, 30),
-('Серебрянный', 15000, 30, 1000000, 90, 40),
-('Золотой', 20000, 36, 1500000, 95, 60);
+('Уровень 0', 0, 0, 0, 0, 0, true),
+('Медный', 7000, 16, 500000, 75, 0, false),
+('Бронзовый', 10000, 21, 650000, 85, 30, false),
+('Серебрянный', 15000, 30, 1000000, 90, 40, false),
+('Золотой', 20000, 36, 1500000, 95, 60, false);
+
+INSERT INTO users(username, password, email, role)
+VALUES
+('admin', '$2a$10$dBNeCDYDgf6bLz9BhGXO9e7TTqCWb1NHYyHPlPVFo5TuOe10i8u/2', 'admin@mail.ru', 'ROLE_ADMIN'),
+('myadmin', '$2a$10$jIg/x8OAgmkfdPwJPHKdWumbYNtJW41wfvjeW6phLue/kxXV78SNa', 'myadmin@mail.ru', 'ROLE_ADMIN');

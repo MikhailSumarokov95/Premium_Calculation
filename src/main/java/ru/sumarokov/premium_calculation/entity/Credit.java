@@ -12,9 +12,8 @@ public class Credit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_group_id", nullable = false)
     private ProductGroup productGroup;
     @NotNull(message = "Поле должно быть заполнено")
@@ -26,16 +25,13 @@ public class Credit {
     @NotNull(message = "Поле должно быть заполнено")
     @Min(value = 0, message = "Значение должно быть больше 0")
     private BigDecimal rate;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "insurance_id", nullable = false)
     private Insurance insurance;
     private Boolean isConnectedSms;
     private Boolean isFur;
     private Boolean isConsultantAvailability;
     private Boolean isUsedSelfReject;
-    @OneToOne(mappedBy = "credit", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private PreliminaryCreditResult preliminaryCreditResult;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id", nullable = false)
     private User user;
@@ -44,6 +40,28 @@ public class Credit {
     }
 
     public Credit(User user) {
+        this.user = user;
+    }
+
+    public Credit(ProductGroup productGroup,
+                  BigDecimal amount,
+                  Integer term,
+                  BigDecimal rate,
+                  Insurance insurance,
+                  Boolean isConnectedSms,
+                  Boolean isFur,
+                  Boolean isConsultantAvailability,
+                  Boolean isUsedSelfReject,
+                  User user) {
+        this.productGroup = productGroup;
+        this.amount = amount;
+        this.term = term;
+        this.rate = rate;
+        this.insurance = insurance;
+        this.isConnectedSms = isConnectedSms;
+        this.isFur = isFur;
+        this.isConsultantAvailability = isConsultantAvailability;
+        this.isUsedSelfReject = isUsedSelfReject;
         this.user = user;
     }
 
@@ -125,14 +143,6 @@ public class Credit {
 
     public void setIsUsedSelfReject(Boolean usedSelfReject) {
         isUsedSelfReject = usedSelfReject;
-    }
-
-    public PreliminaryCreditResult getPreliminaryCreditResult() {
-        return preliminaryCreditResult;
-    }
-
-    public void setPreliminaryCreditResult(PreliminaryCreditResult preliminaryCreditResult) {
-        this.preliminaryCreditResult = preliminaryCreditResult;
     }
 
     public User getUser() {

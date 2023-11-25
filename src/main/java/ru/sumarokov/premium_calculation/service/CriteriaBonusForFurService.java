@@ -6,6 +6,7 @@ import ru.sumarokov.premium_calculation.entity.CriteriaBonusForFur;
 import ru.sumarokov.premium_calculation.exception.EntityNotFoundException;
 import ru.sumarokov.premium_calculation.repository.CriteriaBonusForFurRepository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -24,7 +25,7 @@ public class CriteriaBonusForFurService {
 
     public CriteriaBonusForFur getCriteriaBonusForFur(Long id) {
         return criteriaBonusForFurRepository.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> new EntityNotFoundException(CriteriaBonusForFur.class, id));
     }
 
     public void saveCriteriaBonusForFur(CriteriaBonusForFur criteriaBonusForFur) {
@@ -33,7 +34,7 @@ public class CriteriaBonusForFurService {
 
     public void deleteCriteriaBonusForFur(Long id) {
         if (!criteriaBonusForFurRepository.existsById(id)) {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException(CriteriaBonusForFur.class, id);
         }
         criteriaBonusForFurRepository.deleteById(id);
     }

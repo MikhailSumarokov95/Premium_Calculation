@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!--/*/ <th:block th:insert="~{bootstrap/head.html :: head}">
           </th:block> /*/-->
@@ -18,7 +18,7 @@
         <use xlink:href="#exclamation-triangle-fill"/>
     </svg>
     <div>
-        Access denied
+        <td style="text-align: center;" th:text="*{message}"></td>
     </div>
 </div>
 

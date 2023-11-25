@@ -22,20 +22,6 @@ public class User implements UserDetails {
     private String email;
     @Enumerated(EnumType.STRING)
     private Role role;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Credit> credit;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Efficiency efficiency;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private FurResult furResult;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private InsuranceResult insuranceResult;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private ProductivityResult productivityResult;
 
     public User() {
     }
@@ -46,6 +32,16 @@ public class User implements UserDetails {
                 String email,
                 Role role) {
         this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+
+    public User(String username,
+                String password,
+                String email,
+                Role role) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -97,46 +93,6 @@ public class User implements UserDetails {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public List<Credit> getCredit() {
-        return credit;
-    }
-
-    public void setCredit(List<Credit> credit) {
-        this.credit = credit;
-    }
-
-    public Efficiency getEfficiency() {
-        return efficiency;
-    }
-
-    public void setEfficiency(Efficiency efficiency) {
-        this.efficiency = efficiency;
-    }
-
-    public FurResult getFurResult() {
-        return furResult;
-    }
-
-    public void setFurResult(FurResult furResult) {
-        this.furResult = furResult;
-    }
-
-    public InsuranceResult getInsuranceResult() {
-        return insuranceResult;
-    }
-
-    public void setInsuranceResult(InsuranceResult insuranceResult) {
-        this.insuranceResult = insuranceResult;
-    }
-
-    public ProductivityResult getProductivityResult() {
-        return productivityResult;
-    }
-
-    public void setProductivityResult(ProductivityResult productivityResult) {
-        this.productivityResult = productivityResult;
     }
 
     @Override

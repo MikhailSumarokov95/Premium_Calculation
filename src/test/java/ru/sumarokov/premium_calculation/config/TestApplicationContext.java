@@ -3,7 +3,6 @@ package ru.sumarokov.premium_calculation.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.helper.Role;
 import ru.sumarokov.premium_calculation.repository.UserRepository;
@@ -12,11 +11,6 @@ import ru.sumarokov.premium_calculation.service.AuthService;
 @Configuration
 @Profile("test")
 public class TestApplicationContext {
-
-//    @Bean
-//    public PasswordEncoder passwordEncoderTest() {
-//        return new BCryptPasswordEncoder();
-//    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

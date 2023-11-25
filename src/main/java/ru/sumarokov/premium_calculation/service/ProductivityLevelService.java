@@ -1,5 +1,6 @@
 package ru.sumarokov.premium_calculation.service;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import ru.sumarokov.premium_calculation.entity.ProductivityLevel;
 import ru.sumarokov.premium_calculation.exception.EntityNotFoundException;
@@ -22,7 +23,7 @@ public class ProductivityLevelService {
 
     public ProductivityLevel getProductivityLevel(Long id) {
         return productivityLevelRepository.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> new EntityNotFoundException(ProductivityLevel.class, id));
     }
 
     public void saveProductivityLevel(ProductivityLevel productivityLevel) {
@@ -31,8 +32,13 @@ public class ProductivityLevelService {
 
     public void deleteProductivityLevel(Long id) {
         if (!productivityLevelRepository.existsById(id)) {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException(ProductivityLevel.class, id);
         }
-        productivityLevelRepository.deleteById(id);
+        else if (productivityLevelRepository.existsByIdAndIsDefaultTrue(id)){
+            throw new AccessDeniedException("Нельзя удалять стандартный уровень продуктивности");
+        }
+        else {
+            productivityLevelRepository.deleteById(id);
+        }
     }
 }

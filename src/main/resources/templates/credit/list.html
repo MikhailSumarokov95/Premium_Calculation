@@ -26,7 +26,6 @@
             <th style="text-align: center;" scope="col">Меха</th>
             <th style="text-align: center;" scope="col">Консультант</th>
             <th style="text-align: center;" scope="col">Self reject</th>
-            <th style="text-align: center;" scope="col">Премия</th>
             <th scope="col">
                 <div style="text-align: center;">Изменить</div>
             </th>
@@ -48,8 +47,6 @@
             <td style="text-align: center;" th:text="${credit.isFur}"></td>
             <td style="text-align: center;" th:text="${credit.isConsultantAvailability}"></td>
             <td style="text-align: center;" th:text="${credit.isUsedSelfReject}"></td>
-            <td style="text-align: center;"
-                th:text="${#numbers.formatDecimal(credit.preliminaryCreditResult.premium, 0, 'DEFAULT', 2, 'POINT')}"></td>
             <td>
                 <div style="text-align: center;">
                     <a class="icon-link" th:href="${'/credit/' + credit.id}">

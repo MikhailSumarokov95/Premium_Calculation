@@ -34,23 +34,25 @@ public class ProductivityLevel {
     @NotNull(message = "Поле должно быть заполнено")
     @Range(min = 0, max = 100, message = "Значение должно находится в пределах от 0 до 100")
     private BigDecimal minPenetrationInsurance;
+    private Boolean isDefault;
 
     public ProductivityLevel() {
     }
 
-    public ProductivityLevel(Long id, String name,
+    public ProductivityLevel(String name,
                              BigDecimal premium,
                              Integer minCountCredits,
                              BigDecimal minSumAmountCredits,
                              BigDecimal minPenetrationSms,
-                             BigDecimal minPenetrationInsurance) {
-        this.id = id;
+                             BigDecimal minPenetrationInsurance,
+                             Boolean isDefault) {
         this.name = name;
         this.premium = premium;
         this.minCountCredits = minCountCredits;
         this.minSumAmountCredits = minSumAmountCredits;
         this.minPenetrationSms = minPenetrationSms;
         this.minPenetrationInsurance = minPenetrationInsurance;
+        this.isDefault = isDefault;
     }
 
     public Long getId() {
@@ -107,5 +109,13 @@ public class ProductivityLevel {
 
     public void setMinPenetrationInsurance(BigDecimal minPenetrationInsurance) {
         this.minPenetrationInsurance = minPenetrationInsurance;
+    }
+
+    public Boolean getIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(Boolean aDefault) {
+        isDefault = aDefault;
     }
 }

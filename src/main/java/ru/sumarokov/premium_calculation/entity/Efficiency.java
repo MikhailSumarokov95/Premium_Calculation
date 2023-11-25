@@ -17,7 +17,6 @@ public class Efficiency {
     private BigDecimal totalProductivity;
     private BigDecimal premiumInsurance;
     @OneToOne()
-    @MapsId
     @JoinColumn(name = "users_id")
     private User user;
 

@@ -17,7 +17,6 @@ public class FurResult {
     private BigDecimal penetrationSmsCreditsCategoryFur;
     private BigDecimal sumAmountCreditsCategoryFur;
     @OneToOne()
-    @MapsId
     @JoinColumn(name = "users_id")
     private User user;
 

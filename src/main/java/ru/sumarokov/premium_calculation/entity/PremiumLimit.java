@@ -21,9 +21,9 @@ public class PremiumLimit {
     public PremiumLimit() {
     }
 
-    public PremiumLimit(Long id, BigDecimal maxTotalPremium) {
-        this.id = id;
+    public PremiumLimit(BigDecimal maxTotalPremium, Boolean isActual) {
         this.maxTotalPremium = maxTotalPremium;
+        this.isActual = isActual;
     }
 
     public Long getId() {
