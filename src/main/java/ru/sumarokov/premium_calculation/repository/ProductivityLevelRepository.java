@@ -10,4 +10,6 @@ public interface ProductivityLevelRepository extends JpaRepository<ProductivityL
     List<ProductivityLevel> findAllByOrderByPremiumDesc();
 
     List<ProductivityLevel> findAllByOrderByPremiumAsc();
+
+    Boolean existsByIdAndIsDefaultTrue(Long id);
 }

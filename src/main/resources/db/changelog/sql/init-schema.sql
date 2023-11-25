@@ -41,11 +41,13 @@ CREATE TABLE IF NOT EXISTS product_group(
 
 CREATE TABLE IF NOT EXISTS credit(
     id                            BIGSERIAL PRIMARY KEY    NOT NULL,
-    product_group_id              INTEGER                  NOT NULL REFERENCES product_group(id),
+    product_group_id              INTEGER                  NOT NULL REFERENCES product_group(id)
+                                                           ON DELETE CASCADE,
     amount                        NUMERIC                  NOT NULL,
     term                          INTEGER                  NOT NULL,
     rate                          NUMERIC                  NOT NULL,
-    insurance_id                  INTEGER                  NOT NULL REFERENCES insurance(id),
+    insurance_id                  INTEGER                  NOT NULL REFERENCES insurance(id)
+                                                           ON DELETE CASCADE,
     is_connected_sms              BOOLEAN                  NOT NULL DEFAULT FALSE,
     is_fur                        BOOLEAN                  NOT NULL DEFAULT FALSE,
     is_consultant_availability    BOOLEAN                  NOT NULL DEFAULT FALSE,
@@ -101,17 +103,24 @@ CREATE TABLE IF NOT EXISTS productivity_level(
     min_count_credits            INTEGER                  NOT NULL,
     min_sum_amount_credits       NUMERIC                  NOT NULL,
     min_penetration_sms          NUMERIC                  NOT NULL,
-    min_penetration_insurance    NUMERIC                  NOT NULL
+    min_penetration_insurance    NUMERIC                  NOT NULL,
+    is_default                   BOOLEAN
 );
 
 CREATE TABLE IF NOT EXISTS productivity_result(
     id                             BIGSERIAL PRIMARY KEY    NOT NULL,
-    general_level                  INTEGER                  NOT NULL REFERENCES productivity_level(id),
-    sum_amount_credits_level       INTEGER                  NOT NULL REFERENCES productivity_level(id),
-    count_credits_level            INTEGER                  NOT NULL REFERENCES productivity_level(id),
-    insurance_penetration_level    INTEGER                  NOT NULL REFERENCES productivity_level(id),
-    sms_penetration_level          INTEGER                  NOT NULL REFERENCES productivity_level(id),
+    general_level                  INTEGER                  NOT NULL REFERENCES productivity_level(id)
+                                                            ON DELETE CASCADE,
+    sum_amount_credits_level       INTEGER                  NOT NULL REFERENCES productivity_level(id)
+                                                            ON DELETE CASCADE,
+    count_credits_level            INTEGER                  NOT NULL REFERENCES productivity_level(id)
+                                                            ON DELETE CASCADE,
+    insurance_penetration_level    INTEGER                  NOT NULL REFERENCES productivity_level(id)
+                                                            ON DELETE CASCADE,
+    sms_penetration_level          INTEGER                  NOT NULL REFERENCES productivity_level(id)
+                                                            ON DELETE CASCADE,
     users_id                       BIGINT                   NOT NULL REFERENCES users(id)
+                                                            ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS premium_limit(
