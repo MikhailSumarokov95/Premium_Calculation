@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS productivity_level(
     min_sum_amount_credits       NUMERIC                  NOT NULL,
     min_penetration_sms          NUMERIC                  NOT NULL,
     min_penetration_insurance    NUMERIC                  NOT NULL,
-    is_default                   BOOLEAN
+    is_default                   BOOLEAN                  DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS productivity_result(

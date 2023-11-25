@@ -44,13 +44,15 @@ public class ProductivityLevel {
                              Integer minCountCredits,
                              BigDecimal minSumAmountCredits,
                              BigDecimal minPenetrationSms,
-                             BigDecimal minPenetrationInsurance) {
+                             BigDecimal minPenetrationInsurance,
+                             Boolean isDefault) {
         this.name = name;
         this.premium = premium;
         this.minCountCredits = minCountCredits;
         this.minSumAmountCredits = minSumAmountCredits;
         this.minPenetrationSms = minPenetrationSms;
         this.minPenetrationInsurance = minPenetrationInsurance;
+        this.isDefault = isDefault;
     }
 
     public Long getId() {
