@@ -28,12 +28,10 @@ public class UserDto implements UserDetails {
 
     public UserDto(Long id,
                    String username,
-                   String password,
                    String email,
                    Role role) {
         this.id = id;
         this.username = username;
-        this.password = password;
         this.email = email;
         this.role = role;
     }
@@ -108,7 +106,6 @@ public class UserDto implements UserDetails {
     public static UserDto toDto(User entity) {
         return new UserDto(entity.getId(),
                 entity.getUsername(),
-                entity.getPassword(),
                 entity.getEmail(),
                 entity.getRole());
     }
