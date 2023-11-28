@@ -21,6 +21,7 @@
 ## Технологии, используемые в проекте
 - Java
 - Spring Boot
+- Spring MVC
 - Spring Data
 - Spring Security
 - PostgreSQL
