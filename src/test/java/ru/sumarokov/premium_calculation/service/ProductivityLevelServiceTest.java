@@ -1,13 +1,13 @@
 package ru.sumarokov.premium_calculation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.sumarokov.premium_calculation.config.AbstractApplicationTest;
 import ru.sumarokov.premium_calculation.entity.ProductivityLevel;
 import ru.sumarokov.premium_calculation.exception.EntityNotFoundException;
-import ru.sumarokov.premium_calculation.repository.ProductivityLevelRepository;
-import org.springframework.security.access.AccessDeniedException;
+import ru.sumarokov.premium_calculation.repository.*;
 
 import java.math.BigDecimal;
 

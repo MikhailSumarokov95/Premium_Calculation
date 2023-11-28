@@ -32,5 +32,6 @@ VALUES
 
 INSERT INTO users(username, password, email, role)
 VALUES
-('admin', '$2a$10$dBNeCDYDgf6bLz9BhGXO9e7TTqCWb1NHYyHPlPVFo5TuOe10i8u/2', 'admin@mail.ru', 'ROLE_ADMIN'),
+('user', '$2a$10$WRxWgZREhg2X1cXDdJazEOoO06oztdpuqAAX8MHPl5VA2FSh8otu6', 'user@mail.ru', 'ROLE_CREDIT_SPECIALIST'),
+('admin', '$2a$10$UQQgzIxNnHIrHX/LepyrDuOq3PhWNf8gUBUrFg2y5/td/GeY8tiSe', 'admin@mail.ru', 'ROLE_ADMIN'),
 ('myadmin', '$2a$10$jIg/x8OAgmkfdPwJPHKdWumbYNtJW41wfvjeW6phLue/kxXV78SNa', 'myadmin@mail.ru', 'ROLE_ADMIN');
