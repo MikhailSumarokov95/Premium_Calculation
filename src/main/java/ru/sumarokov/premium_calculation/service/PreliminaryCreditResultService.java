@@ -111,7 +111,7 @@ public class PreliminaryCreditResultService {
         if (credit.getIsConsultantAvailability()) {
             creditTotal = creditTotal.subtract(BigDecimal.valueOf(50));
         }
-        return creditTotal;
+        return creditTotal.max(BigDecimal.ZERO);
     }
 
     private BigDecimal calculatePremium(PreliminaryCreditResult preliminaryCreditResult) {
