@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--/*/ <th:block th:insert="~{bootstrap/head.html :: head}">
+          </th:block> /*/-->
+    <title>Statistics</title>
+</head>
+<body>
+<!--/*/ <th:block th:insert="~{bootstrap/navbar_admin.html :: navbar}">
+          </th:block> /*/-->
+</br>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th style="text-align: center;" scope="col">Сумма объема кредитов</th>
+            <th style="text-align: center;" scope="col">Премия за кредиты</th>
+            <th style="text-align: center;" scope="col">Бонус за меха</th>
+            <th style="text-align: center;" scope="col">Общая продуктивность</th>
+            <th style="text-align: center;" scope="col">Премия за страховки</th>
+        </tr>
+        </thead>
+        <tbody>
+        <td style="text-align: center;"
+            th:text="${#numbers.formatDecimal(sumAmountCredits, 0, 'DEFAULT', 1, 'POINT')}"></td>
+        </tbody>
+    </table>
+</div>
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+<!--/*/ <th:block th:insert="~{bootstrap/tail.html :: tail}">
+          </th:block> /*/-->
+</body>
+</html>
