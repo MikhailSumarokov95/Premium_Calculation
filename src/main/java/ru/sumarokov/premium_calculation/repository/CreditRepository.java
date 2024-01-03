@@ -1,8 +1,10 @@
 package ru.sumarokov.premium_calculation.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import ru.sumarokov.premium_calculation.entity.Credit;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,4 +19,8 @@ public interface CreditRepository extends JpaRepository<Credit, Long> {
     Optional<Credit> findByIdAndUserId(Long id, Long user_id);
 
     Boolean existsByIdAndUserId(Long id, Long user_id);
+
+    @Query(value = "SELECT COALESCE(SUM(amount), 0) FROM credit",
+            nativeQuery = true)
+    BigDecimal getSumAmountCredits();
 }
