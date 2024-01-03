@@ -36,6 +36,10 @@ public class EfficiencyService {
         this.insuranceResultService = insuranceResultService;
     }
 
+    public BigDecimal getSumTotalPremiumSpecialists() {
+        return efficiencyRepository.getSumTotalPremiumSpecialists();
+    }
+
     public Efficiency getEfficiency(User user) {
         return efficiencyRepository.findByUserId(user.getId())
                 .orElse(new Efficiency(user));
