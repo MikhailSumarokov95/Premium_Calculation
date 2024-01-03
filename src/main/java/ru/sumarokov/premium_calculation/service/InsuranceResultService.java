@@ -25,14 +25,6 @@ public class InsuranceResultService {
         this.preliminaryCreditResultRepository = preliminaryCreditResultRepository;
     }
 
-    public BigDecimal getSumAllInsuranceVolume() {
-        return insuranceResultRepository.getSumAllInsuranceVolume();
-    }
-
-    public BigDecimal getAverageInsurancePenetrationPercentage() {
-        return insuranceResultRepository.getAverageInsurancePenetrationPercentage();
-    }
-
     public InsuranceResult getInsuranceResult(User user) {
         return insuranceResultRepository.findByUserId(user.getId())
                 .orElse(new InsuranceResult(user));

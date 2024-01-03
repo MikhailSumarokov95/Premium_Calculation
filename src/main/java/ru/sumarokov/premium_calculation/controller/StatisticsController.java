@@ -12,34 +12,22 @@ import ru.sumarokov.premium_calculation.service.*;
 @RequestMapping("admin/statistics")
 public class StatisticsController {
 
-    private final CreditService creditService;
-    private final UserService userService;
-    private final EfficiencyService efficiencyService;
-    private final FurResultService furResultService;
-    private final InsuranceResultService insuranceResultService;
+    private final StatisticsService statisticsService;
 
     @Autowired
-    public StatisticsController(CreditService creditService,
-                                UserService userService,
-                                EfficiencyService efficiencyService,
-                                FurResultService furResultService,
-                                InsuranceResultService insuranceResultService) {
-        this.creditService = creditService;
-        this.userService = userService;
-        this.efficiencyService = efficiencyService;
-        this.furResultService = furResultService;
-        this.insuranceResultService = insuranceResultService;
+    public StatisticsController(StatisticsService statisticsService) {
+        this.statisticsService = statisticsService;
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public String getStatistics(Model model) {
-        model.addAttribute("sumAmountCredits", creditService.getSumAmountCredits());
-        model.addAttribute("countCreditSpecialist", userService.getCountCreditSpecialist());
-        model.addAttribute("sumTotalPremiumSpecialists", efficiencyService.getSumTotalPremiumSpecialists());
-        model.addAttribute("sumAmountAllCreditsCategoryFur", furResultService.getSumAmountAllCreditsCategoryFur());
-        model.addAttribute("sumAllInsuranceVolume", insuranceResultService.getSumAllInsuranceVolume());
-        model.addAttribute("averageInsurancePenetrationPercentage", insuranceResultService.getAverageInsurancePenetrationPercentage());
+        model.addAttribute("sumAmountCredits", statisticsService.getSumAmountCredits());
+        model.addAttribute("countCreditSpecialist", statisticsService.getCountCreditSpecialist());
+        model.addAttribute("sumTotalPremiumSpecialists", statisticsService.getSumTotalPremiumSpecialists());
+        model.addAttribute("totalVolumeCreditsForFurs", statisticsService.getTotalVolumeCreditsForFurs());
+        model.addAttribute("totalInsuredVolumeCredits", statisticsService.getTotalInsuredVolumeCredits());
+        model.addAttribute("averageInsurancePenetrationPercentage", statisticsService.getAverageInsurancePenetrationPercentage());
         return "admin/statistics";
     }
 }

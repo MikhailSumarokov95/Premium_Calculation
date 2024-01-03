@@ -8,7 +8,6 @@ import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.exception.EntityNotFoundException;
 import ru.sumarokov.premium_calculation.repository.CreditRepository;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -51,9 +50,5 @@ public class CreditService {
         }
         creditRepository.deleteById(id);
         efficiencyService.calculateEfficiency(user);
-    }
-
-    public BigDecimal getSumAmountCredits() {
-        return creditRepository.getSumAmountCredits();
     }
 }

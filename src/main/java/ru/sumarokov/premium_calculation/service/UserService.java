@@ -32,8 +32,4 @@ public class UserService implements UserDetailsService {
         user.setRole(Role.ROLE_CREDIT_SPECIALIST);
         userRepository.save(user);
     }
-
-    public Long getCountCreditSpecialist() {
-        return userRepository.getSumUsersSelectedRole(Role.ROLE_CREDIT_SPECIALIST.name());
-    }
 }

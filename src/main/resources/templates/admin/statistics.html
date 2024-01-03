@@ -19,7 +19,6 @@
             <th style="text-align: center;" scope="col">Суммарный объем кредитов на меха</th>
             <th style="text-align: center;" scope="col">Суммарный застрахованый объем кредитов</th>
             <th style="text-align: center;" scope="col">Средний процент проникновении страховок</th>
-            <th style="text-align: center;" scope="col">Средний процент кредитов с СМС</th>
         </tr>
         </thead>
         <tbody>
@@ -33,18 +32,16 @@
             th:text="${#numbers.formatDecimal(sumAmountCredits, 0, 'DEFAULT', 1, 'POINT')}">
         </td>
         <td style="text-align: center;"
-            th:text="${#numbers.formatDecimal(sumAmountAllCreditsCategoryFur, 0, 'DEFAULT', 1, 'POINT')}">
+            th:text="${#numbers.formatDecimal(totalVolumeCreditsForFurs, 0, 'DEFAULT', 1, 'POINT')}">
         </td>
         <td style="text-align: center;"
-            th:text="${#numbers.formatDecimal(sumAllInsuranceVolume, 0, 'DEFAULT', 1, 'POINT')}">
+            th:text="${#numbers.formatDecimal(totalInsuredVolumeCredits, 0, 'DEFAULT', 1, 'POINT')}">
         </td>
         <td style="text-align: center;"
             th:text="${#numbers.formatDecimal(averageInsurancePenetrationPercentage, 0, 'DEFAULT', 1, 'POINT')}">
         </td>
         </tbody>
     </table>
-
-    //Распределение уровней Специалистов (сделать графиком)
 </div>
 </br>
 </br>

@@ -31,10 +31,6 @@ public class FurResultService {
         this.creditRepository = creditRepository;
     }
 
-    public BigDecimal getSumAmountAllCreditsCategoryFur() {
-        return furResultRepository.getSumAmountAllCreditsCategoryFur();
-    }
-
     public FurResult getFurResult(User user) {
         return furResultRepository.findByUserId(user.getId())
                 .orElse(new FurResult(user));

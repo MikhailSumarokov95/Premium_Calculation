@@ -13,5 +13,5 @@ public interface FurResultRepository extends JpaRepository<FurResult, Long> {
 
     @Query(value = "SELECT COALESCE(SUM(sum_amount_credits_category_fur), 0) FROM fur_result",
             nativeQuery = true)
-    BigDecimal getSumAmountAllCreditsCategoryFur();
+    BigDecimal getTotalVolumeCreditsForFurs();
 }
