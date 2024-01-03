@@ -15,4 +15,8 @@ public interface InsuranceResultRepository extends JpaRepository<InsuranceResult
     @Query(value = "SELECT COALESCE(SUM(sum_insurance_volume), 0) FROM insurance_result",
             nativeQuery = true)
     BigDecimal getSumAllInsuranceVolume();
+
+    @Query(value = "SELECT COALESCE(SUM(penetration)/COUNT(*), 0) FROM insurance_result",
+            nativeQuery = true)
+    BigDecimal getAverageInsurancePenetrationPercentage();
 }

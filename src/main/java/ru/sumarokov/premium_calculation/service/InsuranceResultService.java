@@ -29,6 +29,10 @@ public class InsuranceResultService {
         return insuranceResultRepository.getSumAllInsuranceVolume();
     }
 
+    public BigDecimal getAverageInsurancePenetrationPercentage() {
+        return insuranceResultRepository.getAverageInsurancePenetrationPercentage();
+    }
+
     public InsuranceResult getInsuranceResult(User user) {
         return insuranceResultRepository.findByUserId(user.getId())
                 .orElse(new InsuranceResult(user));

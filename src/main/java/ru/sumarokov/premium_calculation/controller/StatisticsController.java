@@ -39,6 +39,7 @@ public class StatisticsController {
         model.addAttribute("sumTotalPremiumSpecialists", efficiencyService.getSumTotalPremiumSpecialists());
         model.addAttribute("sumAmountAllCreditsCategoryFur", furResultService.getSumAmountAllCreditsCategoryFur());
         model.addAttribute("sumAllInsuranceVolume", insuranceResultService.getSumAllInsuranceVolume());
+        model.addAttribute("averageInsurancePenetrationPercentage", insuranceResultService.getAverageInsurancePenetrationPercentage());
         return "admin/statistics";
     }
 }
