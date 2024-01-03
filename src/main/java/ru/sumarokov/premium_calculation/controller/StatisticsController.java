@@ -6,10 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.sumarokov.premium_calculation.service.CreditService;
-import ru.sumarokov.premium_calculation.service.EfficiencyService;
-import ru.sumarokov.premium_calculation.service.FurResultService;
-import ru.sumarokov.premium_calculation.service.UserService;
+import ru.sumarokov.premium_calculation.service.*;
 
 @Controller
 @RequestMapping("admin/statistics")
@@ -19,16 +16,19 @@ public class StatisticsController {
     private final UserService userService;
     private final EfficiencyService efficiencyService;
     private final FurResultService furResultService;
+    private final InsuranceResultService insuranceResultService;
 
     @Autowired
     public StatisticsController(CreditService creditService,
                                 UserService userService,
                                 EfficiencyService efficiencyService,
-                                FurResultService furResultService) {
+                                FurResultService furResultService,
+                                InsuranceResultService insuranceResultService) {
         this.creditService = creditService;
         this.userService = userService;
         this.efficiencyService = efficiencyService;
         this.furResultService = furResultService;
+        this.insuranceResultService = insuranceResultService;
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -38,6 +38,7 @@ public class StatisticsController {
         model.addAttribute("countCreditSpecialist", userService.getCountCreditSpecialist());
         model.addAttribute("sumTotalPremiumSpecialists", efficiencyService.getSumTotalPremiumSpecialists());
         model.addAttribute("sumAmountAllCreditsCategoryFur", furResultService.getSumAmountAllCreditsCategoryFur());
+        model.addAttribute("sumAllInsuranceVolume", insuranceResultService.getSumAllInsuranceVolume());
         return "admin/statistics";
     }
 }
