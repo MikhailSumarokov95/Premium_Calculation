@@ -13,21 +13,24 @@
     <table class="table table-striped">
         <thead>
         <tr>
+            <th style="text-align: center;" scope="col">Количество специалистов</th>
             <th style="text-align: center;" scope="col">Сумма объема кредитов</th>
-            <th style="text-align: center;" scope="col">Премия за кредиты</th>
-            <th style="text-align: center;" scope="col">Бонус за меха</th>
-            <th style="text-align: center;" scope="col">Общая продуктивность</th>
-            <th style="text-align: center;" scope="col">Премия за страховки</th>
+            <th style="text-align: center;" scope="col">Сумма премий специалистам</th>
+            <th style="text-align: center;" scope="col">Сумма кредитов на меха</th>
+            <th style="text-align: center;" scope="col">Сумма застрахованного объема</th>
+            <th style="text-align: center;" scope="col">Средний процент проникновении страховок</th>
+            <th style="text-align: center;" scope="col">Средний процент кредитов с СМС</th>
         </tr>
         </thead>
         <tbody>
         <td style="text-align: center;"
-            th:text="${#numbers.formatDecimal(sumAmountCredits, 0, 'DEFAULT', 1, 'POINT')}"></td>
+            th:text="${#numbers.formatDecimal(sumAmountCredits, 0, 'DEFAULT', 1, 'POINT')}">
+        </td>
         </tbody>
     </table>
+
+    //Распределение уровней Специалистов (сделать графиком)
 </div>
-
-
 </br>
 </br>
 </br>

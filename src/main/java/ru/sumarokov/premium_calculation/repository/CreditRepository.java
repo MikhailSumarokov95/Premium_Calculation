@@ -20,7 +20,7 @@ public interface CreditRepository extends JpaRepository<Credit, Long> {
 
     Boolean existsByIdAndUserId(Long id, Long user_id);
 
-    @Query(value = "SELECT SUM(amount) FROM credit",
+    @Query(value = "SELECT COALESCE(SUM(amount), 0) FROM credit",
             nativeQuery = true)
-    Optional<BigDecimal> getSumAmountCredits();
+    BigDecimal getSumAmountCredits();
 }

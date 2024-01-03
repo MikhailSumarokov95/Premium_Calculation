@@ -54,6 +54,6 @@ public class CreditService {
     }
 
     public BigDecimal getSumAmountCredits() {
-        return creditRepository.getSumAmountCredits().orElse(BigDecimal.ZERO);
+        return creditRepository.getSumAmountCredits();
     }
 }
