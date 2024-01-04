@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.sumarokov.premium_calculation.config.AbstractApplicationTest;
+import ru.sumarokov.premium_calculation.config.AbstractApplicationTestWithDeleteAllTableBeforeMethod;
 import ru.sumarokov.premium_calculation.entity.ProductivityLevel;
 import ru.sumarokov.premium_calculation.exception.EntityNotFoundException;
-import ru.sumarokov.premium_calculation.repository.*;
+import ru.sumarokov.premium_calculation.repository.ProductivityLevelRepository;
 
 import java.math.BigDecimal;
 
-public class ProductivityLevelServiceTest extends AbstractApplicationTest {
+public class ProductivityLevelServiceTest extends AbstractApplicationTestWithDeleteAllTableBeforeMethod {
 
     @Autowired
     private ProductivityLevelService productivityLevelService;

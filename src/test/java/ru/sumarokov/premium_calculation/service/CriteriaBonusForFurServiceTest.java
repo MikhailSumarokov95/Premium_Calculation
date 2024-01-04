@@ -3,14 +3,14 @@ package ru.sumarokov.premium_calculation.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.sumarokov.premium_calculation.config.AbstractApplicationTest;
+import ru.sumarokov.premium_calculation.config.AbstractApplicationTestWithDeleteAllTableBeforeMethod;
 import ru.sumarokov.premium_calculation.entity.CriteriaBonusForFur;
 import ru.sumarokov.premium_calculation.exception.EntityNotFoundException;
 import ru.sumarokov.premium_calculation.repository.CriteriaBonusForFurRepository;
 
 import java.math.BigDecimal;
 
-public class CriteriaBonusForFurServiceTest extends AbstractApplicationTest {
+public class CriteriaBonusForFurServiceTest extends AbstractApplicationTestWithDeleteAllTableBeforeMethod {
 
     @Autowired
     private CriteriaBonusForFurService criteriaBonusForFurService;

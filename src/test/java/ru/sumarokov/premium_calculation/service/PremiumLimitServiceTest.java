@@ -3,14 +3,14 @@ package ru.sumarokov.premium_calculation.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.sumarokov.premium_calculation.config.AbstractApplicationTest;
+import ru.sumarokov.premium_calculation.config.AbstractApplicationTestWithDeleteAllTableBeforeMethod;
 import ru.sumarokov.premium_calculation.entity.PremiumLimit;
 import ru.sumarokov.premium_calculation.exception.EntityNotFoundException;
 import ru.sumarokov.premium_calculation.repository.PremiumLimitRepository;
 
 import java.math.BigDecimal;
 
-public class PremiumLimitServiceTest extends AbstractApplicationTest {
+public class PremiumLimitServiceTest extends AbstractApplicationTestWithDeleteAllTableBeforeMethod {
 
     @Autowired
     private PremiumLimitService premiumLimitService;
