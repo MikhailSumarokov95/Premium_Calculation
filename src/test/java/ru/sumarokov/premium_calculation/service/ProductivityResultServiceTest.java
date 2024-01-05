@@ -3,7 +3,7 @@ package ru.sumarokov.premium_calculation.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.sumarokov.premium_calculation.config.AbstractApplicationTest;
+import ru.sumarokov.premium_calculation.config.AbstractApplicationTestWithDeleteAllTableBeforeMethod;
 import ru.sumarokov.premium_calculation.entity.*;
 import ru.sumarokov.premium_calculation.helper.Role;
 import ru.sumarokov.premium_calculation.helper.TypeCredit;
@@ -11,7 +11,7 @@ import ru.sumarokov.premium_calculation.repository.*;
 
 import java.math.BigDecimal;
 
-public class ProductivityResultServiceTest extends AbstractApplicationTest {
+public class ProductivityResultServiceTest extends AbstractApplicationTestWithDeleteAllTableBeforeMethod {
 
     @Autowired
     private UserRepository userRepository;

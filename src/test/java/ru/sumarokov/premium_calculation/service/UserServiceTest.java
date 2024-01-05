@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.sumarokov.premium_calculation.config.AbstractApplicationTest;
+import ru.sumarokov.premium_calculation.config.AbstractApplicationTestWithDeleteAllTableBeforeMethod;
 import ru.sumarokov.premium_calculation.entity.User;
 import ru.sumarokov.premium_calculation.helper.Role;
 import ru.sumarokov.premium_calculation.repository.UserRepository;
 
-public class UserServiceTest extends AbstractApplicationTest {
+public class UserServiceTest extends AbstractApplicationTestWithDeleteAllTableBeforeMethod {
 
     @Autowired
     private UserService userService;
