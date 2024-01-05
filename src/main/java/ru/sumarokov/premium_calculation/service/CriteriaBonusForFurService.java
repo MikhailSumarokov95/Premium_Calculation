@@ -6,7 +6,6 @@ import ru.sumarokov.premium_calculation.entity.CriteriaBonusForFur;
 import ru.sumarokov.premium_calculation.exception.EntityNotFoundException;
 import ru.sumarokov.premium_calculation.repository.CriteriaBonusForFurRepository;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
