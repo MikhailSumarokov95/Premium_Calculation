@@ -17,8 +17,10 @@ public class StatisticsServiceTest extends AbstractApplicationTest {
     @BeforeClass
     @Transactional
     protected void SetUp() {
-        // Удаляем таблицы если они есть
+        String countUsers = "1000000";
+        String countCredits = "1000000";
 
+        // Удаляем таблицы если они есть
         String setUpSQL = "DROP TABLE IF EXISTS\n" +
                 "insurance,\n" +
                 "product_group,\n" +
@@ -40,8 +42,7 @@ public class StatisticsServiceTest extends AbstractApplicationTest {
                 "    username    VARCHAR(64)             NOT NULL,\n" +
                 "    password    VARCHAR(255)            NOT NULL,\n" +
                 "    email       VARCHAR(255)            NOT NULL,\n" +
-                "    role        VARCHAR(64)             NOT NULL,\n" +
-                "    CONSTRAINT username_unique UNIQUE (username)\n" +
+                "    role        VARCHAR(64)             NOT NULL\n" +
                 ");\n" +
                 "\n" +
                 "CREATE TABLE IF NOT EXISTS insurance(\n" +
@@ -170,7 +171,7 @@ public class StatisticsServiceTest extends AbstractApplicationTest {
                 ", initcap(base26_encode(substring(random()::text,3,9)::bigint)) as password\n" +
                 ", initcap(base26_encode(substring(random()::text,3,9)::bigint)) as email\n" +
                 ", 'ROLE_CREDIT_SPECIALIST' as role\n" +
-                "FROM generate_series(1,10000) num;" +
+                "FROM generate_series(1," + countUsers + ") num;" +
 
                 // Заполняем таблицу credit данными необходимыми для тестирования
                 "INSERT INTO credit (\n" +
@@ -196,7 +197,7 @@ public class StatisticsServiceTest extends AbstractApplicationTest {
                 ", random() < 0.5 as is_consultant_availability\n" +
                 ", random() < 0.5 as is_used_self_reject\n" +
                 ", random()*9999 + 1 as users_id\n" +
-                "FROM generate_series(1,1000000) num;" +
+                "FROM generate_series(1," + countCredits + ") num;" +
 
                 // Заполняем таблицу efficiency данными необходимыми для тестирования
                 "INSERT INTO efficiency (\n" +
@@ -214,7 +215,7 @@ public class StatisticsServiceTest extends AbstractApplicationTest {
                 ", ceil(random()*1000000) as total_productivity\n" +
                 ", ceil(random()*1000000) as premium_insurance\n" +
                 ", ceil(num) as users_id\n" +
-                "FROM generate_series(1,10000) num;" +
+                "FROM generate_series(1," + countUsers + ") num;" +
 
                 // Заполняем таблицу fur_result данными необходимыми для тестирования
                 "INSERT INTO fur_result (\n" +
@@ -232,7 +233,7 @@ public class StatisticsServiceTest extends AbstractApplicationTest {
                 ", ceil(random()*100) as penetration_sms_credits_category_fur\n" +
                 ", ceil(random()*1000000) as sum_amount_credits_category_fur\n" +
                 ", ceil(num) as users_id\n" +
-                "FROM generate_series(1,10000) num;" +
+                "FROM generate_series(1," + countUsers + ") num;" +
 
                 // Заполняем таблицу insurance_result данными необходимыми для тестирования
                 "INSERT INTO insurance_result (\n" +
@@ -246,7 +247,7 @@ public class StatisticsServiceTest extends AbstractApplicationTest {
                 ", ceil(random()*200) as penetration\n" +
                 ", ceil(random()*1000000) as sum_insurance_volume\n" +
                 ", ceil(num) as users_id\n" +
-                "FROM generate_series(1,10000) num;";
+                "FROM generate_series(1," + countUsers + ") num;";
 
         jdbcTemplate.update(setUpSQL);
     }
