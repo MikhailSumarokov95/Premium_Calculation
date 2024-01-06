@@ -11,7 +11,6 @@ public interface EfficiencyRepository extends JpaRepository<Efficiency, Long> {
 
     Optional<Efficiency> findByUserId(Long id);
 
-    @Query(value = "SELECT COALESCE(SUM(total_premium), 0) FROM efficiency",
-            nativeQuery = true)
+    @Query("SELECT COALESCE(SUM(e.totalPremium), 0) FROM Efficiency e")
     BigDecimal getSumTotalPremiumSpecialists();
 }

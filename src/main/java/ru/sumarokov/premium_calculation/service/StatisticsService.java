@@ -34,7 +34,7 @@ public class StatisticsService {
     }
 
     public Long getCountCreditSpecialist() {
-        return userRepository.getSumUsersSelectedRole(Role.ROLE_CREDIT_SPECIALIST.name());
+        return userRepository.getSumUsersSelectedRole(Role.ROLE_CREDIT_SPECIALIST);
     }
 
     public BigDecimal getSumTotalPremiumSpecialists() {

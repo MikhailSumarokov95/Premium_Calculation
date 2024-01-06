@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.testng.annotations.BeforeMethod;
 
-public class AbstractApplicationTestWithDeleteAllTableBeforeMethod extends AbstractApplicationTest {
+public abstract class AbstractApplicationTestWithDeleteAllTableBeforeMethod extends AbstractApplicationTest {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
